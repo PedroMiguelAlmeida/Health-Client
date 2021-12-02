@@ -25,6 +25,4 @@ public class User {
     @Version
     private int version;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<UserBiometricData> UserBiometricDataList;
 }

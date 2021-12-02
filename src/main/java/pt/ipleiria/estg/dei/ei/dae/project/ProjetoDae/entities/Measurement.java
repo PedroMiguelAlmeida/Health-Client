@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import javax.persistence.ManyToOne;
 
-public class UserBiometricData {
+public class Measurement {
 
     @ManyToOne
     private User user;
@@ -12,4 +12,7 @@ public class UserBiometricData {
     private BiometricData biometricData;
 
     private String value;
+
+
+
 }
