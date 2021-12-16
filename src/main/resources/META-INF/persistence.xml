@@ -3,9 +3,9 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
-    <persistence-unit name="AcademicsPersistenceUnit">
+    <persistence-unit name="ProjectDaePersistenceUnit">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-        <jta-data-source>java:/AcademicsDS</jta-data-source>
+        <jta-data-source>java:/ProjectDae</jta-data-source>
         <properties>
             <property
                     name="javax.persistence.schema-generation.database.action"

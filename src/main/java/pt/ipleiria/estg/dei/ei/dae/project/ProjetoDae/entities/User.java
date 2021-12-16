@@ -1,18 +1,31 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
-import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(
-                name = "getAllUsers",
-                query = "SELECT s FROM User s ORDER BY s.name" // JPQL
-        )
-})
-public class User {
+@Table(
+        name = "users"
+)
+@Inheritance(
+        strategy = InheritanceType.SINGLE_TABLE
+)
+public class User implements Serializable {
     @Id
     private String username;
     @NotNull
@@ -25,4 +38,70 @@ public class User {
     @Version
     private int version;
 
+    public User() {
+    }
+
+    public User(String username, String password, String name, String email, int version) {
+        this.username = username;
+        this.password = hashPassword(password);
+        this.name = name;
+        this.email = email;
+        this.version = version;
+    }
+
+    public String getUsername() {
+        return this.username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getVersion() {
+        return this.version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public static String hashPassword(String password) {
+        char[] encoded = null;
+
+        try {
+            ByteBuffer passwdBuffer = Charset.defaultCharset().encode(CharBuffer.wrap(password));
+            byte[] passwdBytes = passwdBuffer.array();
+            MessageDigest mdEnc = MessageDigest.getInstance("SHA-256");
+            mdEnc.update(passwdBytes, 0, password.toCharArray().length);
+            encoded = (new BigInteger(1, mdEnc.digest())).toString(16).toCharArray();
+        } catch (NoSuchAlgorithmException var5) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, (String)null, var5);
+        }
+
+        return new String(encoded);
+    }
 }
