@@ -32,17 +32,17 @@ public class Measurement {
     @ManyToMany(
             mappedBy = "measurements"
     )
-    private List<BiometricData> biometrics;
+    private List<MesureType> mesureTypes;
 
     public Measurement() {
-        this.biometrics = new ArrayList();
+        this.mesureTypes = new ArrayList();
     }
 
     public Measurement(User user, String inputSource, String value) {
         this.user = user;
         this.inputSource = inputSource;
         this.value = value;
-        this.biometrics = new ArrayList();
+        this.mesureTypes = new ArrayList();
     }
 
     public User getUser() {
@@ -61,20 +61,20 @@ public class Measurement {
         this.inputSource = inputOrigin;
     }
 
-    public List<BiometricData> getBiometrics() {
-        return this.biometrics;
+    public List<MesureType> getBiometrics() {
+        return this.mesureTypes;
     }
 
-    public void setBiometrics(List<BiometricData> biometrics) {
-        this.biometrics = biometrics;
+    public void setBiometrics(List<MesureType> mesureTypes) {
+        this.mesureTypes = mesureTypes;
     }
 
-    public void addBiometrics(BiometricData biometric) {
-        this.biometrics.add(biometric);
+    public void addBiometrics(MesureType mesureType) {
+        this.mesureTypes.add(mesureType);
     }
 
-    public void removeBiometrics(BiometricData biometric) {
-        this.biometrics.remove(biometric);
+    public void removeBiometrics(MesureType mesureType) {
+        this.mesureTypes.remove(mesureType);
     }
 
     public String getValue() {

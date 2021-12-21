@@ -22,10 +22,10 @@ import javax.persistence.UniqueConstraint;
 )
 @NamedQueries({@NamedQuery(
         name = "getAllBiometricData",
-        query = "SELECT bd FROM BiometricData bd ORDER BY bd.id"
+        query = "SELECT bd FROM MesureType bd ORDER BY bd.id"
 )})
 @Entity
-public class BiometricData {
+public class MesureType {
     @Id
     private int id;
     @NotNull
@@ -46,11 +46,11 @@ public class BiometricData {
     )
     private List<Measurement> measurements;
 
-    public BiometricData() {
+    public MesureType() {
         this.measurements = new ArrayList();
     }
 
-    public BiometricData(int id, String name, boolean multiple, List<Measurement> measurements) {
+    public MesureType(int id, String name, boolean multiple, List<Measurement> measurements) {
         this.id = id;
         this.name = name;
         this.multiple = multiple;

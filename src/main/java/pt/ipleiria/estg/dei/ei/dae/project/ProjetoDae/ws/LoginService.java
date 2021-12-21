@@ -15,14 +15,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.JwtBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.UserBean;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Jwt;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.User;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.jwt.Jwt;
 
 @Path("/auth")
 public class LoginService {
+
     private static final Logger log = Logger.getLogger(LoginService.class.getName());
+
     @EJB
     JwtBean jwtBean;
     @EJB

@@ -1,0 +1,38 @@
+### Get JWT token
+POST http://localhost:8080/projectdae/api/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=patient1 & password=patient1
+
+### Who am I?
+GET http://localhost:8080/projectdae/api/auth/user
+Accept: application/json
+Authorization: Bearer replace this with generated JWT token
+
+##### Get patients list
+GET http://localhost:8080/projectdae/api/patients
+Accept: application/json
+Authorization: Bearer replace this with generated JWT token
+
+### Create new patient
+POST http://localhost:8080/projectdae/api/patients
+Content-Type: application/json
+Authorization: Bearer replace this with generated JWT token
+{
+"email": "jane@mail.com",
+ "name": "Jane Doe",
+ "username": "1234567",
+ "password": "aaaaa"
+}
+### Enroll patient in a subject - run after the previous POST
+PUT http://localhost:8080/projectdae/api/patients/1234567/subjects/enroll/1
+Authorization: Bearer replace this with generated JWT token
+### Get a patient’s details
+GET http://localhost:8080/projectdae/api/patients/1111111
+Accept: application/json
+Authorization: Bearer replace this with generated JWT token
+### Delete a patient - run after the previous POST
+DELETE http://localhost:8080/projectdae/api/patients/1234567
+Accept: application/json
+Authorization: Bearer replace this with generated JWT token
+###
