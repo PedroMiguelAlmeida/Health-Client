@@ -11,8 +11,6 @@ public class ConfigBean {
     @EJB
     PatientBean patientBean;
 
-    public ConfigBean() {
-    }
 
     @PostConstruct
     public void populateDB() {

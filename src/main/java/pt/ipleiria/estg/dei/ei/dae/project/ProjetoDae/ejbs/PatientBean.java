@@ -13,9 +13,6 @@ public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public PatientBean() {
-    }
-
     public void create(String username, String password, String name, String email) {
         Patient patient = (Patient)this.em.find(Patient.class, username);
         if (patient != null) {
