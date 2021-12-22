@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
                 query = "SELECT s FROM User s ORDER BY s.name" // JPQL
         )
 })
-public class Administrator extends User implements Serializable {
+public class Administrator extends HospitalStaff implements Serializable {
 
     //region constructor
     public Administrator() {
