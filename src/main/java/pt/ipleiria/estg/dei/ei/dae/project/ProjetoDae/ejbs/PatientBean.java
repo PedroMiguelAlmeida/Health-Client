@@ -13,9 +13,6 @@ public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public PatientBean() {
-    }
-
     public void create(String username, String password, String name, String email) {
         Patient patient = (Patient)this.em.find(Patient.class, username);
         if (patient != null) {
@@ -41,15 +38,13 @@ public class PatientBean {
 
     public void updatePatient(String username, String password, String name, String email) {
         Patient patient = (Patient)this.em.find(Patient.class, username);
-        if (patient == null) {
-            System.out.println("Patient with username " + username + " not found.");
-            System.exit(0);
+        if (patient != null) {
+            this.em.lock(patient, LockModeType.OPTIMISTIC);
+            patient.setName(name);
+            patient.setEmail(email);
+            patient.setPassword(password);
         }
-
-        this.em.lock(patient, LockModeType.OPTIMISTIC);
-        patient.setName(name);
-        patient.setEmail(email);
-        patient.setPassword(password);
+        System.err.println("ERROR_FINDING_PATIENT");
     }
 
     public void removePatient(String username) {
