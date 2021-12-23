@@ -90,7 +90,6 @@
                     <outputDirectory>target</outputDirectory>
                     <warName>projectdae</warName>
                 </configuration>
-
             </plugin>
         </plugins>
     </build>
