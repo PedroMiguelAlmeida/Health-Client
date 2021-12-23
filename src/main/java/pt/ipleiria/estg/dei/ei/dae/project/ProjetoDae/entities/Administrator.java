@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -23,5 +24,6 @@ public class Administrator extends HospitalStaff implements Serializable {
         super(username, password, name, email, version);
     }
 //endregion
+
 
 }
