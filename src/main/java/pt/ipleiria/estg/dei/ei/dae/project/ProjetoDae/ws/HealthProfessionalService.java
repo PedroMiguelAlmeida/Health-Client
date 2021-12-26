@@ -2,8 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.HealthProfessionalBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -47,4 +50,21 @@ public class HealthProfessionalService {
         HealthProfessional healthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
         return healthProfessional != null ? javax.ws.rs.core.Response.ok(this.toDTO(healthProfessional)).build() : javax.ws.rs.core.Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_ADMINISTRATOR").build();
     }
+
+    @POST
+    @Path("/")
+    public Response createNewPatient (HealthProfessionalDTO professionalDTO) throws MyEntityExistsException, MyEntityNotFoundException {
+        healthProfessionalBean.create(
+                professionalDTO.getUsername(),
+                professionalDTO.getPassword(),
+                professionalDTO.getName(),
+                professionalDTO.getEmail(),
+                professionalDTO.getVersion(),
+                professionalDTO.getProfession(),
+                professionalDTO.isChefe());
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+
+
 }

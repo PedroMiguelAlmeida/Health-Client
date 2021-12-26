@@ -26,6 +26,20 @@ Accept: application/json
 ###### HealthProfessionals
 GET localhost:8080/projectdae/api/HealthProfessionals
 
+###
+POST http://localhost:8080/projectdae/api/HealthProfessionals
+Content-Type: application/json
+
+{
+  "username": "professionalTeste",
+  "password": "1234",
+  "name": "professionalTeste",
+  "email": "professionalTeste@mail.com",
+  "version":  0,
+  "profession": "Doctor",
+  "chefe": false
+}
+
 
 ##### USERS
 ##Get all users
