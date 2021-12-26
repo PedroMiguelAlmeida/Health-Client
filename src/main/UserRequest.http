@@ -25,3 +25,8 @@ Accept: application/json
 
 ###### HealthProfessionals
 GET localhost:8080/projectdae/api/HealthProfessionals
+
+
+##### USERS
+##Get all users
+GET localhost:8080/projectdae/api/Users
