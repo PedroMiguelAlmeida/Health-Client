@@ -7,26 +7,40 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessiona
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("HealthProfessionalService")
-@Produces({"application/json"})
-@Consumes({"application/json"})
+@Path("HealthProfessionals")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class HealthProfessionalService {
     @EJB
     private HealthProfessionalBean healthProfessionalBean;
 
     @GET
     @Path("/")
-    public HealthProfessionalDTO toDTO(HealthProfessional healthProfessional) {
-        return new HealthProfessionalDTO(healthProfessional.getUsername(), healthProfessional.getPassword(), healthProfessional.getName(), healthProfessional.getEmail(), healthProfessional.getVersion(), healthProfessional.getProfession(), healthProfessional.isChefe());
+    public List<HealthProfessionalDTO> getAllStudentsWS() {
+        return toDTOs(healthProfessionalBean.getAllHealthProfessionals());
+    }
+    // Converts an entity Student to a DTO Student class
+    private HealthProfessionalDTO toDTO(HealthProfessional professional) {
+        return new HealthProfessionalDTO(
+                professional.getUsername(),
+                professional.getPassword(),
+                professional.getName(),
+                professional.getEmail(),
+                professional.getVersion(),
+                professional.getProfession(),
+                professional.isChefe()
+        );
+    }
+    // converts an entire list of entities into a list of DTOs
+    private List<HealthProfessionalDTO> toDTOs(List<HealthProfessional> professionals) {
+        return professionals.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    private List<HealthProfessionalDTO> toDTOs(List<HealthProfessional> healthProfessionals){
-        return (List)healthProfessionals.stream().map(this::toDTO).collect(Collectors.toList());
-    }
     @GET
     @Path("{username}")
     public Response getAdministratorDetails(@PathParam("username")String username){

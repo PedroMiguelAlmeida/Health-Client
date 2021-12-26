@@ -19,7 +19,7 @@ public class HealthProfessionalBean {
     }
 
     public List<HealthProfessional> getAllHealthProfessionals(){
-        return this.em.createNamedQuery("getAllHealthProfessionals").getResultList();
+        return (List<HealthProfessional>) em.createNamedQuery("getAllHealthProfessionals").getResultList();
     }
 
     public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}

@@ -14,7 +14,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllHealthProfessionals",
-                query = "SELECT s FROM User s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM HealthProfessional s ORDER BY s.name" // JPQL
         )
 })
 public class HealthProfessional extends HospitalStaff implements Serializable {
