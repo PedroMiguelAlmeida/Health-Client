@@ -4,6 +4,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.HealthProfessionalBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -67,7 +68,7 @@ public class HealthProfessionalService {
         updateHealthProfessional.setVersion(healthProfessional.getVersion()+1);
         updateHealthProfessional.setActive(healthProfessional.isActive());
 
-        healthProfessionalBean.update(healthProfessional);
+        healthProfessionalBean.update(updateHealthProfessional);
         return Response.ok().build();
     }
 
@@ -87,6 +88,14 @@ public class HealthProfessionalService {
         return Response.status(Response.Status.CREATED).build();
     }
 
+    @DELETE
+    @Path("{username}")
+    public Response delete(@PathParam("username")String username){
+        HealthProfessional deleteHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
 
+        healthProfessionalBean.delete(deleteHealthProfessional);
+
+        return Response.ok().build();
+    }
 
 }

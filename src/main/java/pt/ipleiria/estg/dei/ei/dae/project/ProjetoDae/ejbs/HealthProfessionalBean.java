@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -38,6 +39,11 @@ public class HealthProfessionalBean {
     }
 
     public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
-
+    public void delete(HealthProfessional deleteHealthProfessional) {
+        if (!em.contains(deleteHealthProfessional)){
+            deleteHealthProfessional=em.merge(deleteHealthProfessional);
+        }
+        em.remove(deleteHealthProfessional);
+    }
 
 }

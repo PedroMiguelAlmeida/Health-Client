@@ -37,4 +37,10 @@ public class AdministratorBean {
         this.em.remove(administrator);
     }
 
+    public void delete(Administrator deleteAdministrator) {
+        if (!em.contains(deleteAdministrator)){
+            deleteAdministrator=em.merge(deleteAdministrator);
+        }
+        em.remove(deleteAdministrator);
+    }
 }

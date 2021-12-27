@@ -8,6 +8,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -43,11 +44,11 @@ public class PatientBean {
         em.merge(updatePatient);
     }
 
-    public void removePatient(String username) throws MyEntityNotFoundException {
-        Patient patient = em.find(Patient.class, username);
-        if (patient == null)
-            throw new MyEntityNotFoundException("Patient with username " + username + " not found.");
 
-        this.em.remove(patient);
+    public void delete(Patient deletePatient) {
+        if (!em.contains(deletePatient)){
+            deletePatient=em.merge(deletePatient);
+        }
+        em.remove(deletePatient);
     }
 }

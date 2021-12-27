@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -72,5 +73,13 @@ public class PatientService {
         return Response.status(Response.Status.CREATED).build();
     }
 
+    @DELETE
+    @Path("{username}")
+    public Response delete(@PathParam("username")String username){
+        Patient deletePatient = this.patientBean.findPatient(username);
 
+        patientBean.delete(deletePatient);
+
+        return Response.ok().build();
+    }
 }

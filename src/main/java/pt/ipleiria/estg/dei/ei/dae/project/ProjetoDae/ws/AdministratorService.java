@@ -56,7 +56,7 @@ public class AdministratorService {
 
 
 
-        administratorBean.update(administrator);
+        administratorBean.update(updateAdministrator);
         return Response.ok().build();
     }
 
@@ -75,9 +75,13 @@ public class AdministratorService {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    //@DELETE
-    //@Path("{username}")
-    //public Response delete(@PathParam("username")String username){
-     //   Administrator deleteAdministrator =
-    //}
+    @DELETE
+    @Path("{username}")
+    public Response delete(@PathParam("username")String username){
+        Administrator deleteAdministrator = this.administratorBean.findAdministrator(username);
+
+        administratorBean.delete(deleteAdministrator);
+
+       return Response.ok().build();
+    }
 }
