@@ -13,8 +13,8 @@ import java.util.List;
 public class AdministratorBean {
     @PersistenceContext
     private EntityManager em;
-    public void create(String username, String password, String name, String email, int version, Roles role){
-        Administrator administrator = new Administrator(username,password,name,email,version, role);
+    public void create(String username, String password, String name, String email, int version, Roles role,boolean active){
+        Administrator administrator = new Administrator(username,password,name,email,version, role,active);
         em.persist(administrator);
     }
 

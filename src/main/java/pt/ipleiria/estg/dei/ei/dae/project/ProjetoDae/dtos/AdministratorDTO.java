@@ -10,17 +10,19 @@ public class AdministratorDTO {
     private String email;
     private int version;
     private Roles role;
+    private boolean active;
 
     public AdministratorDTO(){
     }
 
-    public AdministratorDTO(String username,String password,String name,String email,int version,Roles role){
+    public AdministratorDTO(String username,String password,String name,String email,int version,Roles role,boolean active){
         this.username=username;
         this.password=password;
         this.name=name;
         this.email=email;
         this.version=version;
         this.role=role;
+        this.active = active;
     }
 
     public String getUsername() {
@@ -69,5 +71,13 @@ public class AdministratorDTO {
 
     public void setRole(Roles role) {
         this.role = role;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

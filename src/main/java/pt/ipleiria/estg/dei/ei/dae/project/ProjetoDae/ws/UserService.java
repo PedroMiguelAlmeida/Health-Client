@@ -32,7 +32,8 @@ public class UserService {
                 user.getPassword(),
                 user.getName(),
                 user.getEmail(),
-                user.getRole()
+                user.getRole(),
+                user.isActive()
         );
     }
 

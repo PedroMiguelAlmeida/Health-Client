@@ -28,7 +28,7 @@ public class AdministratorService {
     public List<AdministratorDTO> getAllAdministratorWS(){return this.toDTOs(this.administratorBean.getAllAdministrators());}
 
     private AdministratorDTO toDTO(Administrator administrator){
-        return new AdministratorDTO(administrator.getUsername(),administrator.getPassword(), administrator.getName(), administrator.getEmail(),administrator.getVersion(),administrator.getRole());
+        return new AdministratorDTO(administrator.getUsername(),administrator.getPassword(), administrator.getName(), administrator.getEmail(),administrator.getVersion(),administrator.getRole(),administrator.isActive());
     }
 
     private List<AdministratorDTO> toDTOs(List<Administrator> administrators){
@@ -50,7 +50,9 @@ public class AdministratorService {
                 administratorDTO.getName(),
                 administratorDTO.getEmail(),
                 administratorDTO.getVersion(),
-                administratorDTO.getRole());
+                administratorDTO.getRole(),
+                administratorDTO.isActive()
+        );
         return Response.status(Response.Status.CREATED).build();
     }
 }

@@ -38,11 +38,11 @@ public class ConfigBean {
             this.patientBean.create("patient2", "1234", "patient2", "patient2@test.com", Roles.Patient);
             this.patientBean.create("patient3", "1234", "patient3", "patient3@test.com", Roles.Patient);
             this.patientBean.create("patient4", "1234", "patient4", "patient4@test.com", Roles.Patient);
-            this.healthProfessionalBean.create("professional1","1234","professional1","professional1@gmail.com",0,"Doctor",true, Roles.HealthProfessional);
-            this.healthProfessionalBean.create("professional2","1234","professional2","professional2@gmail.com",0,"Nurse",true,Roles.HealthProfessional);
-            this.healthProfessionalBean.create("professional3","1234","professional3","professional3@gmail.com",0,"Nurse",false,Roles.HealthProfessional);
-            this.administratorBean.create("admin1","1234","admin1","admin1@mail.pt",0,Roles.Admin);
-            this.administratorBean.create("admin2","1234","admin2","admin2@mail.pt",0,Roles.Admin);
+            this.healthProfessionalBean.create("professional1","1234","professional1","professional1@gmail.com",0,"Doctor",true, Roles.HealthProfessional,true);
+            this.healthProfessionalBean.create("professional2","1234","professional2","professional2@gmail.com",0,"Nurse",true,Roles.HealthProfessional,true);
+            this.healthProfessionalBean.create("professional3","1234","professional3","professional3@gmail.com",0,"Nurse",false,Roles.HealthProfessional,true);
+            this.administratorBean.create("admin1","1234","admin1","admin1@mail.pt",0,Roles.Admin,true);
+            this.administratorBean.create("admin2","1234","admin2","admin2@mail.pt",0,Roles.Admin,true);
 
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QuantitativeMeasureType>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             this.quantitativeMeasureTypeBean.create("Temperature", false, 1, 100, true);
