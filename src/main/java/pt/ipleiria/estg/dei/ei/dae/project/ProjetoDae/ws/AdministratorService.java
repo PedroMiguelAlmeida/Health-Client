@@ -46,7 +46,7 @@ public class AdministratorService {
     @PUT
     @Path("{username}")
     public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
-        Administrator updateAdministrator = administratorBean.findAdministrator(username);
+        Administrator updateAdministrator = this.administratorBean.findAdministrator(username);
 
         updateAdministrator.setEmail(administrator.getEmail());
         updateAdministrator.setActive(administrator.isActive());
@@ -74,4 +74,10 @@ public class AdministratorService {
         );
         return Response.status(Response.Status.CREATED).build();
     }
+
+    //@DELETE
+    //@Path("{username}")
+    //public Response delete(@PathParam("username")String username){
+     //   Administrator deleteAdministrator =
+    //}
 }

@@ -46,7 +46,7 @@ public class PatientService {
     @PUT
     @Path("{username}")
     public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
-        Patient updatePatient = patientBean.findPatient(username);
+        Patient updatePatient = this.patientBean.findPatient(username);
 
         updatePatient.setActive(patient.isActive());
         updatePatient.setMeasurementsList(patient.getMeasurementsList());
