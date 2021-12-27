@@ -13,17 +13,7 @@ Content-Type: application/json
   "role": "Patient"
 
 }
-###1
 
-GET http://localhost:8080/projectdae/api/patients/subjects/1
-Accept: application/json
-###
-GET http://localhost:8080/projectdae/api/patients/user1
-Accept: application/json
-
-###
-GET http://localhost:8080/projectdae/api/patients/user1/subjects
-Accept: application/json
 
 ###### HealthProfessionals
 GET localhost:8080/projectdae/api/HealthProfessionals
