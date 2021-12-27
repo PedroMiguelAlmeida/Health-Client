@@ -2,21 +2,26 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 
-public class PatientDTO {
+public class HealthProfessionalDTO {
     private String username;
     private String password;
     private String name;
     private String email;
+    private int  version;
+    private String profession;
+    private boolean chefe;
     private Roles role;
 
-    public PatientDTO() {
-    }
+    public HealthProfessionalDTO(){}
 
-    public PatientDTO(String username, String password, String name, String email, Roles role) {
+    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role){
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.version = version;
+        this.profession = profession;
+        this.chefe = chefe;
         this.role = role;
     }
 
@@ -29,7 +34,7 @@ public class PatientDTO {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -37,7 +42,7 @@ public class PatientDTO {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -45,7 +50,7 @@ public class PatientDTO {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -53,10 +58,34 @@ public class PatientDTO {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public boolean isChefe() {
+        return chefe;
+    }
+
+    public void setChefe(boolean chefe) {
+        this.chefe = chefe;
     }
 }
