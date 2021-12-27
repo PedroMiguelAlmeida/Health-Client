@@ -1,0 +1,25 @@
+##### MeasureType
+GET http://localhost:8080/projectdae/api/qualitativeMeasureType/
+Accept: application/json
+###
+POST http://localhost:8080/projectdae/api/qualitativeMeasureType
+Content-Type: application/json
+
+{
+  "name": "test",
+  "multiple": 0,
+  "min": 1,
+  "max": 2,
+  "decimal": 0
+}
+###1
+
+GET http://localhost:8080/projectdae/api/qualitativeMeasureType/subjects/1
+Accept: application/json
+###
+GET http://localhost:8080/projectdae/api/qualitativeMeasureType/user1
+Accept: application/json
+
+###
+GET http://localhost:8080/projectdae/api/qualitativeMeasureType/user1/subjects
+Accept: application/json

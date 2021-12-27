@@ -2,67 +2,46 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import io.smallrye.common.constraint.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Table(
-        name = "BIOMETRIC_DATA",
+        name = "MEASURETYPE",
         uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"NAME"}
+                columnNames = {"NAME", "DTYPE"}
         )}
 )
 @NamedQueries({@NamedQuery(
-        name = "getAllBiometricData",
-        query = "SELECT bd FROM MesureType bd ORDER BY bd.id"
+        name = "getAllMeasureTypes",
+        query = "SELECT a FROM MeasureType a ORDER BY a.id"
 )})
 @Entity
-public class MesureType {
+@Inheritance(
+        strategy = InheritanceType.SINGLE_TABLE
+)
+public abstract class MeasureType implements Serializable {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
     @NotNull
     private String name;
     @NotNull
     private boolean multiple;
-    @ManyToMany
-    @JoinTable(
-            name = "BIOMETRICDATAS_MEASURMENTS",
-            joinColumns = {@JoinColumn(
-                    name = "BIOMETRICDATA_ID",
-                    referencedColumnName = "ID"
-            )},
-            inverseJoinColumns = {@JoinColumn(
-                    name = "MEASURMENT_ID",
-                    referencedColumnName = "ID"
-            )}
-    )
+
+    @OneToMany(mappedBy = "measureType", cascade = CascadeType.REMOVE)
     private List<Measurement> measurements;
 
-    public MesureType() {
+    public MeasureType() {
         this.measurements = new ArrayList();
     }
 
-    public MesureType(int id, String name, boolean multiple, List<Measurement> measurements) {
-        this.id = id;
+    public MeasureType(String name, boolean multiple) {
         this.name = name;
         this.multiple = multiple;
         this.measurements = new ArrayList();
-    }
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

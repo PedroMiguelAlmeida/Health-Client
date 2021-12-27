@@ -2,14 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 @Table(
         name = "MESURMENTS",
@@ -29,20 +22,19 @@ public class Measurement {
     private User user;
     private String inputSource;
     private String value;
-    @ManyToMany(
-            mappedBy = "measurements"
-    )
-    private List<MesureType> mesureTypes;
+    @ManyToOne
+    @JoinColumn(name = "MEASURETYPE_ID")
+    private MeasureType measureType;
 
     public Measurement() {
-        this.mesureTypes = new ArrayList();
+
     }
 
-    public Measurement(User user, String inputSource, String value) {
+    public Measurement(User user, String inputSource, String value, MeasureType measureType) {
         this.user = user;
         this.inputSource = inputSource;
         this.value = value;
-        this.mesureTypes = new ArrayList();
+        this.measureType = measureType;
     }
 
     public User getUser() {
@@ -57,24 +49,16 @@ public class Measurement {
         return this.inputSource;
     }
 
-    public void setInputSource(String inputOrigin) {
-        this.inputSource = inputOrigin;
+    public void setInputSource(String inputSource) {
+        this.inputSource = Measurement.this.inputSource;
     }
 
-    public List<MesureType> getBiometrics() {
-        return this.mesureTypes;
+    public MeasureType getMeasureType() {
+        return measureType;
     }
 
-    public void setBiometrics(List<MesureType> mesureTypes) {
-        this.mesureTypes = mesureTypes;
-    }
-
-    public void addBiometrics(MesureType mesureType) {
-        this.mesureTypes.add(mesureType);
-    }
-
-    public void removeBiometrics(MesureType mesureType) {
-        this.mesureTypes.remove(mesureType);
+    public void setMeasureType(MeasureType measureType) {
+        this.measureType = measureType;
     }
 
     public String getValue() {
