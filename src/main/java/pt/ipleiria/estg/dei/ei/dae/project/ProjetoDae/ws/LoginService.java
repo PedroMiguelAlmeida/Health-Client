@@ -13,9 +13,11 @@ import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AuthDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.JwtBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.User;
@@ -36,11 +38,11 @@ public class LoginService {
 
     @POST
     @Path("/login")
-    @Produces({"application/json"})
-    @Consumes({"application/x-www-form-urlencoded"})
-    public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response authenticateUser(AuthDTO authDTO) {
         try {
-            User user = this.userBean.authenticate(username, password);
+            User user = this.userBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
             if (user != null) {
                 if (user.getUsername() != null) {
                     log.info("Generating JWT for user " + user.getUsername());

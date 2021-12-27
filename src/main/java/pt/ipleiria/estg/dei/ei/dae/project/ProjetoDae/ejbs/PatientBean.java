@@ -6,52 +6,54 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+import javax.validation.ConstraintViolationException;
+
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 @Stateless
 public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public void create(String username, String password, String name, String email) {
-        Patient patient = (Patient)this.em.find(Patient.class, username);
-        if (patient != null) {
-            System.out.println("Patient with username: " + username + " already exists");
-            System.exit(0);
-        }
+    public void create(String username, String password, String name, String email) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
+        Patient patient = em.find(Patient.class, username);
+        if(patient != null)
+            throw new MyEntityExistsException("Student with username: " + username + " already exists");
 
-        patient = new Patient(username, password, name, email, 0);
-        this.em.persist(patient);
-        if (patient == null) {
-            System.out.println("ERROR! creating patient");
+        try {
+            patient = new Patient(username, password, name, email, 0);
+            em.persist(patient);
+        } catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
         }
-
     }
 
     public List<Patient> getAllPatients() {
-        return this.em.createNamedQuery("getAllPatients").getResultList();
+        return em.createNamedQuery("getAllPatients").getResultList();
     }
 
     public Patient findPatient(String username) {
-        return (Patient)this.em.find(Patient.class, username);
+        return em.find(Patient.class, username);
     }
 
-    public void updatePatient(String username, String password, String name, String email) {
-        Patient patient = (Patient)this.em.find(Patient.class, username);
+    public void updatePatient(String username, String password, String name, String email) throws MyEntityNotFoundException {
+        Patient patient = em.find(Patient.class, username);
         if (patient != null) {
             this.em.lock(patient, LockModeType.OPTIMISTIC);
             patient.setName(name);
             patient.setEmail(email);
             patient.setPassword(password);
         }
-        System.err.println("ERROR_FINDING_PATIENT");
+        throw new MyEntityNotFoundException("Patient with username " + username + " not found.");
     }
 
-    public void removePatient(String username) {
-        Patient patient = (Patient)this.em.find(Patient.class, username);
-        if (patient == null) {
-            System.out.println("Patient with username " + username + " not found.");
-        }
+    public void removePatient(String username) throws MyEntityNotFoundException {
+        Patient patient = em.find(Patient.class, username);
+        if (patient == null)
+            throw new MyEntityNotFoundException("Patient with username " + username + " not found.");
 
         this.em.remove(patient);
     }
