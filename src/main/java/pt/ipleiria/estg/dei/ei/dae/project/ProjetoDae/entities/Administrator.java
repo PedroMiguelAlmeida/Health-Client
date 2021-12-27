@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -20,8 +22,8 @@ public class Administrator extends HospitalStaff implements Serializable {
     public Administrator() {
     }
 
-    public Administrator(String username, String password, String name, String email, int version) {
-        super(username, password, name, email, version);
+    public Administrator(String username, String password, String name, String email, int version, Roles role) {
+        super(username, password, name, email, version,role );
     }
 //endregion
 

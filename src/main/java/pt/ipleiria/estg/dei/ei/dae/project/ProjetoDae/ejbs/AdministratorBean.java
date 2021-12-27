@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 
 import javax.ejb.Stateless;
@@ -12,8 +13,8 @@ import java.util.List;
 public class AdministratorBean {
     @PersistenceContext
     private EntityManager em;
-    public void create(String username,String password,String name,String email,int version){
-        Administrator administrator = new Administrator(username,password,name,email,version);
+    public void create(String username, String password, String name, String email, int version, Roles role){
+        Administrator administrator = new Administrator(username,password,name,email,version, role);
         em.persist(administrator);
     }
 

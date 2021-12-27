@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,8 @@ public class Patient extends User implements Serializable {
     public Patient() {
     }
 
-    public Patient(String username, String password, String name, String email, int version) {
-        super(username, password, name, email, version);
+    public Patient(String username, String password, String name, String email, int version, Roles role) {
+        super(username, password, name, email, version, role);
         this.measurements = new ArrayList();
     }
 

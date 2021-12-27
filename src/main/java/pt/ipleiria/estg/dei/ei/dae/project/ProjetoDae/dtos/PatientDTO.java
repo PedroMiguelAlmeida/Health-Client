@@ -1,19 +1,31 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 public class PatientDTO {
     private String username;
     private String password;
     private String name;
     private String email;
+    private Roles role;
 
     public PatientDTO() {
     }
 
-    public PatientDTO(String username, String password, String name, String email) {
+    public PatientDTO(String username, String password, String name, String email, Roles role) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public String getUsername() {

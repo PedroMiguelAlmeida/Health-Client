@@ -27,7 +27,7 @@ public class PatientService {
     }
 
     private PatientDTO toDTO(Patient patient) {
-        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail());
+        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole());
     }
 
     private List<PatientDTO> toDTOs(List<Patient> patients) {
@@ -48,7 +48,8 @@ public class PatientService {
                 patientDTO.getUsername(),
                 patientDTO.getPassword(),
                 patientDTO.getName(),
-                patientDTO.getEmail());
+                patientDTO.getEmail(),
+                patientDTO.getRole());
         return Response.status(Response.Status.CREATED).build();
     }
 }

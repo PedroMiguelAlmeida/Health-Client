@@ -9,7 +9,9 @@ Content-Type: application/json
   "email": "patient5@mail.com",
   "name": "patient5",
   "username": "patient5",
-  "password": "1234"
+  "password": "1234",
+  "role": "Patient"
+
 }
 ###
 
@@ -37,7 +39,8 @@ Content-Type: application/json
   "email": "professionalTeste@mail.com",
   "version":  0,
   "profession": "Doctor",
-  "chefe": false
+  "chefe": false,
+  "role": "HealthProfessional"
 }
 
 

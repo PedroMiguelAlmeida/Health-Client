@@ -36,7 +36,8 @@ public class HealthProfessionalService {
                 professional.getEmail(),
                 professional.getVersion(),
                 professional.getProfession(),
-                professional.isChefe()
+                professional.isChefe(),
+                professional.getRole()
         );
     }
     // converts an entire list of entities into a list of DTOs
@@ -61,7 +62,8 @@ public class HealthProfessionalService {
                 professionalDTO.getEmail(),
                 professionalDTO.getVersion(),
                 professionalDTO.getProfession(),
-                professionalDTO.isChefe());
+                professionalDTO.isChefe(),
+                professionalDTO.getRole());
         return Response.status(Response.Status.CREATED).build();
     }
 

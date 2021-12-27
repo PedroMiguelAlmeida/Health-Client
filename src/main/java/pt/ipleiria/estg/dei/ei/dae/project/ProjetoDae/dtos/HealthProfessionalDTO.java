@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 public class HealthProfessionalDTO {
     private String username;
     private String password;
@@ -8,10 +10,11 @@ public class HealthProfessionalDTO {
     private int  version;
     private String profession;
     private boolean chefe;
+    private Roles role;
 
     public HealthProfessionalDTO(){}
 
-    public HealthProfessionalDTO(String username,String password,String name,String email,int version,String profession,boolean chefe){
+    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -19,6 +22,15 @@ public class HealthProfessionalDTO {
         this.version = version;
         this.profession = profession;
         this.chefe = chefe;
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public String getUsername() {

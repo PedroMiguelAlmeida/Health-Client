@@ -3,6 +3,8 @@
 
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -30,8 +32,8 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
     public HealthProfessional() {
     }
 
-    public HealthProfessional(String username, String password, String name, String email, int version, String profession,  boolean chefe) {
-        super(username, password, name, email, version);
+    public HealthProfessional(String username, String password, String name, String email, int version, String profession,  boolean chefe, Roles role) {
+        super(username, password, name, email, version, role);
         this.profession = profession;
         this.chefe = chefe;
     }

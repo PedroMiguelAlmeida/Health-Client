@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -36,16 +38,27 @@ public class User implements Serializable {
     private String email;
     @Version
     private int version;
+    @NotNull
+    private Roles role;
 
     public User() {
     }
 
-    public User(String username, String password, String name, String email, int version) {
+    public User(String username, String password, String name, String email, int version, Roles role) {
         this.username = username;
         this.password = hashPassword(password);
         this.name = name;
         this.email = email;
         this.version = version;
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public String getUsername() {

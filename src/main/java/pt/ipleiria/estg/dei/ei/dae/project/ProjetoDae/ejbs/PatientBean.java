@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
+
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 
 @Stateless
@@ -13,14 +15,14 @@ public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public void create(String username, String password, String name, String email) {
+    public void create(String username, String password, String name, String email, Roles role) {
         Patient patient = (Patient)this.em.find(Patient.class, username);
         if (patient != null) {
             System.out.println("Patient with username: " + username + " already exists");
             System.exit(0);
         }
 
-        patient = new Patient(username, password, name, email, 0);
+        patient = new Patient(username, password, name, email, 0, role);
         this.em.persist(patient);
         if (patient == null) {
             System.out.println("ERROR! creating patient");

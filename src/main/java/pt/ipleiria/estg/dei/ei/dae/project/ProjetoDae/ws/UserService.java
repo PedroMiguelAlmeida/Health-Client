@@ -31,7 +31,8 @@ public class UserService {
                 user.getUsername(),
                 user.getPassword(),
                 user.getName(),
-                user.getEmail()
+                user.getEmail(),
+                user.getRole()
         );
     }
 
