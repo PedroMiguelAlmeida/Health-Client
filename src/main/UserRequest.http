@@ -39,7 +39,18 @@ Content-Type: application/json
 GET localhost:8080/projectdae/api/Administrators
 ###
 GET localhost:8080/projectdae/api/Administrators/admin1
+###
+POST localhost:8080/projectdae/api/Administrators
+Content-Type: application/json
 
+{
+  "email": "AdminTestePost@mail.com",
+  "name": "AdminTestePost",
+  "username": "AdminTestePost",
+  "password": "1234",
+  "role": "Admin"
+
+}
 ##### USERS
 ##Get all users
 GET localhost:8080/projectdae/api/Users

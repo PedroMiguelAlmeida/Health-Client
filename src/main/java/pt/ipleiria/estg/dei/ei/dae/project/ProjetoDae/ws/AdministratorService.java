@@ -2,8 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -36,5 +39,18 @@ public class AdministratorService {
     @Path("{username}")
     public Response getAdministratorDetails(@PathParam("username")String username){
         Administrator administrator = this.administratorBean.findAdministrator(username);
-        return administrator != null ? javax.ws.rs.core.Response.ok(this.toDTO(administrator)).build() : javax.ws.rs.core.Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_ADMINISTRATOR").build();    }
+        return administrator != null ? javax.ws.rs.core.Response.ok(this.toDTO(administrator)).build() : javax.ws.rs.core.Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_ADMINISTRATOR").build();
+    }
+    @POST
+    @Path("/")
+    public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException {
+        administratorBean.create(
+                administratorDTO.getUsername(),
+                administratorDTO.getPassword(),
+                administratorDTO.getName(),
+                administratorDTO.getEmail(),
+                administratorDTO.getVersion(),
+                administratorDTO.getRole());
+        return Response.status(Response.Status.CREATED).build();
+    }
 }
