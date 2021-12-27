@@ -3,6 +3,8 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,6 +26,9 @@ public class AdministratorBean {
 
     public Administrator findAdministrator(String username){return (Administrator)this.em.find(Administrator.class,username);}
 
+    public void update(Administrator updateAdministrator) throws MyEntityNotFoundException {
+        em.merge(updateAdministrator);
+    }
     public void removeAdministrator(String username){
         Administrator administrator = (Administrator)this.em.find(Administrator.class,username);
         if (administrator==null){

@@ -43,6 +43,21 @@ public class PatientService {
         return patient != null ? Response.ok(this.toDTO(patient)).build() : Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
+    @PUT
+    @Path("{username}")
+    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
+        Patient updatePatient = patientBean.findPatient(username);
+
+        updatePatient.setActive(patient.isActive());
+        updatePatient.setMeasurementsList(patient.getMeasurementsList());
+        updatePatient.setEmail(patient.getEmail());
+        updatePatient.setName(patient.getName());
+        updatePatient.setVersion(patient.getVersion()+1);
+        patientBean.updatePatient(updatePatient);
+
+        return Response.ok().build();
+    }
+
     @POST
     @Path("/")
     public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException {
@@ -56,4 +71,6 @@ public class PatientService {
             );
         return Response.status(Response.Status.CREATED).build();
     }
+
+
 }

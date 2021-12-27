@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.HealthProfessionalBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
@@ -51,6 +52,23 @@ public class HealthProfessionalService {
     public Response getAdministratorDetails(@PathParam("username")String username){
         HealthProfessional healthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
         return healthProfessional != null ? javax.ws.rs.core.Response.ok(this.toDTO(healthProfessional)).build() : javax.ws.rs.core.Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_ADMINISTRATOR").build();
+    }
+
+    @PUT
+    @Path("{username}")
+    public Response update(@PathParam("username")String username, HealthProfessional healthProfessional) throws MyEntityNotFoundException {
+        HealthProfessional updateHealthProfessional = healthProfessionalBean.findHealthProfessional(username);
+
+        updateHealthProfessional.setChefe(healthProfessional.isChefe());
+        updateHealthProfessional.setProfession(healthProfessional.getProfession());
+        updateHealthProfessional.setName(healthProfessional.getName());
+        updateHealthProfessional.setEmail(healthProfessional.getEmail());
+        updateHealthProfessional.setRole(healthProfessional.getRole());
+        updateHealthProfessional.setVersion(healthProfessional.getVersion()+1);
+        updateHealthProfessional.setActive(healthProfessional.isActive());
+
+        healthProfessionalBean.update(healthProfessional);
+        return Response.ok().build();
     }
 
     @POST

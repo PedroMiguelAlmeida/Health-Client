@@ -38,4 +38,5 @@ public class Patient extends User implements Serializable {
     public void setMeasurementsList(List<Measurement> measurements) {
         this.measurements = measurements;
     }
+
 }

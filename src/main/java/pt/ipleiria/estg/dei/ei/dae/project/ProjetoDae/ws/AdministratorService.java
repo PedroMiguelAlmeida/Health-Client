@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
@@ -41,6 +42,24 @@ public class AdministratorService {
         Administrator administrator = this.administratorBean.findAdministrator(username);
         return administrator != null ? javax.ws.rs.core.Response.ok(this.toDTO(administrator)).build() : javax.ws.rs.core.Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_ADMINISTRATOR").build();
     }
+
+    @PUT
+    @Path("{username}")
+    public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
+        Administrator updateAdministrator = administratorBean.findAdministrator(username);
+
+        updateAdministrator.setEmail(administrator.getEmail());
+        updateAdministrator.setActive(administrator.isActive());
+        updateAdministrator.setRole(administrator.getRole());
+        updateAdministrator.setName(administrator.getName());
+        updateAdministrator.setVersion(administrator.getVersion() + 1);
+
+
+
+        administratorBean.update(administrator);
+        return Response.ok().build();
+    }
+
     @POST
     @Path("/")
     public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException {
