@@ -9,16 +9,33 @@ Content-Type: application/json
   "email": "patient5@mail.com",
   "name": "patient5",
   "username": "patient5",
-  "password": "1234"
+  "password": "1234",
+  "role": "Patient"
+
 }
-###1
 
-GET http://localhost:8080/projectdae/api/patients/subjects/1
-Accept: application/json
+
+###### HealthProfessionals
+GET localhost:8080/projectdae/api/HealthProfessionals
 ###
-GET http://localhost:8080/projectdae/api/patients/user1
-Accept: application/json
+GET localhost:8080/projectdae/api/HealthProfessionals/professionalTeste
 
 ###
-GET http://localhost:8080/projectdae/api/patients/user1/subjects
-Accept: application/json
+POST http://localhost:8080/projectdae/api/HealthProfessionals
+Content-Type: application/json
+
+{
+  "username": "professionalTeste",
+  "password": "1234",
+  "name": "professionalTeste",
+  "email": "professionalTeste@mail.com",
+  "version":  0,
+  "profession": "Doctor",
+  "chefe": false,
+  "role": "HealthProfessional"
+}
+
+
+##### USERS
+##Get all users
+GET localhost:8080/projectdae/api/Users

@@ -1,35 +1,27 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 
-public class PatientDTO {
+public class AdministratorDTO {
     private String username;
     private String password;
     private String name;
     private String email;
-    private Roles role;
+    private int version;
 
-    public PatientDTO() {
+    public AdministratorDTO(){
     }
 
-    public PatientDTO(String username, String password, String name, String email, Roles role) {
-        this.username = username;
-        this.password = password;
-        this.name = name;
-        this.email = email;
-        this.role = role;
-    }
-
-    public Roles getRole() {
-        return role;
-    }
-
-    public void setRole(Roles role) {
-        this.role = role;
+    public AdministratorDTO(String username,String password,String name,String email,int version){
+        this.username=username;
+        this.password=password;
+        this.name=name;
+        this.email=email;
+        this.version=version;
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -37,7 +29,7 @@ public class PatientDTO {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -45,7 +37,7 @@ public class PatientDTO {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -53,10 +45,18 @@ public class PatientDTO {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 }

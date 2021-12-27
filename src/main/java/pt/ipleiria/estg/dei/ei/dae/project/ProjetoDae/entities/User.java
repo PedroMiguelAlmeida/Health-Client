@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
@@ -9,16 +11,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
-import javax.persistence.Version;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@NamedQueries({@NamedQuery(
+        name = "getAllUsers",
+        query = "SELECT s FROM User s ORDER BY s.name"
+)})
 @Table(
         name = "users"
 )
@@ -37,16 +38,27 @@ public class User implements Serializable {
     private String email;
     @Version
     private int version;
+    @NotNull
+    private Roles role;
 
     public User() {
     }
 
-    public User(String username, String password, String name, String email, int version) {
+    public User(String username, String password, String name, String email, int version, Roles role) {
         this.username = username;
         this.password = hashPassword(password);
         this.name = name;
         this.email = email;
         this.version = version;
+        this.role = role;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public String getUsername() {

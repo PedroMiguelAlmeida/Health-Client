@@ -2,17 +2,17 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 
-public class PatientDTO {
+public class UserDTO {
     private String username;
     private String password;
     private String name;
     private String email;
     private Roles role;
 
-    public PatientDTO() {
+    public UserDTO() {
     }
 
-    public PatientDTO(String username, String password, String name, String email, Roles role) {
+    public UserDTO(String username, String password, String name, String email, Roles role) {
         this.username = username;
         this.password = password;
         this.name = name;
@@ -29,7 +29,7 @@ public class PatientDTO {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -37,7 +37,7 @@ public class PatientDTO {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
@@ -45,7 +45,7 @@ public class PatientDTO {
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public void setName(String name) {
@@ -53,7 +53,7 @@ public class PatientDTO {
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public void setEmail(String email) {

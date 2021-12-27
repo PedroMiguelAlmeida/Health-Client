@@ -3,7 +3,11 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.User;
+
+import java.util.List;
 
 @Stateless
 public class UserBean {
@@ -17,5 +21,10 @@ public class UserBean {
         } else {
             throw new Exception("Failed logging in with username '" + username + "': unknown username or wrong password");
         }
+    }
+
+
+    public List<User> getAllUsers() {
+        return this.em.createNamedQuery("getAllUsers").getResultList();
     }
 }
