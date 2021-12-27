@@ -27,6 +27,8 @@ Accept: application/json
 
 ###### HealthProfessionals
 GET localhost:8080/projectdae/api/HealthProfessionals
+###
+GET localhost:8080/projectdae/api/HealthProfessionals/professionalTeste
 
 ###
 POST http://localhost:8080/projectdae/api/HealthProfessionals
