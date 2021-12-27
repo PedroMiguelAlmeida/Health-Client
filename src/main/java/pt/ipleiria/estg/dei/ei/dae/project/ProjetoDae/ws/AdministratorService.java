@@ -9,12 +9,13 @@ import javax.ejb.EJB;
 import javax.ws.rs.*;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-@Path("administrators")
-@Produces({"application/json"})
-@Consumes({"application/json"})
+@Path("Administrators")
+@Produces({MediaType.APPLICATION_JSON})
+@Consumes({MediaType.APPLICATION_JSON})
 public class AdministratorService {
     @EJB
     private AdministratorBean administratorBean;
@@ -24,7 +25,7 @@ public class AdministratorService {
     public List<AdministratorDTO> getAllAdministratorWS(){return this.toDTOs(this.administratorBean.getAllAdministrators());}
 
     private AdministratorDTO toDTO(Administrator administrator){
-        return new AdministratorDTO(administrator.getUsername(),administrator.getPassword(), administrator.getName(), administrator.getEmail(),administrator.getVersion());
+        return new AdministratorDTO(administrator.getUsername(),administrator.getPassword(), administrator.getName(), administrator.getEmail(),administrator.getVersion(),administrator.getRole());
     }
 
     private List<AdministratorDTO> toDTOs(List<Administrator> administrators){

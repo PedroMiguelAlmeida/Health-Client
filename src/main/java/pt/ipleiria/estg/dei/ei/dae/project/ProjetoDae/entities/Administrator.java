@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllAdministrators",
-                query = "SELECT s FROM User s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM Administrator s ORDER BY s.name" // JPQL
         )
 })
 public class Administrator extends HospitalStaff implements Serializable {

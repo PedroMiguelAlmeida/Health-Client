@@ -20,6 +20,8 @@ public class ConfigBean {
     PatientBean patientBean;
     @EJB
     HealthProfessionalBean healthProfessionalBean;
+    @EJB
+    AdministratorBean administratorBean;
 
     @EJB
     QuantitativeMeasureTypeBean quantitativeMeasureTypeBean;
@@ -39,7 +41,8 @@ public class ConfigBean {
             this.healthProfessionalBean.create("professional1","1234","professional1","professional1@gmail.com",0,"Doctor",true, Roles.HealthProfessional);
             this.healthProfessionalBean.create("professional2","1234","professional2","professional2@gmail.com",0,"Nurse",true,Roles.HealthProfessional);
             this.healthProfessionalBean.create("professional3","1234","professional3","professional3@gmail.com",0,"Nurse",false,Roles.HealthProfessional);
-
+            this.administratorBean.create("admin1","1234","admin1","admin1@mail.pt",0,Roles.Admin);
+            this.administratorBean.create("admin2","1234","admin2","admin2@mail.pt",0,Roles.Admin);
 
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QuantitativeMeasureType>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             this.quantitativeMeasureTypeBean.create("Temperature", false, 1, 100, true);

@@ -35,6 +35,10 @@ Content-Type: application/json
   "role": "HealthProfessional"
 }
 
+###### Admins
+GET localhost:8080/projectdae/api/Administrators
+###
+GET localhost:8080/projectdae/api/Administrators/admin1
 
 ##### USERS
 ##Get all users
