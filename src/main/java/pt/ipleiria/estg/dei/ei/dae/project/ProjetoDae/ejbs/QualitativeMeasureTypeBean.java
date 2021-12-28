@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.MeasureType;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.QualitativeMeasureType;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.QuantitativeMeasureType;
@@ -7,6 +9,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintVio
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -17,16 +20,19 @@ import java.util.List;
 
 @Stateless
 public class QualitativeMeasureTypeBean {
+    @EJB
+    private MeasureTypeBean measureTypeBean;
+
     @PersistenceContext
     EntityManager em;
 
     public void create(String name, boolean multiple, List<String> values) throws MyEntityExistsException, MyConstraintViolationException {
-        QualitativeMeasureType qualitativeMeasureType = findQualitativeMeasureTypeByName(name);
-//        if(qualitativeMeasureType != null)
-//            throw new MyEntityExistsException("QualitativeMeasureType with name: " + name + " already exists");
+        MeasureType measureType = measureTypeBean.findMeasureTypeByNameAndType(name, MeasureTypeType.Qualitative);
+        if(measureType != null)
+            throw new MyEntityExistsException("QuantitativeMeasureType with name: " + name + " already exists");
 
         try {
-            qualitativeMeasureType = new QualitativeMeasureType(name, multiple, values);
+            QualitativeMeasureType qualitativeMeasureType = new QualitativeMeasureType(name, multiple, MeasureTypeType.Qualitative, values);
             em.persist(qualitativeMeasureType);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);

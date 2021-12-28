@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -24,8 +26,8 @@ public class QuantitativeMeasureType extends MeasureType implements Serializable
 
     }
 
-    public QuantitativeMeasureType(String name, boolean multiple, double min, double max, boolean decimal) {
-        super(name, multiple);
+    public QuantitativeMeasureType(String name, boolean multiple, MeasureTypeType type, double min, double max, boolean decimal) {
+        super(name, multiple, type);
         this.min = min;
         this.max = max;
         this.decimal = decimal;
