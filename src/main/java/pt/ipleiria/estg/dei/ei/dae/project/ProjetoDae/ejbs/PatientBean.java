@@ -18,13 +18,13 @@ public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public void create(String username, String password, String name, String email, Roles role) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
+    public void create(String username, String password, String name, String email, Roles role,boolean active) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
         Patient patient = em.find(Patient.class, username);
         if(patient != null)
             throw new MyEntityExistsException("Student with username: " + username + " already exists");
 
         try {
-            patient = new Patient(username, password, name, email, 0, role);
+            patient = new Patient(username, password, name, email, 0, role,active);
             em.persist(patient);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
@@ -39,15 +39,8 @@ public class PatientBean {
         return em.find(Patient.class, username);
     }
 
-    public void updatePatient(String username, String password, String name, String email) throws MyEntityNotFoundException {
-        Patient patient = em.find(Patient.class, username);
-        if (patient != null) {
-            this.em.lock(patient, LockModeType.OPTIMISTIC);
-            patient.setName(name);
-            patient.setEmail(email);
-            patient.setPassword(password);
-        }
-        throw new MyEntityNotFoundException("Patient with username " + username + " not found.");
+    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
+        em.merge(updatePatient);
     }
 
     public void removePatient(String username) throws MyEntityNotFoundException {

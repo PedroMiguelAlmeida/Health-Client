@@ -13,7 +13,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
         @NamedQuery(
                 name = "getAllAdministrators",
-                query = "SELECT s FROM User s ORDER BY s.name" // JPQL
+                query = "SELECT s FROM Administrator s ORDER BY s.name" // JPQL
         )
 })
 public class Administrator extends HospitalStaff implements Serializable {
@@ -22,8 +22,8 @@ public class Administrator extends HospitalStaff implements Serializable {
     public Administrator() {
     }
 
-    public Administrator(String username, String password, String name, String email, int version, Roles role) {
-        super(username, password, name, email, version,role );
+    public Administrator(String username, String password, String name, String email, int version, Roles role,boolean active) {
+        super(username, password, name, email, version,role,active);
     }
 //endregion
 

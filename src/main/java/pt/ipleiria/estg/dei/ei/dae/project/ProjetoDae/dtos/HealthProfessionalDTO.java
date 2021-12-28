@@ -11,10 +11,11 @@ public class HealthProfessionalDTO {
     private String profession;
     private boolean chefe;
     private Roles role;
+    private boolean active;
 
     public HealthProfessionalDTO(){}
 
-    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role){
+    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role,boolean active){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -23,6 +24,7 @@ public class HealthProfessionalDTO {
         this.profession = profession;
         this.chefe = chefe;
         this.role = role;
+        this.active = active;
     }
 
     public Roles getRole() {
@@ -87,5 +89,13 @@ public class HealthProfessionalDTO {
 
     public void setChefe(boolean chefe) {
         this.chefe = chefe;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

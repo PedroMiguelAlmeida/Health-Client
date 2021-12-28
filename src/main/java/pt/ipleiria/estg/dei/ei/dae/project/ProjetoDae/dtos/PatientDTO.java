@@ -8,16 +8,18 @@ public class PatientDTO {
     private String name;
     private String email;
     private Roles role;
+    private boolean active;
 
     public PatientDTO() {
     }
 
-    public PatientDTO(String username, String password, String name, String email, Roles role) {
+    public PatientDTO(String username, String password, String name, String email, Roles role,boolean active) {
         this.username = username;
         this.password = password;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.active = active;
     }
 
     public Roles getRole() {
@@ -58,5 +60,13 @@ public class PatientDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
