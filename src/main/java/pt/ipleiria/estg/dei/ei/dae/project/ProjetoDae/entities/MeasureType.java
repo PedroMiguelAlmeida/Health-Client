@@ -2,6 +2,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import io.smallrye.common.constraint.NotNull;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public abstract class MeasureType implements Serializable {
     private String name;
     @NotNull
     private boolean multiple;
+    @NotNull
+    private MeasureTypeType type;
 
     @OneToMany(mappedBy = "measureType", cascade = CascadeType.REMOVE)
     private List<Measurement> measurements;
@@ -38,10 +41,11 @@ public abstract class MeasureType implements Serializable {
         this.measurements = new ArrayList();
     }
 
-    public MeasureType(String name, boolean multiple) {
+    public MeasureType(String name, boolean multiple, MeasureTypeType type) {
         this.name = name;
         this.multiple = multiple;
         this.measurements = new ArrayList();
+        this.type = type;
     }
 
     public String getName() {
@@ -74,5 +78,13 @@ public abstract class MeasureType implements Serializable {
 
     public void removeMeasurement(Measurement measurement) {
         this.measurements.remove(measurement);
+    }
+
+    public MeasureTypeType getType() {
+        return type;
+    }
+
+    public void setType(MeasureTypeType type) {
+        this.type = type;
     }
 }

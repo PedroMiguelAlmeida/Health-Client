@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -21,8 +23,8 @@ public class QualitativeMeasureType extends MeasureType implements Serializable 
         this.values = new ArrayList();
     }
 
-    public QualitativeMeasureType(String name, boolean multiple, List<String> values) {
-        super(name, multiple);
+    public QualitativeMeasureType(String name, boolean multiple, MeasureTypeType type, List<String> values) {
+        super(name, multiple, type);
         this.values = new ArrayList();
     }
 
