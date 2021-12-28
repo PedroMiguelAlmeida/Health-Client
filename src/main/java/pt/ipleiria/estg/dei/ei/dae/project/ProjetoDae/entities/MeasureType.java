@@ -48,6 +48,10 @@ public abstract class MeasureType implements Serializable {
         this.type = type;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return this.name;
     }

@@ -29,6 +29,9 @@ public class ConfigBean {
     @EJB
     QualitativeMeasureTypeBean qualitativeMeasureTypeBean;
 
+    @EJB
+    MeasurementBean measurementBean;
+
 
     @PostConstruct
     private void populateDB() {
@@ -44,11 +47,11 @@ public class ConfigBean {
             this.administratorBean.create("admin1","1234","admin1","admin1@mail.pt",0,Roles.Admin,true);
             this.administratorBean.create("admin2","1234","admin2","admin2@mail.pt",0,Roles.Admin,true);
 
-            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QuantitativeMeasureType>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QuantitativeMeasureTypes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             this.quantitativeMeasureTypeBean.create("Temperature", false, 1, 100, true);
             this.quantitativeMeasureTypeBean.create("Altura", false, 1, 999, true);
 
-            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QualitativeMeasureTypeBean>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QualitativeMeasureTypes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             List<String> values = new ArrayList<>();
             values.add("High");
             values.add("Medium");
@@ -56,6 +59,9 @@ public class ConfigBean {
             this.qualitativeMeasureTypeBean.create("Temperature", false, values);
             this.qualitativeMeasureTypeBean.create("Altura", false, values);
 
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating Measurements>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            this.measurementBean.create(1, "test", "test", "patient1");
+            this.measurementBean.create(3, "Medium", "test", "patient2");
 
 
         } catch (Exception e) {
