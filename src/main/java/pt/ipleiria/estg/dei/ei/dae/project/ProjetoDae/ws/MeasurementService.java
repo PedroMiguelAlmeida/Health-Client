@@ -28,11 +28,11 @@ public class MeasurementService {
     }
 
     private MeasurementDTO toDTO(Measurement measurement) {
-        return new MeasurementDTO(measurement.getMeasureType().getId(), measurement.getValue(), measurement.getInputSource(), measurement.getUser().getUsername());
+        return new MeasurementDTO(measurement.getId(), measurement.getMeasureType().getId(), measurement.getValue(), measurement.getInputSource(), measurement.getUser().getUsername());
     }
 
     private List<MeasurementDTO> toDTOs(List<Measurement> measurements) {
-        return (List)measurements.stream().map(this::toDTO).collect(Collectors.toList());
+        return measurements.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @GET
@@ -44,14 +44,14 @@ public class MeasurementService {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id")int id,Measurement measurement) throws MyEntityNotFoundException {
+    public Response update(@PathParam("id")int id,Measurement measurement) throws MyEntityNotFoundException, MyConstraintViolationException {
         Measurement updateMeasurement = this.measurementBean.findMeasurement(id);
 
         updateMeasurement.setMeasureType(measurement.getMeasureType());
         updateMeasurement.setValue(measurement.getValue());
         updateMeasurement.setInputSource(measurement.getInputSource());
         updateMeasurement.setUser(measurement.getUser());
-        //measurementBean.updateMeasurement(updateMeasurement);
+        measurementBean.updateMeasurement(updateMeasurement);
 
         return Response.ok().build();
     }

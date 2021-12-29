@@ -8,14 +8,14 @@ import java.util.List;
 import javax.persistence.*;
 
 @Table(
-        name = "MEASURMENTS",
-        uniqueConstraints = {@UniqueConstraint(
-                columnNames = {"ID"}
-        )}
+        name = "MEASUREMENTS"
+//        uniqueConstraints = {@UniqueConstraint(
+//                columnNames = {"ID"}
+//        )}
 )
 @NamedQueries({@NamedQuery(
         name = "getAllMeasurements",
-        query = "SELECT m FROM Measurement m ORDER BY m.user.name"
+        query = "SELECT m FROM Measurement m ORDER BY m.user.username"
 )})
 @Entity
 public class Measurement implements Serializable {
@@ -80,5 +80,9 @@ public class Measurement implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public String toString() {
+        return "ID - "+getId();
     }
 }

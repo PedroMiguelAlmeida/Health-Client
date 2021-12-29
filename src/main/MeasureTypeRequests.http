@@ -3,11 +3,11 @@ GET http://localhost:8080/projectdae/api/measureTypes/
 Accept: application/json
 
 
-
-GET http://localhost:8080/projectdae/api/qualitativeMeasureType/
+###
+GET http://localhost:8080/projectdae/api/qualitativeMeasureTypes/
 Accept: application/json
 ###
-POST http://localhost:8080/projectdae/api/qualitativeMeasureType
+POST http://localhost:8080/projectdae/api/qualitativeMeasureTypes
 Content-Type: application/json
 
 {

@@ -3,6 +3,8 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
 
 public class MeasureTypeDTO {
+
+    private int id;
     private String name;
     private boolean multiple;
     private MeasureTypeType type;
@@ -10,10 +12,15 @@ public class MeasureTypeDTO {
     public MeasureTypeDTO() {
     }
 
-    public MeasureTypeDTO(String name, boolean multiple, MeasureTypeType type) {
+    public MeasureTypeDTO(int id, String name, boolean multiple, MeasureTypeType type) {
+        this.id = id;
         this.name = name;
         this.multiple = multiple;
         this.type = type;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

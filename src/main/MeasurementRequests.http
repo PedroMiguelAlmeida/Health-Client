@@ -3,6 +3,10 @@ GET http://localhost:8080/projectdae/api/measurements
 Accept: application/json
 
 ###
+GET http://localhost:8080/projectdae/api/measurements/5
+Accept: application/json
+
+###
 POST http://localhost:8080/projectdae/api/measurements
 Content-Type: application/json
 

@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 public class MeasurementDTO {
 
+    private int id;
     private int measureTypeId;
     private String value;
     private String inputSource;
@@ -16,11 +17,16 @@ public class MeasurementDTO {
     public MeasurementDTO() {
     }
 
-    public MeasurementDTO(int measureTypeId, String value, String inputSource, String username) {
+    public MeasurementDTO(int id, int measureTypeId, String value, String inputSource, String username) {
+        this.id = id;
         this.measureTypeId = measureTypeId;
         this.value = value;
         this.inputSource = inputSource;
         this.username = username;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getMeasureTypeId() {
@@ -53,5 +59,9 @@ public class MeasurementDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String toString() {
+        return "ID - "+getId();
     }
 }

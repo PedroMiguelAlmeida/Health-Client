@@ -24,7 +24,7 @@ public class PatientBean {
             throw new MyEntityExistsException("Patient with username: " + username + " already exists");
 
         try {
-            patient = new Patient(username, password, name, email, 0, role,active);
+            patient = new Patient(username, password, name, email, 0, role, active);
             em.persist(patient);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
