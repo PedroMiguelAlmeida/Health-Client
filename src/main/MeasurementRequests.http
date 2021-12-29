@@ -1,0 +1,14 @@
+##### Measurement
+GET http://localhost:8080/projectdae/api/measurements
+Accept: application/json
+
+###
+POST http://localhost:8080/projectdae/api/measurements
+Content-Type: application/json
+
+{
+  "measureTypeId": 22,
+  "value": "1",
+  "inputSource": "test",
+  "username": "patient3"
+}

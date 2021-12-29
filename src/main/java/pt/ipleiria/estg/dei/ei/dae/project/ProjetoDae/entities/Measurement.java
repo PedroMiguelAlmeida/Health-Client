@@ -1,11 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import io.smallrye.common.constraint.NotNull;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 @Table(
-        name = "MESURMENTS",
+        name = "MEASURMENTS",
         uniqueConstraints = {@UniqueConstraint(
                 columnNames = {"ID"}
         )}
@@ -15,42 +18,36 @@ import javax.persistence.*;
         query = "SELECT m FROM Measurement m ORDER BY m.user.name"
 )})
 @Entity
-public class Measurement {
+public class Measurement implements Serializable {
     @Id
+    @GeneratedValue
     private int id;
-    @ManyToOne
-    private User user;
-    private String inputSource;
-    private String value;
+
     @ManyToOne
     @JoinColumn(name = "MEASURETYPE_ID")
     private MeasureType measureType;
+
+    @NotNull
+    private String value;
+
+    private String inputSource;
+
+    @ManyToOne
+    private User user;
 
     public Measurement() {
 
     }
 
-    public Measurement(User user, String inputSource, String value, MeasureType measureType) {
-        this.user = user;
-        this.inputSource = inputSource;
-        this.value = value;
+    public Measurement(MeasureType measureType, String value, String inputSource, User user) {
         this.measureType = measureType;
-    }
-
-    public User getUser() {
-        return this.user;
-    }
-
-    public void setUser(User user) {
+        this.value = value;
+        this.inputSource = inputSource;
         this.user = user;
     }
 
-    public String getInputSource() {
-        return this.inputSource;
-    }
-
-    public void setInputSource(String inputSource) {
-        this.inputSource = Measurement.this.inputSource;
+    public int getId() {
+        return id;
     }
 
     public MeasureType getMeasureType() {
@@ -62,10 +59,26 @@ public class Measurement {
     }
 
     public String getValue() {
-        return this.value;
+        return value;
     }
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getInputSource() {
+        return inputSource;
+    }
+
+    public void setInputSource(String inputSource) {
+        this.inputSource = inputSource;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

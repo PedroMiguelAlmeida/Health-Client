@@ -39,7 +39,7 @@ public class PatientService {
 
     @GET
     @Path("{username}")
-    public Response getPatientDetails(@PathParam("username") String username) {
+    public Response getPatientDetails(@PathParam("username") String username) throws MyEntityNotFoundException {
         Patient patient = this.patientBean.findPatient(username);
         return patient != null ? Response.ok(this.toDTO(patient)).build() : Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }

@@ -22,7 +22,7 @@ public class PatientBean {
     public void create(String username, String password, String name, String email, Roles role,boolean active) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
         Patient patient = em.find(Patient.class, username);
         if(patient != null)
-            throw new MyEntityExistsException("Student with username: " + username + " already exists");
+            throw new MyEntityExistsException("Patient with username: " + username + " already exists");
 
         try {
             patient = new Patient(username, password, name, email, 0, role,active);
@@ -36,8 +36,11 @@ public class PatientBean {
         return em.createNamedQuery("getAllPatients").getResultList();
     }
 
-    public Patient findPatient(String username) {
-        return em.find(Patient.class, username);
+    public Patient findPatient(String username) throws MyEntityNotFoundException{
+        Patient patient = em.find(Patient.class, username);
+        if(patient == null)
+            throw new MyEntityNotFoundException("User with username: " + username + " not found");
+        return patient;
     }
 
     public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
