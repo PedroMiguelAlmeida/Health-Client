@@ -16,12 +16,12 @@ Content-Type: application/json
 
 
 ###### HealthProfessionals
-GET localhost:8080/projectdae/api/HealthProfessionals
+GET localhost:8080/projectdae/api/healthProfessionals
 ###
-GET localhost:8080/projectdae/api/HealthProfessionals/professionalTeste
+GET localhost:8080/projectdae/api/healthProfessionals/professionalTeste
 
 ###
-POST http://localhost:8080/projectdae/api/HealthProfessionals
+POST http://localhost:8080/projectdae/api/healthProfessionals
 Content-Type: application/json
 
 {
@@ -36,11 +36,11 @@ Content-Type: application/json
 }
 
 ###### Admins
-GET localhost:8080/projectdae/api/Administrators
+GET localhost:8080/projectdae/api/administrators
 ###
-GET localhost:8080/projectdae/api/Administrators/admin1
+GET localhost:8080/projectdae/api/administrators/admin1
 ###
-POST localhost:8080/projectdae/api/Administrators
+POST localhost:8080/projectdae/api/administrators
 Content-Type: application/json
 
 {
