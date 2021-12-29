@@ -44,6 +44,7 @@ public class PatientBean {
     }
 
     public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
+        em.lock(updatePatient,LockModeType.OPTIMISTIC);
         em.merge(updatePatient);
     }
 

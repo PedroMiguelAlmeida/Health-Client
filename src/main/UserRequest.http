@@ -13,8 +13,19 @@ Content-Type: application/json
   "role": "Patient"
 
 }
+###
+PUT http://localhost:8080/projectdae/api/patients/patient1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA4MjY4MTR9.VWV5660fbchiqCezPczhz0Ozwv4FeR394kTJdgK5bpByIrUzeA_LoI0F_yIfWaa9rigVSdEpeRYgFZKw401fo7hqVb78bqCgBMsL2dUeUFbarhV3LN0GlSGuR6Dc3NKEk8b7ry-wr413AOYzm5kNBlWh4eg8P1TbX4MjnLy5pJODFKBKZwhc2v-TA5SPF9NV82GA5ybPSxrbXqynR4ykCp_2NzYqC5I9O0Iom21-bshbzGpNzRN4h0zMd8FafqZwAyl4jEyhLcSTesqTZK9E7fy8GXUl6ggnacDl30eIP1YReXw83cbkOLM4EgjBLljOd2ETRHoe8LmgpRJbVgj8Nw
 
+{
+  "email": "manel@mail.com",
+  "name": "manel",
+  "username": "patient1",
+  "password": "1234",
+  "role": "Patient"
 
+}
 ###### HealthProfessionals
 GET localhost:8080/projectdae/api/healthProfessionals
 ###

@@ -31,7 +31,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         </auth-constraint>
     </security-constraint>
     <!--endregion-->
-    <!--    region get admins details-->
+    <!--    region Get admin-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Get Admins Details</web-resource-name>
@@ -43,7 +43,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         </auth-constraint>
     </security-constraint>
     <!--    endregion-->
-    <!--    region put delete admins-->
+    <!--    region Put Delete admins-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>PUT E DELETE Admins</web-resource-name>
@@ -87,6 +87,20 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         </auth-constraint>
     </security-constraint>
     <!--    endregion-->
+    <!--    region get patient-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>get Patient</web-resource-name>
+            <url-pattern>/api/patients/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+            <role-name>Patient</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
     <!--    region update e delete patients-->
     <security-constraint>
         <web-resource-collection>
@@ -98,6 +112,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         <auth-constraint>
             <role-name>Administrator</role-name>
             <role-name>HealthProfessional</role-name>
+            <role-name>Patient</role-name>
         </auth-constraint>
     </security-constraint>
     <!--    endregion-->
@@ -118,7 +133,45 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         </auth-constraint>
     </security-constraint>
     <!--    endregion-->
-
+    <!--    region GET HealthProfessionals-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>GET ALL HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region GET HealthProfessional-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>GET ALL HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region Put Delete HealthProfessional-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PUT DELETE HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals/*</url-pattern>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--endregion-->
 <!--    HealthProfessional constraints END -->
 
 <!--  USER constraints -->
@@ -135,6 +188,11 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     </security-constraint>
     <!--    endregion-->
 <!-- USER constraints END-->
+
+    <security-role>
+        <description>Patient role</description>
+        <role-name>Patient</role-name>
+    </security-role>
     <security-role>
         <description>HealthProfessional role</description>
         <role-name>HealthProfessional</role-name>
