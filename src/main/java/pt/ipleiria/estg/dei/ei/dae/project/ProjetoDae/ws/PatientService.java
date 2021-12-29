@@ -8,9 +8,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -30,11 +33,33 @@ public class PatientService {
     }
 
     private PatientDTO toDTO(Patient patient) {
-        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive());
+        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive(),patient.getHealthProfessionals());
     }
+
+
+    private HealthProfessionalDTO toDTO(HealthProfessional professional) {
+        return new HealthProfessionalDTO(
+                professional.getUsername(),
+                professional.getPassword(),
+                professional.getName(),
+                professional.getEmail(),
+                professional.getVersion(),
+                professional.getProfession(),
+                professional.isChefe(),
+                professional.getRole(),
+                professional.isActive(),
+                professional.getPatients()
+        );
+    }
+
+
 
     private List<PatientDTO> toDTOs(List<Patient> patients) {
         return (List)patients.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private List<HealthProfessionalDTO> healthProfessionalToDTOs(List<HealthProfessional> professionals) {
+        return professionals.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @GET
@@ -42,6 +67,19 @@ public class PatientService {
     public Response getPatientDetails(@PathParam("username") String username) throws MyEntityNotFoundException {
         Patient patient = this.patientBean.findPatient(username);
         return patient != null ? Response.ok(this.toDTO(patient)).build() : Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+    }
+
+    @GET
+    @Path("{username}/healthprofessionals")
+    public Response getPatientHealthProfessionals(@PathParam("username")String username) throws MyEntityNotFoundException {
+        Patient patient = patientBean.findPatient(username);
+        if (patient !=null){
+            List<HealthProfessionalDTO> dtos = healthProfessionalToDTOs(patient.getHealthProfessionals());
+            return Response.ok(dtos).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND)
+                .entity("ERROR_FINDING_STUDENT")
+                .build();
     }
 
     @PUT
@@ -81,5 +119,13 @@ public class PatientService {
         patientBean.delete(deletePatient);
 
         return Response.ok().build();
+    }
+
+    private PatientDTO toDTONoHealthProfessionals(Patient patient){
+        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive(),patient.getHealthProfessionals());
+    }
+
+    private List<PatientDTO> toDTOsNoHealthProfessionals(List<Patient> patients){
+        return patients.stream().map(this::toDTONoHealthProfessionals).collect(Collectors.toList());
     }
 }

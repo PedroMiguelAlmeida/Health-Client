@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -53,5 +54,30 @@ public class PatientBean {
             deletePatient=em.merge(deletePatient);
         }
         em.remove(deletePatient);
+    }
+
+    public void signHealthProfessionals(Patient patient, HealthProfessional healthProfessionalToSign,String healthProfessionalUsername) throws MyEntityNotFoundException {
+        if (healthProfessionalToSign.getName() == "none"){return;}
+        if (findPatient(patient.getUsername())==null){
+            System.out.println("The patient doesn't exist");
+            return;
+        }
+        if (healthProfessionalToSign.getUsername()!=healthProfessionalUsername){
+            System.out.println("The Health Professional doesn't exist");
+            return;
+        }
+        healthProfessionalToSign.addPatients(getAllPatients(),patient);
+    }
+
+    public void unsignHealthProfessionals(Patient patient,HealthProfessional healthProfessionalToUnsign,String healthProfessionalUsername) throws MyEntityNotFoundException {
+        if (findPatient(patient.getUsername())==null){
+            System.out.println("The patient you are trying to unroll doesn't exist");
+            return;
+        }
+        if (healthProfessionalToUnsign.getUsername()!=healthProfessionalUsername){
+            System.out.println("The health professional you are trying to unroll doesn't exist");
+            return;
+        }
+        for (HealthProfessional healthProfessionals: patient.getHealthProfessionals()){healthProfessionals.removePatients(patient);}
     }
 }

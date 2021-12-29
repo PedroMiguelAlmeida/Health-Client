@@ -26,7 +26,7 @@ public class HealthProfessionalService {
 
     @GET
     @Path("/")
-    public List<HealthProfessionalDTO> getAllStudentsWS() {
+    public List<HealthProfessionalDTO> getAllHealthProfessionalsWS() {
         return toDTOs(healthProfessionalBean.getAllHealthProfessionals());
     }
     // Converts an entity Student to a DTO Student class
@@ -40,12 +40,21 @@ public class HealthProfessionalService {
                 professional.getProfession(),
                 professional.isChefe(),
                 professional.getRole(),
-                professional.isActive()
+                professional.isActive(),
+                professional.getPatients()
         );
+    }
+
+    private PatientDTO toDTO(Patient patient) {
+        return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive(),patient.getHealthProfessionals());
     }
     // converts an entire list of entities into a list of DTOs
     private List<HealthProfessionalDTO> toDTOs(List<HealthProfessional> professionals) {
         return professionals.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private List<PatientDTO> patientToDTOs(List<Patient> patients) {
+        return (List)patients.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @GET
@@ -60,15 +69,13 @@ public class HealthProfessionalService {
     public Response update(@PathParam("username")String username, HealthProfessional healthProfessional) throws MyEntityNotFoundException {
         HealthProfessional updateHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
 
-        updateHealthProfessional.setChefe(healthProfessional.isChefe());
         updateHealthProfessional.setProfession(healthProfessional.getProfession());
         updateHealthProfessional.setName(healthProfessional.getName());
         updateHealthProfessional.setEmail(healthProfessional.getEmail());
-        updateHealthProfessional.setRole(healthProfessional.getRole());
         updateHealthProfessional.setVersion(healthProfessional.getVersion()+1);
         updateHealthProfessional.setActive(healthProfessional.isActive());
 
-        healthProfessionalBean.update(updateHealthProfessional);
+        healthProfessionalBean.update(updateHealthProfessional.getUsername(), updateHealthProfessional.getName(), updateHealthProfessional.getEmail(), updateHealthProfessional.getProfession(), updateHealthProfessional.isActive());
         return Response.ok().build();
     }
 
