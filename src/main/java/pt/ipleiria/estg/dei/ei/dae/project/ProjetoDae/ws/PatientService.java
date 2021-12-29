@@ -75,7 +75,7 @@ public class PatientService {
 
     @DELETE
     @Path("{username}")
-    public Response delete(@PathParam("username")String username){
+    public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
         Patient deletePatient = this.patientBean.findPatient(username);
 
         patientBean.delete(deletePatient);
