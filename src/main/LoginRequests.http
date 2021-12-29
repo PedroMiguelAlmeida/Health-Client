@@ -11,7 +11,7 @@ Accept: application/json
 ### Who am I?
 GET http://localhost:8080/projectdae/api/auth/user
 Accept: application/json
-Authorization: Bearer replace this with generated JWT token
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJwYXRpZW50MSIsImlzcyI6InF1aWNrc3RhcnQtand0LWlzc3VlciIsImF1ZCI6Imp3dC1hdWRpZW5jZSIsImdyb3VwcyI6WyJQYXRpZW50Il0sImV4cCI6MTY0MDgwNTQzN30.fxyzkyFaZC49Qy0nVhLEunJeB3IBibR6r31jGVeBZux9UI4sQZ9ZJ_NUOg81a3hT3mrZyDWlx11t3e5aACTk2bM9Niyf2ZmV8ocx0U23yBR_DLqKCBti9cCk45iMjstuZgDLpy0_50e0WkBQmPi9sMprnQOS5vq5nT-YVaaNcE4qzLumb5j9bjNztG6qTknmI-H5Hw8vuxYnFwAL2uQkmgkliE117_yITQIPwdGG5QZTwOr74RXhen3z2sz9NIGUBhMVKycLn96-SerWyMSYbIvrDGT4vu3govHTaZAK6FkR3FnrwMGEnjN4vpBRUJnV1MYYk_NEO2m5sPwPD-MMxw
 
 ##### Get patients list
 GET http://localhost:8080/projectdae/api/patients
