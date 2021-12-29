@@ -18,10 +18,10 @@ import java.util.List;
         )
 })
 
-@Table(
-        name = "HEALTHPROFESSIONALS",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"USERNAME"})
-)
+//@Table(
+//        name = "HEALTHPROFESSIONALS",
+//        uniqueConstraints = @UniqueConstraint(columnNames = {"USERNAME"})
+//)
 public class HealthProfessional extends HospitalStaff implements Serializable {
     //region attributes
     private String profession;
