@@ -53,7 +53,7 @@ public class User implements Serializable {
         this.email = email;
         this.version = version;
         this.role = role;
-        this.active = active;
+        this.active = true;
     }
 
     public Roles getRole() {

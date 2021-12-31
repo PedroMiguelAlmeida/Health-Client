@@ -39,6 +39,7 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
     }
 //endregion constructors
 
+
     //region getters&setters
     public String getProfession() {
         return profession;
