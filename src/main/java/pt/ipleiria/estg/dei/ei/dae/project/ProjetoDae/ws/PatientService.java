@@ -8,6 +8,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
@@ -46,18 +48,28 @@ public class PatientService {
 
     @PUT
     @Path("{username}")
-    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
-        Patient updatePatient = this.patientBean.findPatient(username);
+    public Response update(@PathParam("username")String username, PatientDTO patientDTO) throws MyEntityNotFoundException {
 
-        updatePatient.setActive(patient.isActive());
-        updatePatient.setMeasurementsList(patient.getMeasurementsList());
-        updatePatient.setEmail(patient.getEmail());
-        updatePatient.setName(patient.getName());
-        updatePatient.setVersion(patient.getVersion()+1);
-        patientBean.updatePatient(updatePatient);
+        System.err.println("HELP ServiceAdmin Username "+ patientDTO.getUsername()+" name: "+patientDTO.getName()+"email: "+patientDTO.getEmail());
+        patientBean.update(username,patientDTO.getName(),patientDTO.getEmail(),patientDTO.isActive());
 
-        return Response.ok().build();
+        return Response.status(Response.Status.OK).build();
     }
+
+//    @PUT
+//    @Path("{username}")
+//    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
+//        Patient updatePatient = this.patientBean.findPatient(username);
+//
+//        updatePatient.setActive(patient.isActive());
+//        updatePatient.setMeasurementsList(patient.getMeasurementsList());
+//        updatePatient.setEmail(patient.getEmail());
+//        updatePatient.setName(patient.getName());
+//        updatePatient.setVersion(patient.getVersion()+1);
+//        patientBean.updatePatient(updatePatient);
+//
+//        return Response.ok().build();
+//    }
 
     @POST
     @Path("/")

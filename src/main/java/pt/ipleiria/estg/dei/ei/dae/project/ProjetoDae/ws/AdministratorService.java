@@ -54,24 +54,6 @@ public class AdministratorService {
         return Response.status(Response.Status.OK).build();
     }
 
-
-//    @PUT
-//    @Path("{username}")
-//    public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
-//        Administrator updateAdministrator = this.administratorBean.findAdministrator(username);
-//
-//        updateAdministrator.setEmail(administrator.getEmail());
-//        updateAdministrator.setActive(administrator.isActive());
-//        updateAdministrator.setRole(administrator.getRole());
-//        updateAdministrator.setName(administrator.getName());
-//        updateAdministrator.setVersion(administrator.getVersion() + 1);
-//
-//
-//
-//        administratorBean.update(updateAdministrator);
-//        return Response.ok().build();
-//    }
-
     @POST
     @Path("/")
     public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException {

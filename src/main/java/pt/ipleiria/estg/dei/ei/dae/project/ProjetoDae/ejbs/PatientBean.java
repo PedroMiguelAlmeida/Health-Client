@@ -43,10 +43,25 @@ public class PatientBean {
         return patient;
     }
 
-    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
-        em.lock(updatePatient,LockModeType.OPTIMISTIC);
-        em.merge(updatePatient);
+
+    public void update(String username ,String name,String email, boolean active) throws MyEntityNotFoundException {
+        Patient patient = em.find(Patient.class, username);
+        if (patient != null) {
+            em.lock(patient, LockModeType.OPTIMISTIC);
+            patient.setActive(active);
+            patient.setEmail(email);
+            patient.setName(name);
+            patient.setUsername(username);
+            patient.setPassword(patient.getPassword());
+        }else{
+            System.err.println("ERROR_FINDING_PATIENT");
+        }
+
     }
+//    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
+//        em.lock(updatePatient,LockModeType.OPTIMISTIC);
+//        em.merge(updatePatient);
+//    }
 
 
     public void delete(Patient deletePatient) {
