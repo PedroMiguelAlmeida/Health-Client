@@ -8,6 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoun
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -26,9 +27,31 @@ public class AdministratorBean {
 
     public Administrator findAdministrator(String username){return (Administrator)this.em.find(Administrator.class,username);}
 
-    public void update(Administrator updateAdministrator) throws MyEntityNotFoundException {
-        em.merge(updateAdministrator);
+
+    public void update(String username ,String name,String email, boolean active) throws MyEntityNotFoundException {
+        Administrator administrator = em.find(Administrator.class, username);
+
+        if (administrator != null) {
+            em.lock(administrator, LockModeType.OPTIMISTIC);
+            administrator.setActive(active);
+            administrator.setEmail(email);
+            administrator.setName(name);
+            administrator.setUsername(username);
+            administrator.setPassword(administrator.getPassword());
+            //System.err.println("Username "+ administrator.getUsername()+" name: "+administrator.getName()+" profession: "+administrator.getProfession()+" email: "+administrator.getEmail());
+            //System.err.println("setVersion "+ administrator.getVersion()+" Role: "+administrator.getRole()+" password: "+administrator.getPassword());
+
+        }else{
+            System.err.println("ERROR_FINDING_ADMIN");
+        }
+
     }
+
+
+//    public void update(Administrator updateAdministrator) throws MyEntityNotFoundException {
+//        em.merge(updateAdministrator);
+//    }
+//
     public void removeAdministrator(String username){
         Administrator administrator = (Administrator)this.em.find(Administrator.class,username);
         if (administrator==null){

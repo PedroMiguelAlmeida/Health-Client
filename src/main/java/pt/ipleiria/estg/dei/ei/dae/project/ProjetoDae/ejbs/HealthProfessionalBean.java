@@ -39,7 +39,6 @@ public class HealthProfessionalBean {
 
         if (healthProfessional != null) {
             em.lock(healthProfessional, LockModeType.OPTIMISTIC);
-            System.err.println("Locked");
             healthProfessional.setProfession(profession);
             healthProfessional.setActive(active);
             //healthProfessional.setVersion(healthProfessional.getVersion()+1);
@@ -47,8 +46,8 @@ public class HealthProfessionalBean {
             healthProfessional.setName(name);
             healthProfessional.setUsername(username);
             healthProfessional.setPassword(healthProfessional.getPassword());
-            System.err.println("Username "+ healthProfessional.getUsername()+" name: "+healthProfessional.getName()+" profession: "+healthProfessional.getProfession()+" email: "+healthProfessional.getEmail());
-            System.err.println("setVersion "+ healthProfessional.getVersion()+" Role: "+healthProfessional.getRole()+" password: "+healthProfessional.getPassword());
+            //System.err.println("Username "+ healthProfessional.getUsername()+" name: "+healthProfessional.getName()+" profession: "+healthProfessional.getProfession()+" email: "+healthProfessional.getEmail());
+            //System.err.println("setVersion "+ healthProfessional.getVersion()+" Role: "+healthProfessional.getRole()+" password: "+healthProfessional.getPassword());
 
         }else{
             System.err.println("ERROR_FINDING_HEALTHPROFESSIONAL");

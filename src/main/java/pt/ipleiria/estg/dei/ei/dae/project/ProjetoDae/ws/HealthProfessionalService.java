@@ -58,29 +58,11 @@ public class HealthProfessionalService {
     @PUT
     @Path("{username}")
     public Response update(@PathParam("username")String username, HealthProfessionalDTO healthProfessionalDTO) throws MyEntityNotFoundException {
-        HealthProfessional updateHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
-
-        System.err.println("HELP Service Username "+ healthProfessionalDTO.getUsername()+" name: "+healthProfessionalDTO.getName()+" profession: "+healthProfessionalDTO.getProfession()+"email: "+healthProfessionalDTO.getEmail());
         healthProfessionalBean.update(username, healthProfessionalDTO.getName(),
                 healthProfessionalDTO.getEmail(), healthProfessionalDTO.getProfession(), healthProfessionalDTO.isActive());
 
         return Response.status(Response.Status.OK).build();
     }
-
-//@PUT
-//@Path("{username}")
-//public Response update(@PathParam("username")String username, HealthProfessional healthProfessional) throws MyEntityNotFoundException {
-//    HealthProfessional updateHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
-//
-//    updateHealthProfessional.setProfession(healthProfessional.getProfession());
-//    updateHealthProfessional.setName(healthProfessional.getName());
-//    updateHealthProfessional.setEmail(healthProfessional.getEmail());
-//    updateHealthProfessional.setVersion(healthProfessional.getVersion()+1);
-//    updateHealthProfessional.setActive(healthProfessional.isActive());
-//
-//    healthProfessionalBean.update(updateHealthProfessional.getUsername(), updateHealthProfessional.getName(), updateHealthProfessional.getEmail(), updateHealthProfessional.getProfession(), updateHealthProfessional.isActive());
-//    return Response.ok().build();
-//}
 
     @POST
     @Path("/")

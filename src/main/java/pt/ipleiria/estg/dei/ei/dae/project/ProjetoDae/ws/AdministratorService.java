@@ -46,20 +46,31 @@ public class AdministratorService {
 
     @PUT
     @Path("{username}")
-    public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
-        Administrator updateAdministrator = this.administratorBean.findAdministrator(username);
+    public Response update(@PathParam("username")String username, AdministratorDTO administratorDTO) throws MyEntityNotFoundException {
 
-        updateAdministrator.setEmail(administrator.getEmail());
-        updateAdministrator.setActive(administrator.isActive());
-        updateAdministrator.setRole(administrator.getRole());
-        updateAdministrator.setName(administrator.getName());
-        updateAdministrator.setVersion(administrator.getVersion() + 1);
+        System.err.println("HELP ServiceAdmin Username "+ administratorDTO.getUsername()+" name: "+administratorDTO.getName()+"email: "+administratorDTO.getEmail());
+        administratorBean.update(username,administratorDTO.getName(),administratorDTO.getEmail(),administratorDTO.isActive());
 
-
-
-        administratorBean.update(updateAdministrator);
-        return Response.ok().build();
+        return Response.status(Response.Status.OK).build();
     }
+
+
+//    @PUT
+//    @Path("{username}")
+//    public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
+//        Administrator updateAdministrator = this.administratorBean.findAdministrator(username);
+//
+//        updateAdministrator.setEmail(administrator.getEmail());
+//        updateAdministrator.setActive(administrator.isActive());
+//        updateAdministrator.setRole(administrator.getRole());
+//        updateAdministrator.setName(administrator.getName());
+//        updateAdministrator.setVersion(administrator.getVersion() + 1);
+//
+//
+//
+//        administratorBean.update(updateAdministrator);
+//        return Response.ok().build();
+//    }
 
     @POST
     @Path("/")
