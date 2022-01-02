@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DELETE;
 
 @Entity
 @NamedQueries({@NamedQuery(
@@ -26,6 +27,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(
         strategy = InheritanceType.SINGLE_TABLE
 )
+
 public class User implements Serializable {
     @Id
     private String username;
@@ -41,7 +43,7 @@ public class User implements Serializable {
     @NotNull
     private Roles role;
     @NotNull
-    private boolean active;
+    private boolean active ;
 
     public User() {
     }

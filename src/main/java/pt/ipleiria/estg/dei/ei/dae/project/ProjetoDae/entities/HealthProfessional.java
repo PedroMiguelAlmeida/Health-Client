@@ -19,6 +19,7 @@ import java.util.List;
                 query = "SELECT s FROM HealthProfessional s ORDER BY s.name" // JPQL
         )
 })
+
 public class HealthProfessional extends HospitalStaff implements Serializable {
     //region attributes
     private String profession;

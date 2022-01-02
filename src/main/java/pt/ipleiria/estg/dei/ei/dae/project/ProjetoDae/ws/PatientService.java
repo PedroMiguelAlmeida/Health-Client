@@ -45,6 +45,13 @@ public class PatientService {
         Patient patient = this.patientBean.findPatient(username);
         return patient != null ? Response.ok(this.toDTO(patient)).build() : Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
+    @GET
+    @Path("/active/{username}")
+    public Response getAativePatient(@PathParam("username") String username) throws MyEntityNotFoundException {
+        System.err.println("Patient SERVICE");
+        List<Patient> patient = this.patientBean.findActivePatient(username);
+        return patient != null ? Response.ok(this.toDTOs(patient)).build() : Response.status(Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+    }
 
     @PUT
     @Path("{username}")
@@ -88,10 +95,14 @@ public class PatientService {
     @DELETE
     @Path("{username}")
     public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
-        Patient deletePatient = this.patientBean.findPatient(username);
-
-        patientBean.delete(deletePatient);
-
+        Patient patient = patientBean.findPatient(username);
+        if(patient != null && patient.isActive() == true){
+            patientBean.delete(username);
+        }else if( patient.isActive() == false){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Status.NOT_FOUND).build();
+        }
         return Response.ok().build();
     }
 }
