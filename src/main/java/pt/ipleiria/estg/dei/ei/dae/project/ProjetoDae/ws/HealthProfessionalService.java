@@ -82,11 +82,15 @@ public class HealthProfessionalService {
 
     @DELETE
     @Path("{username}")
-    public Response delete(@PathParam("username")String username){
-        HealthProfessional deleteHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
-
-        healthProfessionalBean.delete(deleteHealthProfessional);
-
+    public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
+        if(healthProfessional != null && healthProfessional.isActive() == true){
+            healthProfessionalBean.delete(username);
+        }else if( healthProfessional.isActive() == false){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
         return Response.ok().build();
     }
 

@@ -60,10 +60,13 @@ public class AdministratorBean {
         this.em.remove(administrator);
     }
 
-    public void delete(Administrator deleteAdministrator) {
-        if (!em.contains(deleteAdministrator)){
-            deleteAdministrator=em.merge(deleteAdministrator);
+    public void delete(String username) {
+        Administrator administrator = em.find(Administrator.class, username);
+        if (administrator != null) {
+            em.lock(administrator,LockModeType.OPTIMISTIC);
+            administrator.setActive(false);
+        }else {
+            System.err.println("ERROR_DELETING_ADMINISTRATOR");
         }
-        em.remove(deleteAdministrator);
     }
 }

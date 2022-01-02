@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -71,11 +72,15 @@ public class AdministratorService {
 
     @DELETE
     @Path("{username}")
-    public Response delete(@PathParam("username")String username){
-        Administrator deleteAdministrator = this.administratorBean.findAdministrator(username);
-
-        administratorBean.delete(deleteAdministrator);
-
-       return Response.ok().build();
+    public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
+        Administrator administrator = administratorBean.findAdministrator(username);
+        if(administrator != null && administrator.isActive() == true){
+            administratorBean.delete(username);
+        }else if( administrator.isActive() == false){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
     }
 }

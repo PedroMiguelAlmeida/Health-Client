@@ -62,11 +62,14 @@ public class HealthProfessionalBean {
 
     public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
 
-    public void delete(HealthProfessional deleteHealthProfessional) {
-        if (!em.contains(deleteHealthProfessional)){
-            deleteHealthProfessional=em.merge(deleteHealthProfessional);
+    public void delete(String username) {
+        HealthProfessional healthProfessional = em.find(HealthProfessional.class, username);
+        if (healthProfessional != null) {
+            em.lock(healthProfessional,LockModeType.OPTIMISTIC);
+            healthProfessional.setActive(false);
+        }else {
+            System.err.println("ERROR_DELETING_PROFESSIONAL");
         }
-        em.remove(deleteHealthProfessional);
     }
 
 }
