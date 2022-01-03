@@ -75,6 +75,7 @@ public class ConfigBean {
             this.prescriptionBean.create("professional2", "patient2", measurements, treatment, "This is a description");
 
 
+
         } catch (Exception e) {
             logger.log(Level.SEVERE, e.getMessage());
         }

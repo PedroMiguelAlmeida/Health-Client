@@ -32,19 +32,19 @@ public class Measurement implements Serializable {
     @ManyToOne
     private Patient patient;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "measurements")
     private List<Prescription> prescriptions;
 
     public Measurement() {
-
+        this.prescriptions = new ArrayList<>();
     }
 
-    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient, List<Prescription> prescriptions) {
+    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient) {
         this.measureType = measureType;
         this.value = value;
         this.inputSource = inputSource;
         this.patient = patient;
-        this.prescriptions = prescriptions;
+        this.prescriptions = new ArrayList<>();
     }
 
     public int getId() {
@@ -96,7 +96,12 @@ public class Measurement implements Serializable {
     }
 
     public void addPrescription(Prescription prescription) {
-        this.prescriptions.add(prescription);
+        if(this.prescriptions.add(prescription)){
+            System.out.println("prescription added to measurement");
+        }else{
+            System.err.println("prescription NOT added to measurement");
+        }
+
     }
 
     public void removePrescription(Prescription prescription) {

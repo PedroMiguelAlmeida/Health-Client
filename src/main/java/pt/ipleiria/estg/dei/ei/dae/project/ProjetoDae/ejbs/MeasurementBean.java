@@ -31,7 +31,7 @@ public class MeasurementBean {
             Patient patient = patientBean.findPatient(username);
             MeasureType measureType = measureTypeBean.findMeasureType(measureTypeId);
 
-            Measurement measurement = new Measurement(measureType, value, inputSource, patient, null);
+            Measurement measurement = new Measurement(measureType, value, inputSource, patient);
             em.persist(measurement);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
