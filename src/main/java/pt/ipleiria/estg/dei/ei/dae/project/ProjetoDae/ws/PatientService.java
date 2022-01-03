@@ -4,6 +4,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -12,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.EmailDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
@@ -25,6 +27,8 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoun
 public class PatientService {
     @EJB
     private PatientBean patientBean;
+    @EJB
+    private EmailBean emailBean;
 
     @GET
     @Path("/")
@@ -107,16 +111,16 @@ public class PatientService {
         return Response.ok().build();
     }
 
-//    @POST
-//    @Path("/{username}/email/send")
-//    public Response sendEmail(@PathParam("username") String username, EmailDTO email)
-//            throws MyEntityNotFoundException, MessagingException {
-//        Student student = studentBean.findStudent(username);
-//        if (student == null) {
-//            throw new MyEntityNotFoundException("Student with username '" + username
-//                    + "' not found in our records.");
-//        }
-//        emailBean.send(student.getEmail(), email.getSubject(), email.getMessage());
-//        return Response.status(Response.Status.OK).entity("E-mail sent").build();
-//    }
+    @POST
+    @Path("/{username}/email/send")
+    public Response sendEmail(@PathParam("username") String username, EmailDTO email)
+            throws MyEntityNotFoundException, MessagingException {
+        Patient patient = patientBean.findPatient(username);
+        if (patient == null) {
+            throw new MyEntityNotFoundException("Patient with username '" + username
+                    + "' not found in our records.");
+        }
+        emailBean.send(patient.getEmail(), email.getSubject(), email.getMessage());
+        return Response.status(Response.Status.OK).entity("E-mail sent").build();
+    }
 }
