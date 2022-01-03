@@ -107,7 +107,7 @@ public class HealthProfessionalService {
 
     @GET
     @Path("{username}/patients")
-    public Response getPatientHealthProfessionals(@PathParam("username")String username) throws MyEntityNotFoundException {
+    public Response getHealthProfessionalsPatient(@PathParam("username")String username) throws MyEntityNotFoundException {
         HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
         if (healthProfessional !=null){
             List<PatientDTO> dtos = patientToDTOs(healthProfessional.getPatients());
