@@ -69,22 +69,28 @@ public class HealthProfessionalBean {
             System.out.println("The Patient doesn't exist");
             return;
         }
-        if(!healthProfessional.getPatients().contains(patient)){
+        if(!healthProfessional.getPatients().contains(patient)) {
             healthProfessional.addPatient(patient);
+        }
+        if (!patient.getHealthProfessionals().contains(healthProfessional)){
             patient.addHealthProfessional(healthProfessional);
         }
     }
 
-    public void unsignPatients(HealthProfessional healthProfessional,Patient patientToUnsign,String patientUsername) throws MyEntityNotFoundException {
-        if (findHealthProfessional(healthProfessional.getUsername())==null){
-            System.out.println("The health professional you are trying to unroll doesn't exist");
+    public void unsignPatients(String healthProfessionalUsername,String patientUsername) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
+        if (healthProfessional == null){
+            System.out.println("The health professional you are trying to unsign doesn't exist");
             return;
         }
-        if (patientToUnsign.getUsername()!=patientUsername){
-            System.out.println("The patient  you are trying to unroll doesn't exist");
+        Patient patient = em.find(Patient.class,patientUsername);
+        if (patient == null){
+            System.out.println("The patient  you are trying to unsign doesn't exist");
             return;
         }
         for (Patient patients: healthProfessional.getPatients()){patients.removeHealthProfessionals(healthProfessional);}
+        for (HealthProfessional healthProfessionals: patient.getHealthProfessionals()){healthProfessionals.removePatients(patient);}
+
     }
 
 

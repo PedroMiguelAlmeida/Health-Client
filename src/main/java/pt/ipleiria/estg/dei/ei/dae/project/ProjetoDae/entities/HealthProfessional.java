@@ -89,6 +89,9 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
         patients.remove(patient);
     }
 
+    public void removePatients(Patient patient){patients.removeIf(patient::equals);}
+
+
 
 }
 
