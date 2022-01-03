@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 
+import org.jboss.resteasy.core.PathParamInjector;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
@@ -31,9 +32,6 @@ public class HealthProfessionalBean {
         }
     }
 
-//    public void update(HealthProfessional updateHealthProfessional) throws MyEntityNotFoundException {
-//        em.merge(updateHealthProfessional);
-//    }
     public void update(String username ,String name,String email,String profession, boolean active) throws MyEntityNotFoundException {
         HealthProfessional healthProfessional = em.find(HealthProfessional.class, username);
 
@@ -41,18 +39,14 @@ public class HealthProfessionalBean {
             em.lock(healthProfessional, LockModeType.OPTIMISTIC);
             healthProfessional.setProfession(profession);
             healthProfessional.setActive(active);
-            //healthProfessional.setVersion(healthProfessional.getVersion()+1);
             healthProfessional.setEmail(email);
             healthProfessional.setName(name);
             healthProfessional.setUsername(username);
             healthProfessional.setPassword(healthProfessional.getPassword());
-            //System.err.println("Username "+ healthProfessional.getUsername()+" name: "+healthProfessional.getName()+" profession: "+healthProfessional.getProfession()+" email: "+healthProfessional.getEmail());
-            //System.err.println("setVersion "+ healthProfessional.getVersion()+" Role: "+healthProfessional.getRole()+" password: "+healthProfessional.getPassword());
 
         }else{
             System.err.println("ERROR_FINDING_HEALTHPROFESSIONAL");
         }
-
     }
 
 
@@ -76,5 +70,45 @@ public class HealthProfessionalBean {
             System.err.println("ERROR_DELETING_PROFESSIONAL");
         }
     }
+
+    public void signPatients(String healthProfessionalUsername, String patientUsername) {
+        HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
+        if (healthProfessional == null){
+            System.out.println("The health professional doesn't exist");
+            return;
+        }
+        Patient patient = em.find(Patient.class,patientUsername);
+        if (patient == null){
+            System.out.println("The Patient doesn't exist");
+            return;
+        }
+        if(!healthProfessional.getPatients().contains(patient)) {
+            healthProfessional.addPatient(patient);
+        }
+        if (!patient.getHealthProfessionals().contains(healthProfessional)){
+            patient.addHealthProfessional(healthProfessional);
+        }
+    }
+
+    public void unsignPatients(String healthProfessionalUsername,String patientUsername) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
+        if (healthProfessional == null){
+            System.out.println("The health professional you are trying to unsign doesn't exist");
+            return;
+        }
+        Patient patient = em.find(Patient.class,patientUsername);
+        if (patient == null){
+            System.out.println("The patient  you are trying to unsign doesn't exist");
+            return;
+        }
+
+        if(healthProfessional.getPatients().contains(patient)) {
+            healthProfessional.removePatient(patient);
+        }
+        if (patient.getHealthProfessionals().contains(healthProfessional)){
+            patient.removeHealthProfessionals(healthProfessional);
+        }
+    }
+
 
 }

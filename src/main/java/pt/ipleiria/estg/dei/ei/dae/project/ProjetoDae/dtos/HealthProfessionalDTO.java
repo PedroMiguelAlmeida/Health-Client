@@ -1,6 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+
+import java.util.List;
 
 public class HealthProfessionalDTO {
     private String username;
@@ -12,10 +15,11 @@ public class HealthProfessionalDTO {
     private boolean chefe;
     private Roles role;
     private boolean active;
+    private List<PatientDTO> patientDTOList;
 
     public HealthProfessionalDTO(){}
 
-    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role,boolean active){
+    public HealthProfessionalDTO(String username, String password, String name, String email, int version, String profession, boolean chefe, Roles role, boolean active, List<Patient> patients){
         this.username = username;
         this.password = password;
         this.name = name;
@@ -25,6 +29,15 @@ public class HealthProfessionalDTO {
         this.chefe = chefe;
         this.role = role;
         this.active = active;
+        this.patientDTOList = getPatientDTOList();
+    }
+
+    public List<PatientDTO> getPatientDTOList() {
+        return patientDTOList;
+    }
+
+    public void setPatientDTOList(List<PatientDTO> patientDTOList) {
+        this.patientDTOList = patientDTOList;
     }
 
     public Roles getRole() {

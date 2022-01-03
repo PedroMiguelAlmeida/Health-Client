@@ -51,6 +51,7 @@ public class ConfigBean {
             this.healthProfessionalBean.create("professional3","1234","professional3","professional3@gmail.com",0,"Nurse",false,Roles.HealthProfessional,true);
             this.administratorBean.create("admin1","1234","admin1","admin1@mail.pt",0,Roles.Admin,true);
             this.administratorBean.create("admin2","1234","admin2","admin2@mail.pt",0,Roles.Admin,true);
+            this.healthProfessionalBean.signPatients("professional1","patient1");
 
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QuantitativeMeasureTypes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             this.quantitativeMeasureTypeBean.create("Temperature", false, 1, 100, true);
