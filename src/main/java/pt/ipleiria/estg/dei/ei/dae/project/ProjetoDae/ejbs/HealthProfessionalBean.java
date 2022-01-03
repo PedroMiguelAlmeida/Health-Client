@@ -71,7 +71,7 @@ public class HealthProfessionalBean {
         }
     }
 
-    public void signPatients(String healthProfessionalUsername, String patientUsername) {
+    public void signPatients(String healthProfessionalUsername, String patientUsername) throws MyEntityNotFoundException {
         HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
         if (healthProfessional == null){
             System.out.println("The health professional doesn't exist");
