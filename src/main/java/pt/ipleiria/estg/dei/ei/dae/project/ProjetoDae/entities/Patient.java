@@ -63,5 +63,8 @@ public class Patient extends User implements Serializable {
 
     }
 
-    public void removeHealthProfessionals(HealthProfessional healthProfessional){healthProfessionals.removeIf(healthProfessional::equals);}
+    public void removeHealthProfessionals(HealthProfessional healthProfessional){
+        healthProfessionals.remove(healthProfessional);
+        //        healthProfessionals.removeIf(healthProfessional::equals);
+    }
 }

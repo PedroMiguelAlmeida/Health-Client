@@ -88,9 +88,13 @@ public class HealthProfessionalBean {
             System.out.println("The patient  you are trying to unsign doesn't exist");
             return;
         }
-        for (Patient patients: healthProfessional.getPatients()){patients.removeHealthProfessionals(healthProfessional);}
-        for (HealthProfessional healthProfessionals: patient.getHealthProfessionals()){healthProfessionals.removePatients(patient);}
 
+        if(healthProfessional.getPatients().contains(patient)) {
+            healthProfessional.removePatient(patient);
+        }
+        if (patient.getHealthProfessionals().contains(healthProfessional)){
+            patient.removeHealthProfessionals(healthProfessional);
+        }
     }
 
 
