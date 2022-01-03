@@ -9,13 +9,10 @@ import javax.persistence.*;
 
 @Table(
         name = "MEASUREMENTS"
-//        uniqueConstraints = {@UniqueConstraint(
-//                columnNames = {"ID"}
-//        )}
 )
 @NamedQueries({@NamedQuery(
         name = "getAllMeasurements",
-        query = "SELECT m FROM Measurement m ORDER BY m.user.username"
+        query = "SELECT m FROM Measurement m"
 )})
 @Entity
 public class Measurement implements Serializable {
@@ -33,21 +30,29 @@ public class Measurement implements Serializable {
     private String inputSource;
 
     @ManyToOne
-    private User user;
+    private Patient patient;
+
+    @ManyToOne
+    private Prescription prescription;
 
     public Measurement() {
 
     }
 
-    public Measurement(MeasureType measureType, String value, String inputSource, User user) {
+    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient, Prescription prescription) {
         this.measureType = measureType;
         this.value = value;
         this.inputSource = inputSource;
-        this.user = user;
+        this.patient = patient;
+        this.prescription = prescription;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public MeasureType getMeasureType() {
@@ -74,15 +79,19 @@ public class Measurement implements Serializable {
         this.inputSource = inputSource;
     }
 
-    public User getUser() {
-        return user;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
-    public String toString() {
-        return "ID - "+getId();
+    public Prescription getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(Prescription prescription) {
+        this.prescription = prescription;
     }
 }

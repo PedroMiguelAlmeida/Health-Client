@@ -1,11 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
-import io.smallrye.common.constraint.NotNull;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.MeasureType;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.User;
-
-import javax.persistence.ManyToOne;
-
 public class MeasurementDTO {
 
     private int id;
@@ -27,6 +21,10 @@ public class MeasurementDTO {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMeasureTypeId() {

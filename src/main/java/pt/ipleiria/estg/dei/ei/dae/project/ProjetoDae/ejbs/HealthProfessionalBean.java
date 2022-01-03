@@ -37,7 +37,12 @@ public class HealthProfessionalBean {
         return (List<HealthProfessional>) em.createNamedQuery("getAllHealthProfessionals").getResultList();
     }
 
-    public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
+    public HealthProfessional findHealthProfessional(String username) throws MyEntityNotFoundException{
+        HealthProfessional healthProfessional = this.em.find(HealthProfessional.class,username);
+        if(healthProfessional == null)
+            throw new MyEntityNotFoundException("User with username: " + username + " not found");
+        return healthProfessional;
+    }
 
 
 }

@@ -1,10 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.MeasureType;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.User;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.*;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -23,17 +20,18 @@ public class MeasurementBean {
     EntityManager em;
 
     @EJB
-    UserBean userBean;
+    PatientBean patientBean;
 
     @EJB
     MeasureTypeBean measureTypeBean;
 
+
     public void create(int measureTypeId, String value, String inputSource, String username) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
         try {
-            User user = userBean.findUser(username);
+            Patient patient = patientBean.findPatient(username);
             MeasureType measureType = measureTypeBean.findMeasureType(measureTypeId);
 
-            Measurement measurement = new Measurement(measureType, value, inputSource, user);
+            Measurement measurement = new Measurement(measureType, value, inputSource, patient, null);
             em.persist(measurement);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
@@ -54,7 +52,7 @@ public class MeasurementBean {
     public void updateMeasurement(Measurement updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
         try {
             Measurement measurement = findMeasurement(updatedMeasurement.getId());
-            User user = userBean.findUser(updatedMeasurement.getUser().getUsername());
+            Patient patient = patientBean.findPatient(updatedMeasurement.getPatient().getUsername());
             MeasureType measureType = measureTypeBean.findMeasureType(updatedMeasurement.getMeasureType().getId());
 
             em.lock(updatedMeasurement, LockModeType.OPTIMISTIC);

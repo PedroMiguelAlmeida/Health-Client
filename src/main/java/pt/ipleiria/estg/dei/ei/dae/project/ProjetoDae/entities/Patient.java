@@ -11,17 +11,19 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+
 @NamedQueries({@NamedQuery(
         name = "getAllPatients",
         query = "SELECT s FROM Patient s ORDER BY s.name"
 )})
 @Entity
 public class Patient extends User implements Serializable {
-    @OneToMany(
-            mappedBy = "user",
-            cascade = {CascadeType.REMOVE}
-    )
+
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})
     private List<Measurement> measurements;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.REMOVE)
+    private List<Prescription> prescriptions;
 
     public Patient() {
     }
