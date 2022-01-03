@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientDTO {
@@ -24,7 +25,7 @@ public class PatientDTO {
         this.email = email;
         this.role = role;
         this.active = active;
-        this.healthProfessionalDTOList =getHealthProfessionalDTOList();
+        this.healthProfessionalDTOList = new ArrayList<>();
     }
 
     public List<HealthProfessionalDTO> getHealthProfessionalDTOList() {
