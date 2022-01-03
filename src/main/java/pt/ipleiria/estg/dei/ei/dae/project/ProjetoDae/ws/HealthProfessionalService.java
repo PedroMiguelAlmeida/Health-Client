@@ -105,4 +105,28 @@ public class HealthProfessionalService {
         return Response.ok().build();
     }
 
+    @PUT
+    @Path("{username}/addPatientToList")
+    public Response updatePatientList(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
+        if (patient == null){
+            throw new MyEntityNotFoundException("Patient was not found");
+        }
+        healthProfessionalBean.signPatients(healthProfessional,patient, patient.getUsername());
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("{username}/removePatientsFromList")
+    public Response removePatientsList(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
+        if (patient == null){
+            throw new MyEntityNotFoundException("Patient was not found");
+        }
+        healthProfessionalBean.unsignPatients(healthProfessional,patient, healthProfessional.getUsername());
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+
+
 }

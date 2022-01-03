@@ -81,4 +81,6 @@ public class HealthProfessionalBean {
         }
         for (Patient patients: healthProfessional.getPatients()){patients.removeHealthProfessionals(healthProfessional);}
     }
+
+
 }

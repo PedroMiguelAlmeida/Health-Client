@@ -128,4 +128,28 @@ public class PatientService {
     private List<PatientDTO> toDTOsNoHealthProfessionals(List<Patient> patients){
         return patients.stream().map(this::toDTONoHealthProfessionals).collect(Collectors.toList());
     }
+
+    @PUT
+    @Path("{username}/addHealthProfessionalToList")
+    public Response updateHealthProfessionalList(@PathParam("username")String username,HealthProfessional healthProfessional) throws MyEntityNotFoundException {
+        Patient patient = patientBean.findPatient(username);
+        if (patient == null){
+            throw new MyEntityNotFoundException("Patient was not found");
+        }
+        patientBean.signHealthProfessionals(patient,healthProfessional, healthProfessional.getUsername());
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("{username}/removeHealthProfessionalFromList")
+    public Response removeHealthProfessionalList(@PathParam("username")String username,HealthProfessional healthProfessional) throws MyEntityNotFoundException {
+        Patient patient = patientBean.findPatient(username);
+        if (patient == null){
+            throw new MyEntityNotFoundException("Patient was not found");
+        }
+        patientBean.unsignHealthProfessionals(patient,healthProfessional, healthProfessional.getUsername());
+        return Response.status(Response.Status.CREATED).build();
+    }
+
+    
 }
