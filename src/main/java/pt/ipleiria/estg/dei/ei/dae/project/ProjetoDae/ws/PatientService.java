@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.EmailDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
@@ -105,4 +106,17 @@ public class PatientService {
         }
         return Response.ok().build();
     }
+
+//    @POST
+//    @Path("/{username}/email/send")
+//    public Response sendEmail(@PathParam("username") String username, EmailDTO email)
+//            throws MyEntityNotFoundException, MessagingException {
+//        Student student = studentBean.findStudent(username);
+//        if (student == null) {
+//            throw new MyEntityNotFoundException("Student with username '" + username
+//                    + "' not found in our records.");
+//        }
+//        emailBean.send(student.getEmail(), email.getSubject(), email.getMessage());
+//        return Response.status(Response.Status.OK).entity("E-mail sent").build();
+//    }
 }
