@@ -5,9 +5,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 
-import javax.persistence.Entity;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
@@ -25,9 +23,12 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
     private String profession;
     private boolean chefe;
 
+    @OneToMany(mappedBy = "healthProfessional", cascade = CascadeType.REMOVE)
+    private List<Prescription> prescriptions;
 
-//    private List<Patient> patients;
-//endregion attributes
+
+    //    private List<Patient> patients;
+    //endregion attributes
 
     //region constructors
     public HealthProfessional() {

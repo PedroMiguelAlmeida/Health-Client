@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -32,6 +33,9 @@ public class ConfigBean {
     @EJB
     MeasurementBean measurementBean;
 
+    @EJB
+    PrescriptionBean prescriptionBean;
+
 
     @PostConstruct
     private void populateDB() {
@@ -62,6 +66,18 @@ public class ConfigBean {
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating Measurements>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
             this.measurementBean.create(1, "test", "test", "patient1");
             this.measurementBean.create(3, "Medium", "test", "patient2");
+
+            System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating Prescriptions>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+            List<String> treatment = new ArrayList<>();
+            values.add("treatment1");
+            values.add("treatment2");
+            values.add("treatment3");
+            List<Measurement> measurements = new ArrayList<>();
+            measurements.add(measurementBean.findMeasurement(5));
+            measurements.add(measurementBean.findMeasurement(6));
+            values.add("treatment1");
+            this.prescriptionBean.create("professional1", "patient1", measurements, treatment, "This is a description");
+            this.prescriptionBean.create("professional2", "patient2", measurements, treatment, "This is a description");
 
 
         } catch (Exception e) {
