@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.HealthProfessionalBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -14,7 +15,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("HealthProfessionals")
+@Path("healthProfessionals")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class HealthProfessionalService {
@@ -54,19 +55,11 @@ public class HealthProfessionalService {
 
     @PUT
     @Path("{username}")
-    public Response update(@PathParam("username")String username, HealthProfessional healthProfessional) throws MyEntityNotFoundException {
-        HealthProfessional updateHealthProfessional = this.healthProfessionalBean.findHealthProfessional(username);
+    public Response update(@PathParam("username")String username, HealthProfessionalDTO healthProfessionalDTO) throws MyEntityNotFoundException {
+        healthProfessionalBean.update(username, healthProfessionalDTO.getName(),
+                healthProfessionalDTO.getEmail(), healthProfessionalDTO.getProfession(), healthProfessionalDTO.isActive());
 
-        updateHealthProfessional.setChefe(healthProfessional.isChefe());
-        updateHealthProfessional.setProfession(healthProfessional.getProfession());
-        updateHealthProfessional.setName(healthProfessional.getName());
-        updateHealthProfessional.setEmail(healthProfessional.getEmail());
-        updateHealthProfessional.setRole(healthProfessional.getRole());
-        updateHealthProfessional.setVersion(healthProfessional.getVersion()+1);
-        updateHealthProfessional.setActive(healthProfessional.isActive());
-
-        healthProfessionalBean.update(healthProfessional);
-        return Response.ok().build();
+        return Response.status(Response.Status.OK).build();
     }
 
     @POST
@@ -85,6 +78,18 @@ public class HealthProfessionalService {
         return Response.status(Response.Status.CREATED).build();
     }
 
-
+    @DELETE
+    @Path("{username}")
+    public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
+        if(healthProfessional != null && healthProfessional.isActive() == true){
+            healthProfessionalBean.delete(username);
+        }else if( healthProfessional.isActive() == false){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
+    }
 
 }

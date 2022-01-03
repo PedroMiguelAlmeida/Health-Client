@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
         query = "SELECT s FROM Patient s ORDER BY s.name"
 )})
 @Entity
+
 public class Patient extends User implements Serializable {
 
     @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE})

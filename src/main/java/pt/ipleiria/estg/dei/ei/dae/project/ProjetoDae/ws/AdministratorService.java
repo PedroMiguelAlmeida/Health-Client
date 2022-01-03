@@ -5,6 +5,8 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -17,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-@Path("Administrators")
+@Path("administrators")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class AdministratorService {
@@ -45,19 +47,12 @@ public class AdministratorService {
 
     @PUT
     @Path("{username}")
-    public Response update(@PathParam("username")String username, Administrator administrator) throws MyEntityNotFoundException {
-        Administrator updateAdministrator = this.administratorBean.findAdministrator(username);
+    public Response update(@PathParam("username")String username, AdministratorDTO administratorDTO) throws MyEntityNotFoundException {
 
-        updateAdministrator.setEmail(administrator.getEmail());
-        updateAdministrator.setActive(administrator.isActive());
-        updateAdministrator.setRole(administrator.getRole());
-        updateAdministrator.setName(administrator.getName());
-        updateAdministrator.setVersion(administrator.getVersion() + 1);
+        System.err.println("HELP ServiceAdmin Username "+ administratorDTO.getUsername()+" name: "+administratorDTO.getName()+"email: "+administratorDTO.getEmail());
+        administratorBean.update(username,administratorDTO.getName(),administratorDTO.getEmail(),administratorDTO.isActive());
 
-
-
-        administratorBean.update(administrator);
-        return Response.ok().build();
+        return Response.status(Response.Status.OK).build();
     }
 
     @POST
@@ -75,9 +70,17 @@ public class AdministratorService {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    //@DELETE
-    //@Path("{username}")
-    //public Response delete(@PathParam("username")String username){
-     //   Administrator deleteAdministrator =
-    //}
+    @DELETE
+    @Path("{username}")
+    public Response delete(@PathParam("username")String username) throws MyEntityNotFoundException {
+        Administrator administrator = administratorBean.findAdministrator(username);
+        if(administrator != null && administrator.isActive() == true){
+            administratorBean.delete(username);
+        }else if( administrator.isActive() == false){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
+    }
 }

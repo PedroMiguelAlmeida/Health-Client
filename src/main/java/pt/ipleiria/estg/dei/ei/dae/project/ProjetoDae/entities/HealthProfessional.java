@@ -17,6 +17,7 @@ import java.util.List;
                 query = "SELECT s FROM HealthProfessional s ORDER BY s.name" // JPQL
         )
 })
+
 public class HealthProfessional extends HospitalStaff implements Serializable {
     //region attributes
     private String profession;
@@ -39,6 +40,7 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
         this.chefe = chefe;
     }
 //endregion constructors
+
 
     //region getters&setters
     public String getProfession() {
