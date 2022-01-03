@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Table(
-        name = "MEASUREMENTS"
+        name = "MEASUREMENT"
 )
 @NamedQueries({@NamedQuery(
         name = "getAllMeasurements",
@@ -32,19 +32,19 @@ public class Measurement implements Serializable {
     @ManyToOne
     private Patient patient;
 
-    @ManyToOne
-    private Prescription prescription;
+    @ManyToMany(mappedBy = "students")
+    private List<Prescription> prescriptions;
 
     public Measurement() {
 
     }
 
-    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient, Prescription prescription) {
+    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient, List<Prescription> prescriptions) {
         this.measureType = measureType;
         this.value = value;
         this.inputSource = inputSource;
         this.patient = patient;
-        this.prescription = prescription;
+        this.prescriptions = prescriptions;
     }
 
     public int getId() {
@@ -87,11 +87,19 @@ public class Measurement implements Serializable {
         this.patient = patient;
     }
 
-    public Prescription getPrescription() {
-        return prescription;
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
     }
 
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
+
+    public void addPrescription(Prescription prescription) {
+        this.prescriptions.add(prescription);
+    }
+
+    public void removePrescription(Prescription prescription) {
+        this.prescriptions.remove(prescription);
     }
 }

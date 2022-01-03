@@ -18,13 +18,13 @@ Content-Type: application/json
   "decimal": 0
 }
 ###1
+PUT http://localhost:8080/projectdae/api/qualitativeMeasureTypes/1
+Content-Type: application/json
 
-GET http://localhost:8080/projectdae/api/qualitativeMeasureType/subjects/1
-Accept: application/json
-###
-GET http://localhost:8080/projectdae/api/qualitativeMeasureType/user1
-Accept: application/json
-
-###
-GET http://localhost:8080/projectdae/api/qualitativeMeasureType/user1/subjects
-Accept: application/json
+{
+  "name": "Temperature",
+  "multiple": 1,
+  "min": 2,
+  "max": 99,
+  "decimal": 0
+}

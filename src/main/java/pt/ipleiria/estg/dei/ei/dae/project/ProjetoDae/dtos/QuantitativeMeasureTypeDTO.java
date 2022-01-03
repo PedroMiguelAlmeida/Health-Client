@@ -1,6 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
 public class QuantitativeMeasureTypeDTO {
+
+    private int id;
     private String name;
     private boolean multiple;
     private double min;
@@ -10,12 +12,21 @@ public class QuantitativeMeasureTypeDTO {
     public QuantitativeMeasureTypeDTO() {
     }
 
-    public QuantitativeMeasureTypeDTO(String name, boolean multiple, double min, double max, boolean decimal) {
+    public QuantitativeMeasureTypeDTO(int id, String name, boolean multiple, double min, double max, boolean decimal) {
+        this.id = id;
         this.name = name;
         this.multiple = multiple;
         this.min = min;
         this.max = max;
         this.decimal = decimal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -47,17 +47,20 @@ public class QuantitativeMeasureTypeBean {
         return em.find(QuantitativeMeasureType.class, id);
     }
 
-    public void updateQuantitativeMeasureType(String name, Boolean multiple, double min, double max, boolean decimal) throws MyEntityNotFoundException {
-        QuantitativeMeasureType quantitativeMeasureType = em.find(QuantitativeMeasureType.class, name);
-        if (quantitativeMeasureType != null) {
-            this.em.lock(quantitativeMeasureType, LockModeType.OPTIMISTIC);
-            quantitativeMeasureType.setName(name);
-            quantitativeMeasureType.setMultiple(multiple);
-            quantitativeMeasureType.setMin(min);
-            quantitativeMeasureType.setMax(max);
-            quantitativeMeasureType.setDecimal(decimal);
+    public void updateQuantitativeMeasureType(int id, String name, Boolean multiple, double min, double max, boolean decimal) throws MyEntityNotFoundException, MyConstraintViolationException {
+        try {
+            QuantitativeMeasureType quantitativeMeasureType = findQuantitativeMeasureType(id);
+            if (quantitativeMeasureType != null) {
+                this.em.lock(quantitativeMeasureType, LockModeType.OPTIMISTIC);
+                quantitativeMeasureType.setName(name);
+                quantitativeMeasureType.setMultiple(multiple);
+                quantitativeMeasureType.setMin(min);
+                quantitativeMeasureType.setMax(max);
+                quantitativeMeasureType.setDecimal(decimal);
+            }
+        }catch (ConstraintViolationException e) {
+            throw new MyConstraintViolationException(e);
         }
-        throw new MyEntityNotFoundException("QuantitativeMeasureType with name " + name + " not found.");
     }
 
     public void removeQuantitativeMeasureType(String name) throws MyEntityNotFoundException {

@@ -46,7 +46,6 @@ public class MeasurementService {
     @Path("{id}")
     public Response update(@PathParam("id")int id,Measurement updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
         Measurement measurement = this.measurementBean.findMeasurement(id);
-        measurement.setValue(updatedMeasurement.getValue());
 
         updatedMeasurement.setId(id);
         measurementBean.updateMeasurement(updatedMeasurement);

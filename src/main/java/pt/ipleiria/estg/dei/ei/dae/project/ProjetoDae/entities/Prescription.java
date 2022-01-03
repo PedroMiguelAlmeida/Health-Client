@@ -27,7 +27,10 @@ public class Prescription implements Serializable {
     @NotNull @ManyToOne @JoinColumn(name = "PATIENT_USERNAME")
     private Patient patient;
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.REMOVE)
+    @ManyToMany
+    @JoinTable(name = "SUBJECTS_STUDENTS",
+            joinColumns = @JoinColumn(name = "SUBJECT_CODE", referencedColumnName = "CODE"),
+            inverseJoinColumns = @JoinColumn(name = "STUDENT_USERNAME", referencedColumnName = "USERNAME"))
     private List<Measurement> measurements;
 
     @Nullable @ElementCollection

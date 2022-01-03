@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,10 +57,7 @@ public class ConfigBean {
             this.quantitativeMeasureTypeBean.create("Altura", false, 1, 999, true);
 
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating QualitativeMeasureTypes>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            List<String> values = new ArrayList<>();
-            values.add("High");
-            values.add("Medium");
-            values.add("Low");
+            List<String> values = Arrays.asList("High", "Medium", "Low");
             this.qualitativeMeasureTypeBean.create("Temperature", false, values);
             this.qualitativeMeasureTypeBean.create("Altura", false, values);
 
@@ -68,14 +66,11 @@ public class ConfigBean {
             this.measurementBean.create(3, "Medium", "test", "patient2");
 
             System.out.println("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<Creating Prescriptions>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-            List<String> treatment = new ArrayList<>();
-            values.add("treatment1");
-            values.add("treatment2");
-            values.add("treatment3");
+            List<String> treatment = Arrays.asList("treatment1", "treatment2", "treatment3");
             List<Measurement> measurements = new ArrayList<>();
             measurements.add(measurementBean.findMeasurement(5));
             measurements.add(measurementBean.findMeasurement(6));
-            values.add("treatment1");
+
             this.prescriptionBean.create("professional1", "patient1", measurements, treatment, "This is a description");
             this.prescriptionBean.create("professional2", "patient2", measurements, treatment, "This is a description");
 

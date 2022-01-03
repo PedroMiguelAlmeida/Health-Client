@@ -1,0 +1,15 @@
+##### Measurement
+GET http://localhost:8080/projectdae/api/prescriptions
+Accept: application/json
+
+###
+GET http://localhost:8080/projectdae/api/prescriptions/5
+Accept: application/json
+
+###
+POST http://localhost:8080/projectdae/api/prescriptions
+Content-Type: application/json
+
+{
+
+}
