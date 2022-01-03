@@ -15,7 +15,7 @@ import javax.persistence.*;
 )
 @NamedQueries({@NamedQuery(
         name = "getAllMeasurements",
-        query = "SELECT m FROM Measurement m ORDER BY m.user.name"
+        query = "SELECT m FROM Measurement m ORDER BY m.patient.name"
 )})
 @Entity
 public class Measurement implements Serializable {
@@ -33,17 +33,17 @@ public class Measurement implements Serializable {
     private String inputSource;
 
     @ManyToOne
-    private User user;
+    private Patient patient;
 
     public Measurement() {
 
     }
 
-    public Measurement(MeasureType measureType, String value, String inputSource, User user) {
+    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient) {
         this.measureType = measureType;
         this.value = value;
         this.inputSource = inputSource;
-        this.user = user;
+        this.patient = patient;
     }
 
     public int getId() {
@@ -75,10 +75,10 @@ public class Measurement implements Serializable {
     }
 
     public User getUser() {
-        return user;
+        return patient;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.patient = patient;
     }
 }

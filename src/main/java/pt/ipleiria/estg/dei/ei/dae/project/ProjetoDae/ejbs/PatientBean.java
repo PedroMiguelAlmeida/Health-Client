@@ -66,7 +66,7 @@ public class PatientBean {
             System.out.println("The Health Professional doesn't exist");
             return;
         }
-        healthProfessionalToSign.addPatients(getAllPatients(),patient);
+        healthProfessionalToSign.addPatients(patient);
     }
 
     public void unsignHealthProfessionals(Patient patient,HealthProfessional healthProfessionalToUnsign,String healthProfessionalUsername) throws MyEntityNotFoundException {

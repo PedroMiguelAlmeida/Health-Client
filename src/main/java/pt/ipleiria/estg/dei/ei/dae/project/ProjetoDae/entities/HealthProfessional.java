@@ -79,14 +79,20 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
 
 //endregion
 
-    public void addPatients(List<Patient> patients, Patient patient) {
+
+
+    public void addPatients( Patient patient) {
         for (Patient patienti:patients) {
             if (patient.equals(patienti)){
                 System.out.println("This patient is already on the list");
                 return;
             }
         }
-        patients.add(patient);
+       if (!patients.add(patient)){
+           System.out.println("ERRO HealthProfessional add ");
+       }else{
+           System.out.println("Paciente add");
+       }
     }
 
     public void removePatients(Patient patient){patients.removeIf(patient::equals);}

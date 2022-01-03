@@ -23,17 +23,17 @@ public class MeasurementBean {
     EntityManager em;
 
     @EJB
-    UserBean userBean;
+    PatientBean patientBean;
 
     @EJB
     MeasureTypeBean measureTypeBean;
 
     public void create(int measureTypeId, String value, String inputSource, String username) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
         try {
-            User user = userBean.findUser(username);
+            Patient patient = patientBean.findPatient(username);
             MeasureType measureType = measureTypeBean.findMeasureType(measureTypeId);
 
-            Measurement measurement = new Measurement(measureType, value, inputSource, user);
+            Measurement measurement = new Measurement(measureType, value, inputSource, patient);
             em.persist(measurement);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
@@ -54,7 +54,7 @@ public class MeasurementBean {
     public void updateMeasurement(Measurement updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
         try {
             Measurement measurement = findMeasurement(updatedMeasurement.getId());
-            User user = userBean.findUser(updatedMeasurement.getUser().getUsername());
+            User user = patientBean.findPatient(updatedMeasurement.getUser().getUsername());
             MeasureType measureType = measureTypeBean.findMeasureType(updatedMeasurement.getMeasureType().getId());
 
             em.lock(updatedMeasurement, LockModeType.OPTIMISTIC);

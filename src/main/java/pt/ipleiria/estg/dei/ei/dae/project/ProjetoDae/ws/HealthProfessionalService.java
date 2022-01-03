@@ -17,7 +17,7 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Path("HealthProfessionals")
+@Path("healthProfessionals")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class HealthProfessionalService {
@@ -107,13 +107,15 @@ public class HealthProfessionalService {
 
     @PUT
     @Path("{username}/addPatientToList")
-    public Response updatePatientList(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
+    public Response updatePatientList(@PathParam("username")String username,PatientDTO patientDTO) throws MyEntityNotFoundException {
         HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(username);
-        if (patient == null){
-            throw new MyEntityNotFoundException("Patient was not found");
+        if (healthProfessional == null){
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
-        healthProfessionalBean.signPatients(healthProfessional,patient, patient.getUsername());
+        healthProfessionalBean.signPatients(username, patientDTO.getUsername());
         return Response.status(Response.Status.CREATED).build();
+
+
     }
 
     @PUT

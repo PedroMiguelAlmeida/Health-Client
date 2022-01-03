@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs;
 
 
+import org.jboss.resteasy.core.PathParamInjector;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
@@ -57,17 +58,21 @@ public class HealthProfessionalBean {
         em.remove(deleteHealthProfessional);
     }
 
-    public void signPatients(HealthProfessional healthProfessional, Patient patientToSign,String patientUsername) throws MyEntityNotFoundException {
-        if (patientToSign.getName() == "none"){return;}
-        if (findHealthProfessional(healthProfessional.getUsername())==null){
+    public void signPatients(String healthProfessionalUsername,String patientUsername) {
+        HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
+        if (healthProfessional==null){
             System.out.println("The health professional doesn't exist");
             return;
         }
-        if (patientToSign.getUsername()!=patientUsername){
+        Patient patient = em.find(Patient.class,patientUsername);
+        if (patient == null){
             System.out.println("The Patient doesn't exist");
             return;
         }
-        patientToSign.addHealthProfessional(getAllHealthProfessionals(),healthProfessional);
+
+        patient.addHealthProfessional(healthProfessional);
+        healthProfessional.addPatients(patient);
+
     }
 
     public void unsignPatients(HealthProfessional healthProfessional,Patient patientToUnsign,String patientUsername) throws MyEntityNotFoundException {

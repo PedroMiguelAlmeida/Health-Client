@@ -16,7 +16,8 @@ Content-Type: application/json
 
 
 ###### HealthProfessionals
-GET localhost:8080/projectdae/api/HealthProfessionals
+GET localhost:8080/projectdae/api/healthProfessionals
+
 ###
 GET localhost:8080/projectdae/api/HealthProfessionals/professionalTeste
 
@@ -33,6 +34,40 @@ Content-Type: application/json
   "profession": "Doctor",
   "chefe": false,
   "role": "HealthProfessional"
+}
+
+###
+###
+PUT http://localhost:8080/projectdae/api/healthProfessionals/professional1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5MTgwMjh9.YyQCxTzjTTRVrKWq6bb1hNLCTjNsjww9gKkPaSMmoyvSmFWnZ52C8CMoaaE8RWBF_MXAd7q2YapngScFIyWJZZL8mHcS870KqqBd-pdLM4-KFxtvtQnwAg8Tvg8XKimd1gOOJxoeMZHsl3GpAYqyrrykptoRtTJApOIUrA-yUyW0bLOq3TquWubCU-jqT6oTmUADdXXHFFXZh0FBlC4R7xrM0z0dX-9uzHiH1Hj7pJRs39PHWIfo3i2T7kcKxIycXxDQQr0DiYdOKXvLcDTCw5eb1Jl94lWpSaHUhM75Mbb3f6J8P69eyXTu6ElbL7Rx0JF1TTja-UCyz_zyDTqw
+
+{
+  "password": "1234",
+  "name": "ManuelTeste1",
+  "email": "professionalTeste@mail.com",
+  "version":  0,
+  "profession": "Doctor",
+  "chefe": false,
+  "role": "HealthProfessional"
+
+}
+###
+PUT http://localhost:8080/projectdae/api/healthProfessionals/professional1/addPatientToList
+Content-Type: application/json
+Accept: application/json
+
+{
+"username": "patient1"
+}
+###
+POST http://localhost:8080/projectdae/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+"username": "admin1",
+"password": "1234"
 }
 
 ###### Admins

@@ -48,14 +48,19 @@ public class Patient extends User implements Serializable {
         this.healthProfessionals = healthProfessionals;
     }
 
-    public void addHealthProfessional(List<HealthProfessional> healthProfessionals, HealthProfessional healthProfessional) {
+    public void addHealthProfessional( HealthProfessional healthProfessional) {
         for (HealthProfessional healthProfessionali:healthProfessionals) {
             if (healthProfessional.equals(healthProfessionali)){
                 System.out.println("This patient is already on the list");
                 return;
             }
         }
-        healthProfessionals.add(healthProfessional);
+        if (!healthProfessionals.add(healthProfessional)){
+            System.out.println("ERRO no addHealthProfessional patient");
+        }else {
+            System.out.println("Adcionado com sucesso");
+        }
+
     }
 
     public void removeHealthProfessionals(HealthProfessional healthProfessional){healthProfessionals.removeIf(healthProfessional::equals);}
