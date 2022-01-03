@@ -29,6 +29,7 @@ public class QualitativeMeasureTypeService {
 
     private QualitativeMeasureTypeDTO toDTO(QualitativeMeasureType qualitativeMeasureType) {
         return new QualitativeMeasureTypeDTO(
+                qualitativeMeasureType.getId(),
                 qualitativeMeasureType.getName(),
                 qualitativeMeasureType.isMultiple(),
                 qualitativeMeasureType.getValues());

@@ -16,6 +16,7 @@ import java.util.List;
 public class QualitativeMeasureType extends MeasureType implements Serializable {
 
     @ElementCollection
+    @CollectionTable(name="QUALITATIVE_VALUES")
     private List<String> values;
 
     public QualitativeMeasureType() {
@@ -24,7 +25,7 @@ public class QualitativeMeasureType extends MeasureType implements Serializable 
 
     public QualitativeMeasureType(String name, boolean multiple, MeasureTypeType type, List<String> values) {
         super(name, multiple, type);
-        this.values = new ArrayList();
+        this.values = values;
     }
 
     public List<String> getValues() {

@@ -48,7 +48,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String username, String password, String name, String email, int version, Roles role,boolean active) {
+    public User(String username, String password, String name, String email, int version, Roles role, boolean active) {
         this.username = username;
         this.password = hashPassword(password);
         this.name = name;

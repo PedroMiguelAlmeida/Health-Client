@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PrescriptionDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PrescriptionBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Prescription;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -45,11 +46,17 @@ public class PrescriptionService {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id")int id,Prescription updatedPrescription) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response update(@PathParam("id")int id, PrescriptionDTO prescriptionDTO) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
         Prescription prescription = this.prescriptionBean.findPrescription(id);
 
-        updatedPrescription.setId(id);
-        prescriptionBean.updatePrescription(updatedPrescription);
+        prescriptionBean.updatePrescription(
+                id,
+                prescriptionDTO.getHealthProfessional_username(),
+                prescriptionDTO.getPatient_username(),
+                prescriptionDTO.getMeasurements(),
+                prescriptionDTO.getTreatment(),
+                prescriptionDTO.getDescription()
+        );
 
         return Response.ok().build();
     }

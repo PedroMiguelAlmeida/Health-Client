@@ -5,6 +5,7 @@ import io.smallrye.common.constraint.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -27,7 +28,10 @@ public class Prescription implements Serializable {
     @NotNull @ManyToOne @JoinColumn(name = "PATIENT_USERNAME")
     private Patient patient;
 
-    @OneToMany(mappedBy = "prescription", cascade = CascadeType.REMOVE)
+    @ManyToMany
+    @JoinTable(name = "PRESCRIPTIONS_MEASUREMENTS",
+            joinColumns = @JoinColumn(name = "PRESCRIPTION_ID", referencedColumnName = "ID"),
+            inverseJoinColumns = @JoinColumn(name = "MEASUREMENT_ID", referencedColumnName = "ID"))
     private List<Measurement> measurements;
 
     @Nullable @ElementCollection
@@ -36,15 +40,24 @@ public class Prescription implements Serializable {
     @NotNull
     private String description;
 
+    @Version
+    private int version;
+
+    @NotNull
+    private boolean active;
+
     public Prescription() {
+        this.measurements = new ArrayList<>();
     }
 
-    public Prescription(HealthProfessional healthProfessional, Patient patient, List<Measurement> measurements, List<String> treatment, String description) {
+    public Prescription(HealthProfessional healthProfessional, Patient patient, List<String> treatment, String description, int version, boolean active) {
         this.healthProfessional = healthProfessional;
         this.patient = patient;
-        this.measurements = measurements;
+        this.measurements = new ArrayList<>();
         this.treatment = treatment;
         this.description = description;
+        this.version = version;
+        this.active = active;
     }
 
     public int getId() {
@@ -103,5 +116,19 @@ public class Prescription implements Serializable {
         this.description = description;
     }
 
+    public int getVersion() {
+        return version;
+    }
 
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

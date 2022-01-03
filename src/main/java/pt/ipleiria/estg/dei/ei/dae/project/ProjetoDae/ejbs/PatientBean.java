@@ -20,7 +20,7 @@ public class PatientBean {
     @PersistenceContext
     EntityManager em;
 
-    public void create(String username, String password, String name, String email, Roles role,boolean active) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
+    public void create(String username, String password, String name, String email, Roles role, boolean active) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
         Patient patient = em.find(Patient.class, username);
         if(patient != null)
             throw new MyEntityExistsException("Patient with username: " + username + " already exists");

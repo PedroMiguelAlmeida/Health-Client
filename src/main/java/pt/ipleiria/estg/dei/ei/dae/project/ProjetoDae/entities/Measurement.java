@@ -8,7 +8,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Table(
-        name = "MEASUREMENTS"
+        name = "MEASUREMENT"
 )
 @NamedQueries({@NamedQuery(
         name = "getAllMeasurements",
@@ -32,19 +32,19 @@ public class Measurement implements Serializable {
     @ManyToOne
     private Patient patient;
 
-    @ManyToOne
-    private Prescription prescription;
+    @ManyToMany(mappedBy = "measurements")
+    private List<Prescription> prescriptions;
 
     public Measurement() {
-
+        this.prescriptions = new ArrayList<>();
     }
 
-    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient, Prescription prescription) {
+    public Measurement(MeasureType measureType, String value, String inputSource, Patient patient) {
         this.measureType = measureType;
         this.value = value;
         this.inputSource = inputSource;
         this.patient = patient;
-        this.prescription = prescription;
+        this.prescriptions = new ArrayList<>();
     }
 
     public int getId() {
@@ -87,11 +87,24 @@ public class Measurement implements Serializable {
         this.patient = patient;
     }
 
-    public Prescription getPrescription() {
-        return prescription;
+    public List<Prescription> getPrescriptions() {
+        return prescriptions;
     }
 
-    public void setPrescription(Prescription prescription) {
-        this.prescription = prescription;
+    public void setPrescriptions(List<Prescription> prescriptions) {
+        this.prescriptions = prescriptions;
+    }
+
+    public void addPrescription(Prescription prescription) {
+        if(this.prescriptions.add(prescription)){
+            System.out.println("prescription added to measurement");
+        }else{
+            System.err.println("prescription NOT added to measurement");
+        }
+
+    }
+
+    public void removePrescription(Prescription prescription) {
+        this.prescriptions.remove(prescription);
     }
 }

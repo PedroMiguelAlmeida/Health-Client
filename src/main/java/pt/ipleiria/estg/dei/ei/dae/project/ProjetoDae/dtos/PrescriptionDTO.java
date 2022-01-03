@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PrescriptionDTO {
@@ -26,7 +27,7 @@ public class PrescriptionDTO {
         this.id = id;
         this.healthProfessional_username = healthProfessional_username;
         this.patient_username = patient_username;
-        this.measurements = measurements;
+        this.measurements = new ArrayList<>();
         this.treatment = treatment;
         this.description = description;
     }

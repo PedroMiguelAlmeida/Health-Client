@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.QuantitativeMeasureTypeDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.QuantitativeMeasureTypeBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.QuantitativeMeasureType;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -19,43 +20,60 @@ import java.util.stream.Collectors;
 @Consumes(MediaType.APPLICATION_JSON)
 public class QuantitativeMeasureTypeService {
     @EJB
-    private QuantitativeMeasureTypeBean quantitativeMeasureTypeTypeBean;
+    private QuantitativeMeasureTypeBean quantitativeMeasureTypeBean;
 
     @GET
     @Path("/")
     public List<QuantitativeMeasureTypeDTO> getAllQuantitativeMeasureTypesWS() {
-        return this.toDTOs(this.quantitativeMeasureTypeTypeBean.getAllQuantitativeMeasureTypes());
+        return this.toDTOs(this.quantitativeMeasureTypeBean.getAllQuantitativeMeasureTypes());
     }
 
-    private QuantitativeMeasureTypeDTO toDTO(QuantitativeMeasureType quantitativeMeasureTypeType) {
+    private QuantitativeMeasureTypeDTO toDTO(QuantitativeMeasureType quantitativeMeasureType) {
         return new QuantitativeMeasureTypeDTO(
-                quantitativeMeasureTypeType.getName(),
-                quantitativeMeasureTypeType.isMultiple(),
-                quantitativeMeasureTypeType.getMin(),
-                quantitativeMeasureTypeType.getMax(),
-                quantitativeMeasureTypeType.isDecimal());
+                quantitativeMeasureType.getId(),
+                quantitativeMeasureType.getName(),
+                quantitativeMeasureType.isMultiple(),
+                quantitativeMeasureType.getMin(),
+                quantitativeMeasureType.getMax(),
+                quantitativeMeasureType.isDecimal());
     }
 
-    private List<QuantitativeMeasureTypeDTO> toDTOs(List<QuantitativeMeasureType> quantitativeMeasureTypeTypes) {
-        return (List)quantitativeMeasureTypeTypes.stream().map(this::toDTO).collect(Collectors.toList());
+    private List<QuantitativeMeasureTypeDTO> toDTOs(List<QuantitativeMeasureType> quantitativeMeasureTypes) {
+        return (List)quantitativeMeasureTypes.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     @GET
     @Path("{id}")
     public Response getQuantitativeMeasureTypeDetails(@PathParam("id") int id) {
-        QuantitativeMeasureType quantitativeMeasureTypeType = this.quantitativeMeasureTypeTypeBean.findQuantitativeMeasureType(id);
-        return quantitativeMeasureTypeType != null ? Response.ok(this.toDTO(quantitativeMeasureTypeType)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+        QuantitativeMeasureType quantitativeMeasureType = this.quantitativeMeasureTypeBean.findQuantitativeMeasureType(id);
+        return quantitativeMeasureType != null ? Response.ok(this.toDTO(quantitativeMeasureType)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
     @POST
     @Path("/")
-    public Response createNewQuantitativeMeasureType (QuantitativeMeasureTypeDTO quantitativeMeasureTypeTypeDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException {
-        quantitativeMeasureTypeTypeBean.create(
-                quantitativeMeasureTypeTypeDTO.getName(),
-                quantitativeMeasureTypeTypeDTO.isMultiple(),
-                quantitativeMeasureTypeTypeDTO.getMin(),
-                quantitativeMeasureTypeTypeDTO.getMax(),
-                quantitativeMeasureTypeTypeDTO.isDecimal());
+    public Response createNewQuantitativeMeasureType (QuantitativeMeasureTypeDTO quantitativeMeasureTypeDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException {
+        quantitativeMeasureTypeBean.create(
+                quantitativeMeasureTypeDTO.getName(),
+                quantitativeMeasureTypeDTO.isMultiple(),
+                quantitativeMeasureTypeDTO.getMin(),
+                quantitativeMeasureTypeDTO.getMax(),
+                quantitativeMeasureTypeDTO.isDecimal());
         return Response.status(Response.Status.CREATED).build();
     }
+    @PUT
+    @Path("{id}")
+    public Response update(QuantitativeMeasureTypeDTO quantitativeMeasureTypeDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
+
+        quantitativeMeasureTypeBean.updateQuantitativeMeasureType(
+                quantitativeMeasureTypeDTO.getId(),
+                quantitativeMeasureTypeDTO.getName(),
+                quantitativeMeasureTypeDTO.isMultiple(),
+                quantitativeMeasureTypeDTO.getMin(),
+                quantitativeMeasureTypeDTO.getMax(),
+                quantitativeMeasureTypeDTO.isDecimal()
+        );
+
+        return Response.ok().build();
+    }
+
 }

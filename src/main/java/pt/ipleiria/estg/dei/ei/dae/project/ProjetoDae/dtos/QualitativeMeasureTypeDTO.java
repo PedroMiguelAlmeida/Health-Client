@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QualitativeMeasureTypeDTO {
+
+    private int id;
     private String name;
     private boolean multiple;
     private List<String> values;
@@ -12,10 +14,19 @@ public class QualitativeMeasureTypeDTO {
         this.values = new ArrayList();
     }
 
-    public QualitativeMeasureTypeDTO(String name, boolean multiple, List<String> values) {
+    public QualitativeMeasureTypeDTO(int id, String name, boolean multiple, List<String> values) {
+        this.id = id;
         this.name = name;
         this.multiple = multiple;
         this.values = new ArrayList();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
