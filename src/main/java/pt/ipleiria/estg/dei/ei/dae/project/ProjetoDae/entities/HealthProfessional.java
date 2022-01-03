@@ -7,6 +7,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,9 +30,10 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "HEALTHPROFESSIONALS_PATIENTS",
-    joinColumns = @JoinColumn(name = "HEALTHPROFESSIONALS_USERNAME",referencedColumnName = "USERNAME"),
-    inverseJoinColumns = @JoinColumn(name = "PATIENT_USERNAME",referencedColumnName = "USERNAME"))
+        joinColumns = @JoinColumn(name = "HEALTHPROFESSIONALS_USERNAME",referencedColumnName = "USERNAME"),
+        inverseJoinColumns = @JoinColumn(name = "PATIENT_USERNAME",referencedColumnName = "USERNAME"))
     List<Patient> patients;
+
 
 //endregion attributes
 
@@ -39,11 +41,11 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
     public HealthProfessional() {
     }
 
-    public HealthProfessional(String username, String password, String name, String email, int version, String profession,  boolean chefe, Roles role,boolean active) {
-        super(username, password, name, email, version, role,active);
+    public HealthProfessional(String username, String password, String name, String email, int version, String profession,  boolean chefe, Roles role, boolean active) {
+        super(username, password, name, email, version, role, active);
         this.profession = profession;
         this.chefe = chefe;
-        this.patients = getPatients();
+        this.patients = new ArrayList<>();
     }
 //endregion constructors
 
@@ -79,23 +81,13 @@ public class HealthProfessional extends HospitalStaff implements Serializable {
 
 //endregion
 
-
-
-    public void addPatients( Patient patient) {
-        for (Patient patienti:patients) {
-            if (patient.equals(patienti)){
-                System.out.println("This patient is already on the list");
-                return;
-            }
-        }
-       if (!patients.add(patient)){
-           System.out.println("ERRO HealthProfessional add ");
-       }else{
-           System.out.println("Paciente add");
-       }
+    public void addPatient(Patient patient) {
+        patients.add(patient);
     }
 
-    public void removePatients(Patient patient){patients.removeIf(patient::equals);}
+    public void removePatient(Patient patient) {
+        patients.remove(patient);
+    }
 
 
 }

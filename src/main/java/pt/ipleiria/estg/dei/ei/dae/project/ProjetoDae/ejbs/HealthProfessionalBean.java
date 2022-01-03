@@ -58,9 +58,9 @@ public class HealthProfessionalBean {
         em.remove(deleteHealthProfessional);
     }
 
-    public void signPatients(String healthProfessionalUsername,String patientUsername) {
+    public void signPatients(String healthProfessionalUsername, String patientUsername) {
         HealthProfessional healthProfessional = findHealthProfessional(healthProfessionalUsername);
-        if (healthProfessional==null){
+        if (healthProfessional == null){
             System.out.println("The health professional doesn't exist");
             return;
         }
@@ -69,10 +69,10 @@ public class HealthProfessionalBean {
             System.out.println("The Patient doesn't exist");
             return;
         }
-
-        patient.addHealthProfessional(healthProfessional);
-        healthProfessional.addPatients(patient);
-
+        if(!healthProfessional.getPatients().contains(patient)){
+            healthProfessional.addPatient(patient);
+            patient.addHealthProfessional(healthProfessional);
+        }
     }
 
     public void unsignPatients(HealthProfessional healthProfessional,Patient patientToUnsign,String patientUsername) throws MyEntityNotFoundException {

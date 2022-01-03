@@ -28,7 +28,7 @@ public class Patient extends User implements Serializable {
     public Patient(String username, String password, String name, String email, int version, Roles role,boolean active) {
         super(username, password, name, email, version, role,active);
         this.measurements = new ArrayList();
-        this.healthProfessionals = getHealthProfessionals();
+        this.healthProfessionals = new ArrayList();
     }
 
     public List<Measurement> getMeasurementsList() {

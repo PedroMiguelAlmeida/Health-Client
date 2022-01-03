@@ -66,7 +66,7 @@ public class PatientBean {
             System.out.println("The Health Professional doesn't exist");
             return;
         }
-        healthProfessionalToSign.addPatients(patient);
+        //healthProfessionalToSign.addPatients(patient);
     }
 
     public void unsignHealthProfessionals(Patient patient,HealthProfessional healthProfessionalToUnsign,String healthProfessionalUsername) throws MyEntityNotFoundException {
@@ -78,6 +78,6 @@ public class PatientBean {
             System.out.println("The health professional you are trying to unroll doesn't exist");
             return;
         }
-        for (HealthProfessional healthProfessionals: patient.getHealthProfessionals()){healthProfessionals.removePatients(patient);}
+        //for (HealthProfessional healthProfessionals: patient.getHealthProfessionals()){healthProfessionals.removePatients(patient);}
     }
 }
