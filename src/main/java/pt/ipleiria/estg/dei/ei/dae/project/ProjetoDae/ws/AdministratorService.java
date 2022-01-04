@@ -3,7 +3,9 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.UpdatePasswordDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.TokenBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
@@ -12,6 +14,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsE
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,8 @@ import javax.ws.rs.core.Response.Status;
 public class AdministratorService {
     @EJB
     private AdministratorBean administratorBean;
+    @EJB
+    private TokenBean tokenBean;
 
     @GET
     @Path("/")
@@ -55,9 +60,28 @@ public class AdministratorService {
         return Response.status(Response.Status.OK).build();
     }
 
+    @PUT
+    @Path("{username}/updatePassword")
+    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+
+        System.out.println(updatePasswordDTO.getPassword());
+        System.out.println(updatePasswordDTO.getToken());
+        administratorBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        administratorBean.deleteToken(username,updatePasswordDTO.getToken());
+        return  Response.status(Response.Status.OK).build();
+    }
+
+    @POST
+    @Path("{username}/changePassword")
+    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+
+        administratorBean.sendEmailToChangePassword(username);
+        return Response.status(Response.Status.OK).build();
+    }
+
     @POST
     @Path("/")
-    public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException {
+    public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
         administratorBean.create(
                 administratorDTO.getUsername(),
                 administratorDTO.getPassword(),

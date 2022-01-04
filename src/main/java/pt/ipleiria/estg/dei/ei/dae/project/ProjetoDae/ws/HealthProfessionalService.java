@@ -3,14 +3,17 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.UpdatePasswordDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.HealthProfessionalBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -75,7 +78,7 @@ public class HealthProfessionalService {
 
     @POST
     @Path("/")
-    public Response createNewPatient (HealthProfessionalDTO professionalDTO) throws MyEntityExistsException, MyEntityNotFoundException {
+    public Response createNewPatient (HealthProfessionalDTO professionalDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
         healthProfessionalBean.create(
                 professionalDTO.getUsername(),
                 professionalDTO.getPassword(),
@@ -87,6 +90,25 @@ public class HealthProfessionalService {
                 professionalDTO.getRole(),
                 professionalDTO.isActive());
         return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("{username}/updatePassword")
+    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+
+        System.out.println(updatePasswordDTO.getPassword());
+        System.out.println(updatePasswordDTO.getToken());
+        healthProfessionalBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        healthProfessionalBean.deleteToken(username, updatePasswordDTO.getToken());
+        return  Response.status(Response.Status.OK).build();
+    }
+
+    @POST
+    @Path("{username}/changePassword")
+    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+
+        healthProfessionalBean.sendEmailToChangePassword(username);
+        return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
