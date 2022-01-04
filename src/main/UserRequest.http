@@ -1,5 +1,14 @@
-##### Patients
+##### Patients ---------------------------------------------------------------------
 GET http://localhost:8080/projectdae/api/patients/
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDMzMzN9.WziKSc14Ji6G5XU0E3l4WATiOAJRKoKVcpq60BncgpZclk6E1nzWiqzwt8BQOoWTq1ptvWtaanZTSjXBQaCiSPjYEum0IbN_p7wPouqnH6n2LUTLMQEF_mvfIuuYfL4pOTR6IksF-Cpr5W9Yv-wCQMd0Y20N6GtEHQxirHESyFXuzVUQS4KjhNIrjXmHk0IDjG9o09tIufyS2HjDck9sQtyErAUkhZwjU90793R7U5KODEKZ1Z2pafHcvLg24jvmEZxevfbFe3U7j-8loDzFcikCDGxn1rjamQ8Pm8Z_DJwVtbIYcZ_BYHzVMyZ1Kmn-nGMPcbNeYpLyaNYyNIRZhw
+Accept: application/json
+##### Patients/active
+GET http://localhost:8080/projectdae/api/patients/active/patient1
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDMzMzN9.WziKSc14Ji6G5XU0E3l4WATiOAJRKoKVcpq60BncgpZclk6E1nzWiqzwt8BQOoWTq1ptvWtaanZTSjXBQaCiSPjYEum0IbN_p7wPouqnH6n2LUTLMQEF_mvfIuuYfL4pOTR6IksF-Cpr5W9Yv-wCQMd0Y20N6GtEHQxirHESyFXuzVUQS4KjhNIrjXmHk0IDjG9o09tIufyS2HjDck9sQtyErAUkhZwjU90793R7U5KODEKZ1Z2pafHcvLg24jvmEZxevfbFe3U7j-8loDzFcikCDGxn1rjamQ8Pm8Z_DJwVtbIYcZ_BYHzVMyZ1Kmn-nGMPcbNeYpLyaNYyNIRZhw
+Accept: application/json
+###
+DELETE http://localhost:8080/projectdae/api/patients/patient1
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDMzMzN9.WziKSc14Ji6G5XU0E3l4WATiOAJRKoKVcpq60BncgpZclk6E1nzWiqzwt8BQOoWTq1ptvWtaanZTSjXBQaCiSPjYEum0IbN_p7wPouqnH6n2LUTLMQEF_mvfIuuYfL4pOTR6IksF-Cpr5W9Yv-wCQMd0Y20N6GtEHQxirHESyFXuzVUQS4KjhNIrjXmHk0IDjG9o09tIufyS2HjDck9sQtyErAUkhZwjU90793R7U5KODEKZ1Z2pafHcvLg24jvmEZxevfbFe3U7j-8loDzFcikCDGxn1rjamQ8Pm8Z_DJwVtbIYcZ_BYHzVMyZ1Kmn-nGMPcbNeYpLyaNYyNIRZhw
 Accept: application/json
 ###
 POST http://localhost:8080/projectdae/api/patients
@@ -13,19 +22,43 @@ Content-Type: application/json
   "role": "Patient"
 
 }
-
-
-###### HealthProfessionals
-GET localhost:8080/projectdae/api/HealthProfessionals
 ###
-GET localhost:8080/projectdae/api/HealthProfessionals/professionalTeste
-
-###
-POST http://localhost:8080/projectdae/api/HealthProfessionals
+PUT http://localhost:8080/projectdae/api/patients/patient1
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA4MjY4MTR9.VWV5660fbchiqCezPczhz0Ozwv4FeR394kTJdgK5bpByIrUzeA_LoI0F_yIfWaa9rigVSdEpeRYgFZKw401fo7hqVb78bqCgBMsL2dUeUFbarhV3LN0GlSGuR6Dc3NKEk8b7ry-wr413AOYzm5kNBlWh4eg8P1TbX4MjnLy5pJODFKBKZwhc2v-TA5SPF9NV82GA5ybPSxrbXqynR4ykCp_2NzYqC5I9O0Iom21-bshbzGpNzRN4h0zMd8FafqZwAyl4jEyhLcSTesqTZK9E7fy8GXUl6ggnacDl30eIP1YReXw83cbkOLM4EgjBLljOd2ETRHoe8LmgpRJbVgj8Nw
 
 {
-  "username": "professionalTeste",
+  "email": "manel@mail.com",
+  "name": "manel",
+  "username": "patient1",
+  "password": "1234",
+  "role": "Patient"
+
+}
+###### HealthProfessionals ------------------------------------------------------------------------------------
+
+POST http://localhost:8080/projectdae/api/auth/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username": "admin1",
+  "password": "1234"
+}
+###
+
+GET localhost:8080/projectdae/api/healthProfessionals
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDY3NjR9.JSuKCiWSBtLLHcJngaPYqsdLInzLTQmYDq6pP-yIEDngrqXdy3VZreoNIiv10_9C8WRo_2sweJUSx6d9OMTXmrVN0o92bYIQWbHK2-6QA9z1c5FdEVLisa1RszzXPXnfdQY_Ama8cPM6Cab9VgXXKpT0E2ULngswd_jL6t7Lrtv-rqXeIarWm0sY3wxvz3TWuE6XYGtFsxhacSTSlMOp17xxe3acnGUSSW-XfRVcNCAL3KuN5TrgnDVAXxdPoKUXBwT5It9ErWq1Bl-mc4jlt1i5QYVy8blVe4xnTvvRqduWzlmeD4wOc2yCsvOG_jxrlzjyu_IF_Cvccyyfmcu_bw
+###
+GET localhost:8080/projectdae/api/healthProfessionals/professionalTeste
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5MTgwMjh9.YyQCxTzjTTRVrKWq6bb1hNLCTjNsjww9gKkPaSMmoyvSmFWnZ52C8CMoaaE8RWBF_MXAd7q2YapngScFIyWJZZL8mHcS870KqqB_d-pdLM4-KFxtvtQnwAg8Tvg8XKimd1gOOJxoeMZHsl3GpAYqyrrykptoRtTJApOIUrA-yUyW0bLOq3TquWubCU-jqT6oTmUADdXXHFFXZh0FBlC4R7xrM0z0dX-9uzHiH1Hj7pJRs39PHWIfo3i2T7kcKxIycXxDQQr0DiYdOKXvLcDTCw5eb1Jl94lWpSaHUhM75Mbb3f6J8P69eyXTu6ElbL7Rx0JF1TTja_-UCyz_zyDTqw
+###
+POST http://localhost:8080/projectdae/api/healthProfessionals
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5MTgwMjh9.YyQCxTzjTTRVrKWq6bb1hNLCTjNsjww9gKkPaSMmoyvSmFWnZ52C8CMoaaE8RWBF_MXAd7q2YapngScFIyWJZZL8mHcS870KqqB_d-pdLM4-KFxtvtQnwAg8Tvg8XKimd1gOOJxoeMZHsl3GpAYqyrrykptoRtTJApOIUrA-yUyW0bLOq3TquWubCU-jqT6oTmUADdXXHFFXZh0FBlC4R7xrM0z0dX-9uzHiH1Hj7pJRs39PHWIfo3i2T7kcKxIycXxDQQr0DiYdOKXvLcDTCw5eb1Jl94lWpSaHUhM75Mbb3f6J8P69eyXTu6ElbL7Rx0JF1TTja_-UCyz_zyDTqw
+
+{
+  "username": "professionalTeste1",
   "password": "1234",
   "name": "professionalTeste",
   "email": "professionalTeste@mail.com",
@@ -35,6 +68,64 @@ Content-Type: application/json
   "role": "HealthProfessional"
 }
 
+###
+PUT http://localhost:8080/projectdae/api/healthProfessionals/professional1/addPatientToList
+Content-Type: application/json
+Accept: application/json
+
+{
+}
+"username": "patient1"
+###
+PUT http://localhost:8080/projectdae/api/healthProfessionals/professional1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5MTgwMjh9.YyQCxTzjTTRVrKWq6bb1hNLCTjNsjww9gKkPaSMmoyvSmFWnZ52C8CMoaaE8RWBF_MXAd7q2YapngScFIyWJZZL8mHcS870KqqB_d-pdLM4-KFxtvtQnwAg8Tvg8XKimd1gOOJxoeMZHsl3GpAYqyrrykptoRtTJApOIUrA-yUyW0bLOq3TquWubCU-jqT6oTmUADdXXHFFXZh0FBlC4R7xrM0z0dX-9uzHiH1Hj7pJRs39PHWIfo3i2T7kcKxIycXxDQQr0DiYdOKXvLcDTCw5eb1Jl94lWpSaHUhM75Mbb3f6J8P69eyXTu6ElbL7Rx0JF1TTja_-UCyz_zyDTqw
+
+{
+  "password": "1234",
+  "name": "ManuelTeste1",
+  "email": "professionalTeste@mail.com",
+  "version":  0,
+  "profession": "Doctor",
+  "chefe": false,
+  "role": "HealthProfessional"
+
+}
+
+###
+DELETE http://localhost:8080/projectdae/api/healthProfessionals/professional1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDY3NjR9.JSuKCiWSBtLLHcJngaPYqsdLInzLTQmYDq6pP-yIEDngrqXdy3VZreoNIiv10_9C8WRo_2sweJUSx6d9OMTXmrVN0o92bYIQWbHK2-6QA9z1c5FdEVLisa1RszzXPXnfdQY_Ama8cPM6Cab9VgXXKpT0E2ULngswd_jL6t7Lrtv-rqXeIarWm0sY3wxvz3TWuE6XYGtFsxhacSTSlMOp17xxe3acnGUSSW-XfRVcNCAL3KuN5TrgnDVAXxdPoKUXBwT5It9ErWq1Bl-mc4jlt1i5QYVy8blVe4xnTvvRqduWzlmeD4wOc2yCsvOG_jxrlzjyu_IF_Cvccyyfmcu_bw
+
+
+
+
+###### Admins------------------------------------------------------------------------------------------------------------------------------
+GET localhost:8080/projectdae/api/administrators
+###
+GET localhost:8080/projectdae/api/administrators/admin1
+###
+POST localhost:8080/projectdae/api/administrators
+Content-Type: application/json
+
+{
+  "email": "AdminTestePost@mail.com",
+  "name": "AdminTestePost",
+  "username": "AdminTestePost",
+  "password": "1234",
+  "role": "Admin"
+}
+###
+PUT http://localhost:8080/projectdae/api/administrators/admin1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5Mjc0MzF9.cDC8FaM4Eysmx43C-UaMHdkUNtpDH7jkQbjAcYXjLwIVVkFZ9yvtsed1gueSQQsZZbxE0mPb0p1PsdvLGxEfniRK8DvtBQPeqyOhYZASiTNAu2khrDlVtRy6ZTb0g1r1JP3XG2gV-WnSwZQ-7MSdcBmAop3IW16VPJ4Ah14h3TlBco6tF8L0LoJGMKzMpJWayDC-buZgfYYtJxsUDkZGphEkt9TdwUBDQBOkdKvB_8np5EgdnPBh1S4AuN-dRgJYVVLMc4zFD0N1Xk3wBs-kl9h6WUYi-8HBerwFBX7dXTIIV1nvxVMTuvbICC7B5u_bCgwFLsEHHCvfY5clb5xSlw
+
+{
+  "name": "goncaloteste",
+  "email": "admin@mail.com",
+  "version":  1
+
+}
 
 ##### USERS
 ##Get all users

@@ -43,6 +43,9 @@ public class LoginService {
     public Response authenticateUser(AuthDTO authDTO) {
         try {
             User user = this.userBean.authenticate(authDTO.getUsername(), authDTO.getPassword());
+            if(user.isActive() == false){
+                return Response.status(Status.FORBIDDEN).build();
+            }
             if (user != null) {
                 if (user.getUsername() != null) {
                     log.info("Generating JWT for user " + user.getUsername());

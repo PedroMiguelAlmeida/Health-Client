@@ -4,26 +4,104 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-<!--    <security-constraint>-->
-<!--        <web-resource-collection>-->
-<!--            <web-resource-name>Patients List</web-resource-name>-->
-<!--            <url-pattern>/api/patients</url-pattern>-->
-<!--            <http-method>GET</http-method>-->
-<!--        </web-resource-collection>-->
-<!--        <auth-constraint>-->
-<!--            <role-name>Administrator</role-name>-->
-<!--        </auth-constraint>-->
-<!--    </security-constraint>-->
-<!--    <security-constraint>-->
-<!--        <web-resource-collection>-->
-<!--            <web-resource-name>Patients create</web-resource-name>-->
-<!--            <url-pattern>/api/patients</url-pattern>-->
-<!--            <http-method>POST</http-method>-->
-<!--        </web-resource-collection>-->
-<!--        <auth-constraint>-->
-<!--            <role-name>Administrator</role-name>-->
-<!--        </auth-constraint>-->
-<!--    </security-constraint>-->
+
+<!--    Admins constraints -->
+
+    <!--    region create admin-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Create Admins</web-resource-name>
+            <url-pattern>/api/administrators</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+<!--    endregion-->
+    <!--    region get admins-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Get Admins</web-resource-name>
+            <url-pattern>/api/administrators</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--endregion-->
+    <!--    region Get admin-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Get Admins Details</web-resource-name>
+            <url-pattern>/api/administrators/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region Put Delete admins-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PUT E DELETE Admins</web-resource-name>
+            <url-pattern>/api/administrators/*</url-pattern>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+
+<!--    Admins constraints END-->
+
+<!--    Patient Constraints-->
+
+    <!--    region create patients-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Create Patients</web-resource-name>
+            <url-pattern>/api/patients</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region get patients-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Patients List</web-resource-name>
+            <url-pattern>/api/patients</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region get patient-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>get Patient</web-resource-name>
+            <url-pattern>/api/patients/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+            <role-name>Patient</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region update e delete patients-->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Patients update and delete</web-resource-name>
@@ -33,8 +111,92 @@ http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
         </web-resource-collection>
         <auth-constraint>
             <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+            <role-name>Patient</role-name>
         </auth-constraint>
     </security-constraint>
+    <!--    endregion-->
+
+<!--    Patient Constraints END-->
+
+<!--    HealthProfessional constraints -->
+
+    <!--    region create HealthProfessional-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Create HealthProfessional</web-resource-name>
+            <url-pattern>/api/healthProfessionals</url-pattern>
+            <http-method>POST</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region GET HealthProfessionals-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>GET ALL HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region GET HealthProfessional-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>GET ALL HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals/*</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+    <!--    region Put Delete HealthProfessional-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>PUT DELETE HealthProfessionals</web-resource-name>
+            <url-pattern>/api/healthProfessionals/*</url-pattern>
+            <http-method>PUT</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+            <role-name>HealthProfessional</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--endregion-->
+<!--    HealthProfessional constraints END -->
+
+<!--  USER constraints -->
+    <!--    region get users -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>User List</web-resource-name>
+            <url-pattern>/api/Users</url-pattern>
+            <http-method>GET</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>Administrator</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <!--    endregion-->
+<!-- USER constraints END-->
+
+    <security-role>
+        <description>Patient role</description>
+        <role-name>Patient</role-name>
+    </security-role>
+    <security-role>
+        <description>HealthProfessional role</description>
+        <role-name>HealthProfessional</role-name>
+    </security-role>
     <security-role>
         <description>Administrator role</description>
         <role-name>Administrator</role-name>

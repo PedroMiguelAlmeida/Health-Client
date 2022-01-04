@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.DELETE;
 
 @Entity
 @NamedQueries({@NamedQuery(
@@ -26,6 +27,7 @@ import javax.validation.constraints.NotNull;
 @Inheritance(
         strategy = InheritanceType.SINGLE_TABLE
 )
+
 public class User implements Serializable {
     @Id
     private String username;
@@ -40,17 +42,20 @@ public class User implements Serializable {
     private int version;
     @NotNull
     private Roles role;
+    @NotNull
+    private boolean active ;
 
     public User() {
     }
 
-    public User(String username, String password, String name, String email, int version, Roles role) {
+    public User(String username, String password, String name, String email, int version, Roles role, boolean active) {
         this.username = username;
         this.password = hashPassword(password);
         this.name = name;
         this.email = email;
         this.version = version;
         this.role = role;
+        this.active = true;
     }
 
     public Roles getRole() {
@@ -99,6 +104,14 @@ public class User implements Serializable {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public static String hashPassword(String password) {

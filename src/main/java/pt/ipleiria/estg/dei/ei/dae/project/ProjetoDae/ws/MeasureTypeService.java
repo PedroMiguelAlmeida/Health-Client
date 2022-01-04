@@ -24,14 +24,14 @@ public class MeasureTypeService {
     @GET
     @Path("/")
     public List<MeasureTypeDTO> getAllMeasureTypesWS() {
-        return this.toDTOs(this.measureTypeBean.getAllMeasureTypes());
+        return toDTOs(measureTypeBean.getAllMeasureTypes());
     }
 
     private MeasureTypeDTO toDTO(MeasureType measureType) {
-        return new MeasureTypeDTO(measureType.getName(), measureType.isMultiple(), measureType.getType());
+        return new MeasureTypeDTO(measureType.getId(), measureType.getName(), measureType.isMultiple(), measureType.getType());
     }
 
     private List<MeasureTypeDTO> toDTOs(List<MeasureType> measureTypes) {
-        return (List)measureTypes.stream().map(this::toDTO).collect(Collectors.toList());
+        return measureTypes.stream().map(this::toDTO).collect(Collectors.toList());
     }
 }

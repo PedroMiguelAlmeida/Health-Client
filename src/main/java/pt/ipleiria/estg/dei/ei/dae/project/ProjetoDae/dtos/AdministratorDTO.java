@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 
 public class AdministratorDTO {
@@ -8,16 +9,20 @@ public class AdministratorDTO {
     private String name;
     private String email;
     private int version;
+    private Roles role;
+    private boolean active;
 
     public AdministratorDTO(){
     }
 
-    public AdministratorDTO(String username,String password,String name,String email,int version){
+    public AdministratorDTO(String username,String password,String name,String email,int version,Roles role,boolean active){
         this.username=username;
         this.password=password;
         this.name=name;
         this.email=email;
         this.version=version;
+        this.role=role;
+        this.active = active;
     }
 
     public String getUsername() {
@@ -58,5 +63,21 @@ public class AdministratorDTO {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
