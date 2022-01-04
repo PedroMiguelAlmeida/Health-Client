@@ -26,6 +26,7 @@ public class TokenBean {
             throw new MyEntityExistsException("This token already exists");
         }
         try {
+
             token = new Token(email);
             em.persist(token);
         } catch (ConstraintViolationException e) {
@@ -37,6 +38,10 @@ public class TokenBean {
         Token token = em.find(Token.class,tokenString);
         if(token == null)
             throw new MyEntityNotFoundException("Token  " + tokenString + " not found");
+        return token;
+    }
+    public Token tokenExits(String tokenString) throws MyEntityNotFoundException{
+        Token token = em.find(Token.class,tokenString);
         return token;
     }
 

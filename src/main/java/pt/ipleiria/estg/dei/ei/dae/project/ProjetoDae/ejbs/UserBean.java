@@ -83,13 +83,19 @@ public class UserBean {
         if (user==null){
             throw new MyEntityNotFoundException("Patient not found");
         }
-        tokenBean.create(user.getEmail());
-        Token token = tokenBean.findToken(user.getEmail());
+
+        Token token = tokenBean.tokenExits(user.getEmail());
         System.out.println("This is email: "+ user.getEmail());
         if (token == null){
-            throw new MyEntityNotFoundException("token not found");
+            tokenBean.create(user.getEmail());
+            Token newToken = tokenBean.findToken(user.getEmail());
+            emailBean.send(user.getEmail(),"http://localhost:3000/auth/changePassword?token="+newToken.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+newToken.getToken()+"&username="+username);
         }
-        emailBean.send(user.getEmail(),"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username);
+        if(token != null){
+            emailBean.send(user.getEmail(),"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username);
+        }
+
+        //emailBean.send(user.getEmail(),"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username);
 
     }
 }
