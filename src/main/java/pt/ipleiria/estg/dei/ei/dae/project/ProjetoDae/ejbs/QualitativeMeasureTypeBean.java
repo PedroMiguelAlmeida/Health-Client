@@ -32,7 +32,7 @@ public class QualitativeMeasureTypeBean {
             throw new MyEntityExistsException("QuantitativeMeasureType with name: " + name + " already exists");
 
         try {
-            QualitativeMeasureType qualitativeMeasureType = new QualitativeMeasureType(name, multiple, MeasureTypeType.Qualitative, values);
+            QualitativeMeasureType qualitativeMeasureType = new QualitativeMeasureType(name, multiple, MeasureTypeType.Qualitative, 0, true, values);
             em.persist(qualitativeMeasureType);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
@@ -43,8 +43,11 @@ public class QualitativeMeasureTypeBean {
         return em.createNamedQuery("getAllQualitativeMeasureTypes").getResultList();
     }
 
-    public QualitativeMeasureType findQualitativeMeasureType(int id) {
-        return em.find(QualitativeMeasureType.class, id);
+    public QualitativeMeasureType findQualitativeMeasureType(int id) throws MyEntityNotFoundException {
+        QualitativeMeasureType qualitativeMeasureType =  em.find(QualitativeMeasureType.class, id);
+        if(qualitativeMeasureType == null)
+            throw new MyEntityNotFoundException("QualitativeMeasureType with id: " + id + " not found");
+        return qualitativeMeasureType;
     }
 
     public QualitativeMeasureType findQualitativeMeasureTypeByName(String name) {
@@ -55,15 +58,13 @@ public class QualitativeMeasureTypeBean {
         }
     }
 
-    public void updateQualitativeMeasureType(String name, Boolean multiple, List<String> values) throws MyEntityNotFoundException {
-        QualitativeMeasureType qualitativeMeasureType = em.find(QualitativeMeasureType.class, name);
-        if (qualitativeMeasureType != null) {
-            this.em.lock(qualitativeMeasureType, LockModeType.OPTIMISTIC);
-            qualitativeMeasureType.setName(name);
-            qualitativeMeasureType.setMultiple(multiple);
-            qualitativeMeasureType.setValues(values);
-        }
-        throw new MyEntityNotFoundException("QualitativeMeasureType with name " + name + " not found.");
+    public void updateQualitativeMeasureType(int id, String name, Boolean multiple, List<String> values) throws MyEntityNotFoundException {
+        QualitativeMeasureType qualitativeMeasureType = findQualitativeMeasureType(id);
+
+        em.lock(qualitativeMeasureType, LockModeType.OPTIMISTIC);
+        qualitativeMeasureType.setName(name);
+        qualitativeMeasureType.setMultiple(multiple);
+        qualitativeMeasureType.setValues(values);
     }
 
     public void removeQualitativeMeasureType(String name) throws MyEntityNotFoundException {

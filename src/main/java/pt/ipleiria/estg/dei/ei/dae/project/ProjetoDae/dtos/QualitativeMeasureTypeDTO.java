@@ -11,14 +11,14 @@ public class QualitativeMeasureTypeDTO {
     private List<String> values;
 
     public QualitativeMeasureTypeDTO() {
-        this.values = new ArrayList();
+
     }
 
     public QualitativeMeasureTypeDTO(int id, String name, boolean multiple, List<String> values) {
         this.id = id;
         this.name = name;
         this.multiple = multiple;
-        this.values = new ArrayList();
+        this.values = values;
     }
 
     public int getId() {

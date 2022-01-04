@@ -34,6 +34,13 @@ public abstract class MeasureType implements Serializable {
     @NotNull
     private MeasureTypeType type;
 
+    @Version
+    private int version;
+
+    @NotNull
+    private boolean active;
+
+
     @OneToMany(mappedBy = "measureType", cascade = CascadeType.REMOVE)
     private List<Measurement> measurements;
 
@@ -41,11 +48,13 @@ public abstract class MeasureType implements Serializable {
         this.measurements = new ArrayList();
     }
 
-    public MeasureType(String name, boolean multiple, MeasureTypeType type) {
+    public MeasureType(String name, boolean multiple, MeasureTypeType type, int version, boolean active) {
         this.name = name;
         this.multiple = multiple;
         this.measurements = new ArrayList();
         this.type = type;
+        this.version = version;
+        this.active = active;
     }
 
     public int getId() {
@@ -94,5 +103,21 @@ public abstract class MeasureType implements Serializable {
 
     public void setType(MeasureTypeType type) {
         this.type = type;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.QualitativeMeasureTypeDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.QuantitativeMeasureTypeDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.QualitativeMeasureTypeBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.QualitativeMeasureType;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
@@ -41,8 +42,8 @@ public class QualitativeMeasureTypeService {
 
     @GET
     @Path("{id}")
-    public Response getQualitativeMeasureTypeDetails(@PathParam("id") int id) {
-        QualitativeMeasureType qualitativeMeasureType = this.qualitativeMeasureTypeBean.findQualitativeMeasureType(id);
+    public Response getQualitativeMeasureTypeDetails(@PathParam("id") int id) throws MyEntityNotFoundException {
+        QualitativeMeasureType qualitativeMeasureType = qualitativeMeasureTypeBean.findQualitativeMeasureType(id);
         return qualitativeMeasureType != null ? Response.ok(this.toDTO(qualitativeMeasureType)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
@@ -54,5 +55,19 @@ public class QualitativeMeasureTypeService {
                 qualitativeMeasureTypeDTO.isMultiple(),
                 qualitativeMeasureTypeDTO.getValues());
         return Response.status(Response.Status.CREATED).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response update(@PathParam("id")int id, QualitativeMeasureTypeDTO qualitativeMeasureTypeDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
+
+        qualitativeMeasureTypeBean.updateQualitativeMeasureType(
+                id,
+                qualitativeMeasureTypeDTO.getName(),
+                qualitativeMeasureTypeDTO.isMultiple(),
+                qualitativeMeasureTypeDTO.getValues()
+        );
+
+        return Response.ok().build();
     }
 }

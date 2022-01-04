@@ -44,8 +44,8 @@ public class QuantitativeMeasureTypeService {
 
     @GET
     @Path("{id}")
-    public Response getQuantitativeMeasureTypeDetails(@PathParam("id") int id) {
-        QuantitativeMeasureType quantitativeMeasureType = this.quantitativeMeasureTypeBean.findQuantitativeMeasureType(id);
+    public Response getQuantitativeMeasureTypeDetails(@PathParam("id") int id) throws MyEntityNotFoundException {
+        QuantitativeMeasureType quantitativeMeasureType = quantitativeMeasureTypeBean.findQuantitativeMeasureType(id);
         return quantitativeMeasureType != null ? Response.ok(this.toDTO(quantitativeMeasureType)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
@@ -60,12 +60,13 @@ public class QuantitativeMeasureTypeService {
                 quantitativeMeasureTypeDTO.isDecimal());
         return Response.status(Response.Status.CREATED).build();
     }
+
     @PUT
     @Path("{id}")
-    public Response update(QuantitativeMeasureTypeDTO quantitativeMeasureTypeDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public Response update(@PathParam("id")int id, QuantitativeMeasureTypeDTO quantitativeMeasureTypeDTO) throws MyEntityNotFoundException, MyConstraintViolationException {
 
         quantitativeMeasureTypeBean.updateQuantitativeMeasureType(
-                quantitativeMeasureTypeDTO.getId(),
+                id,
                 quantitativeMeasureTypeDTO.getName(),
                 quantitativeMeasureTypeDTO.isMultiple(),
                 quantitativeMeasureTypeDTO.getMin(),

@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities;
 
+import io.smallrye.common.constraint.Nullable;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.MeasureTypeType;
 
 import javax.persistence.*;
@@ -15,16 +16,16 @@ import java.util.List;
 @Entity
 public class QualitativeMeasureType extends MeasureType implements Serializable {
 
+    @Nullable
     @ElementCollection
     @CollectionTable(name="QUALITATIVE_VALUES")
     private List<String> values;
 
     public QualitativeMeasureType() {
-        this.values = new ArrayList();
     }
 
-    public QualitativeMeasureType(String name, boolean multiple, MeasureTypeType type, List<String> values) {
-        super(name, multiple, type);
+    public QualitativeMeasureType(String name, boolean multiple, MeasureTypeType type, int version, boolean active, List<String> values) {
+        super(name, multiple, type, version, active);
         this.values = values;
     }
 
@@ -34,13 +35,5 @@ public class QualitativeMeasureType extends MeasureType implements Serializable 
 
     public void setValues(List<String> values) {
         this.values = values;
-    }
-
-    public void addValues(String value) {
-        this.values.add(value);
-    }
-
-    public void removeValues(String value) {
-        this.values.remove(value);
     }
 }
