@@ -1,9 +1,14 @@
 
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
+import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
+import javax.validation.constraints.Email;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -11,10 +16,14 @@ import javax.ws.rs.core.Response.Status;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.*;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.TokenBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Token;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -25,6 +34,11 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoun
 public class PatientService {
     @EJB
     private PatientBean patientBean;
+    @EJB
+    private EmailBean emailBean;
+    @EJB
+    private TokenBean tokenBean;
+
 
     @GET
     @Path("/")
@@ -35,6 +49,8 @@ public class PatientService {
     private PatientDTO toDTO(Patient patient) {
         return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive(),patient.getHealthProfessionals());
     }
+
+
 
 
     private HealthProfessionalDTO toDTO(HealthProfessional professional) {
@@ -56,6 +72,10 @@ public class PatientService {
 
     private List<PatientDTO> toDTOs(List<Patient> patients) {
         return (List)patients.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private EmailDTO toDTO(EmailDTO emailDTO){
+        return new EmailDTO();
     }
 
     private List<HealthProfessionalDTO> healthProfessionalToDTOs(List<HealthProfessional> professionals) {
@@ -99,19 +119,43 @@ public class PatientService {
         return Response.status(Response.Status.OK).build();
     }
 
+//    @PUT
+//    @Path("{username}/updatePassword")
+//    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+//
+//        System.out.println(updatePasswordDTO.getPassword());
+//        System.out.println(updatePasswordDTO.getToken());
+//        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+//        patientBean.deleteToken(username, updatePasswordDTO.getToken());
+//        return  Response.status(Response.Status.OK).build();
+//    }
+//
+//    @POST
+//    @Path("{username}/changePassword")
+//    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+//
+//        patientBean.sendEmailToChangePassword(username);
+//        return Response.status(Response.Status.OK).build();
+//    }
+
 
     @POST
     @Path("/")
-    public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException {
-            patientBean.create(
+    public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
+        System.out.println();
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-8"));
+        patientBean.create(
                 patientDTO.getUsername(),
-                patientDTO.getPassword(),
+                generatedString,
                 patientDTO.getName(),
                 patientDTO.getEmail(),
                 patientDTO.getRole(),
-                    patientDTO.isActive()
-            );
-        return Response.status(Response.Status.CREATED).build();
+                patientDTO.isActive()
+        );
+
+           return Response.status(Response.Status.CREATED).build();
     }
 
     @DELETE
@@ -126,6 +170,19 @@ public class PatientService {
             return Response.status(Status.NOT_FOUND).build();
         }
         return Response.ok().build();
+    }
+
+    @POST
+    @Path("/{username}/email/send")
+    public Response sendEmail(@PathParam("username") String username, EmailDTO email)
+            throws MyEntityNotFoundException, MessagingException {
+        Patient patient = patientBean.findPatient(username);
+        if (patient == null) {
+            throw new MyEntityNotFoundException("Patient with username '" + username
+                    + "' not found in our records.");
+        }
+        emailBean.send(patient.getEmail(), email.getSubject(), email.getMessage());
+        return Response.status(Response.Status.OK).entity("E-mail sent").build();
     }
 
     //private PatientDTO toDTONoHealthProfessionals(Patient patient){

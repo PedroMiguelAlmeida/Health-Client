@@ -1,0 +1,9 @@
+### Post
+POST http://localhost:8080/projectdae/api/patients/patient1/email/send
+Content-Type: application/json
+
+{
+  "subject": "localhost:3000",
+  "message": "localhost:3001"
+
+}
