@@ -12,6 +12,7 @@ import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -36,10 +37,8 @@ public class PrescriptionBean {
             Prescription prescription = new Prescription(healthProfessional, patient, treatment, description,0, true);
             em.persist(prescription);
 
-            System.out.println("measurements - " + measurements.toArray().length);
-
             for (Measurement measurement : measurements) {
-                addMeasurementToPrescription(prescription.getId(), measurement.getId());
+                addMeasurementToPrescription(prescription, measurement.getId());
             }
 
         } catch (ConstraintViolationException e) {
@@ -68,8 +67,8 @@ public class PrescriptionBean {
         return prescriptions;
     }
 
-    public void updatePrescription(int id, String healthProfessional_username, String patient_username, List<Measurement> measurements, List<String> treatment, String description) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
-        try {
+    public void updatePrescription(int id, String healthProfessional_username, String patient_username, List<Measurement> measurements, List<String> treatment, String description) throws MyEntityNotFoundException, MyEntityExistsException {
+
             Prescription prescription = findPrescription(id);
             HealthProfessional healthProfessional = healthProfessionalBean.findHealthProfessional(healthProfessional_username);
             Patient patient = patientBean.findPatient(patient_username);
@@ -80,16 +79,17 @@ public class PrescriptionBean {
             prescription.setTreatment(treatment);
             prescription.setDescription(description);
 
-            for (Measurement measurement : prescription.getMeasurements())
-                removeMeasurementToPrescription(prescription.getId(), measurement.getId());
+
+//            for (Measurement measurement : prescription.getMeasurements())
+//                if (measurement.getPrescriptions().contains(prescription))
+//                    measurement.removePrescription(prescription);
+//
+//            prescription.setMeasurements(new ArrayList<>());
+
+            removeMeasurementsFromPrescription(prescription, prescription.getMeasurements());
 
             for (Measurement measurement : measurements)
-                addMeasurementToPrescription(prescription.getId(), measurement.getId());
-
-
-        }catch (ConstraintViolationException e) {
-            throw new MyConstraintViolationException(e);
-        }
+                addMeasurementToPrescription(prescription, measurement.getId());
     }
 
     public void removePrescription(int id) throws MyEntityNotFoundException {
@@ -107,38 +107,21 @@ public class PrescriptionBean {
 
     }
 
-    public void addMeasurementToPrescription(int prescription_id, int measurement_id) throws MyEntityNotFoundException, MyConstraintViolationException {
-        try {
-            Prescription prescription = findPrescription(prescription_id);
+    public void addMeasurementToPrescription(Prescription prescription, int measurement_id) throws MyEntityNotFoundException {
             Measurement measurement = measurementBean.findMeasurement(measurement_id);
-
-            System.out.println("prescription - " + measurement.getPrescriptions().contains(prescription));
-            System.out.println("measurement - " + prescription.getMeasurements().contains(measurement));
 
             if (!measurement.getPrescriptions().contains(prescription))
                 measurement.addPrescription(prescription);
 
             if (!prescription.getMeasurements().contains(measurement))
                 prescription.addMeasurement(measurement);
-
-        }catch (ConstraintViolationException e) {
-            throw new MyConstraintViolationException(e);
-        }
     }
 
-    public void removeMeasurementToPrescription(int prescription_id, int measurement_id) throws MyEntityNotFoundException, MyConstraintViolationException {
-        try {
-            Prescription prescription = findPrescription(prescription_id);
-            Measurement measurement = measurementBean.findMeasurement(measurement_id);
-
+    public void removeMeasurementsFromPrescription(Prescription prescription, List<Measurement> measurements) throws MyEntityNotFoundException {
+        for (Measurement measurement : measurements)
             if (measurement.getPrescriptions().contains(prescription))
                 measurement.removePrescription(prescription);
 
-            if (prescription.getMeasurements().contains(measurement))
-                prescription.removeMeasurement(measurement);
-
-        }catch (ConstraintViolationException e) {
-            throw new MyConstraintViolationException(e);
-        }
+        prescription.setMeasurements(new ArrayList<>());
     }
 }

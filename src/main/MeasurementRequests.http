@@ -16,3 +16,15 @@ Content-Type: application/json
   "inputSource": "test",
   "username": "patient3"
 }
+
+###
+
+PUT http://localhost:8080/projectdae/api/measurements/1
+Content-Type: application/json
+
+{
+  "measureTypeId": 22,
+  "value": "1",
+  "inputSource": "test",
+  "username": "patient3"
+}

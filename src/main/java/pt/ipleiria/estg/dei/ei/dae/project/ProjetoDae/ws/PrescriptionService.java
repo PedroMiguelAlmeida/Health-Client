@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PrescriptionDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PrescriptionBean;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Prescription;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
@@ -44,6 +44,14 @@ public class PrescriptionService {
         return prescription != null ? Response.ok(this.toDTO(prescription)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
+    @GET
+    @Path("/active/{id}")
+    public Response getActivePrescription(@PathParam("id") int id) throws MyEntityNotFoundException {
+        System.err.println("Prescription SERVICE");
+        List<Prescription> prescription = this.prescriptionBean.findActivePrescription(id);
+        return prescription != null ? Response.ok(this.toDTOs(prescription)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+    }
+
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id")int id, PrescriptionDTO prescriptionDTO) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
@@ -72,5 +80,19 @@ public class PrescriptionService {
                 prescriptionDTO.getDescription()
         );
         return Response.status(Response.Status.CREATED).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id")int id) throws MyEntityNotFoundException {
+        Prescription prescription = prescriptionBean.findPrescription(id);
+        if(prescription != null && prescription.isActive()){
+            prescriptionBean.deletePrescription(id);
+        }else if(!prescription.isActive()){
+            return  Response.status(Response.Status.FORBIDDEN).build();
+        }else{
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok().build();
     }
 }

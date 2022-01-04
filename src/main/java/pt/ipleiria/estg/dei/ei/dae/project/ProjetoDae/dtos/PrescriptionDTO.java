@@ -1,12 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos;
 
-import io.smallrye.common.constraint.NotNull;
-import io.smallrye.common.constraint.Nullable;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 
-import javax.persistence.*;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
+
+
 import java.util.ArrayList;
 import java.util.List;
 

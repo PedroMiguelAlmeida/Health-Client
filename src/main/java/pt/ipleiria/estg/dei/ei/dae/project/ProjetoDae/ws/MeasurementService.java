@@ -44,11 +44,14 @@ public class MeasurementService {
 
     @PUT
     @Path("{id}")
-    public Response update(@PathParam("id")int id,Measurement updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
-        Measurement measurement = this.measurementBean.findMeasurement(id);
-
-        updatedMeasurement.setId(id);
-        measurementBean.updateMeasurement(updatedMeasurement);
+    public Response update(@PathParam("id")int id, MeasurementDTO updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
+        measurementBean.updateMeasurement(
+                id,
+                updatedMeasurement.getMeasureTypeId(),
+                updatedMeasurement.getValue(),
+                updatedMeasurement.getInputSource(),
+                updatedMeasurement.getUsername()
+        );
 
         return Response.ok().build();
     }
