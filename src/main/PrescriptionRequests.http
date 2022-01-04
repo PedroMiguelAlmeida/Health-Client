@@ -3,7 +3,7 @@ GET http://localhost:8080/projectdae/api/prescriptions
 Accept: application/json
 
 ###
-GET http://localhost:8080/projectdae/api/prescriptions/5
+GET http://localhost:8080/projectdae/api/prescriptions/9
 Accept: application/json
 
 ###
@@ -11,5 +11,21 @@ POST http://localhost:8080/projectdae/api/prescriptions
 Content-Type: application/json
 
 {
+  "healthProfessional_username": "professional2",
+  "patient_username": "patient4",
+  "measurements": [{"id": 5}],
+  "treatment": ["treat1", "treat2", "treat3"],
+  "description": "some description"
+}
 
+###
+PUT http://localhost:8080/projectdae/api/prescriptions/9
+Content-Type: application/json
+
+{
+  "healthProfessional_username": "professional3",
+  "patient_username": "patient3",
+  "measurements": [{"id": 6}],
+  "treatment": ["treat2", "treat3", "treat1"],
+  "description": "some other description"
 }

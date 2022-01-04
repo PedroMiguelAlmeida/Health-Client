@@ -31,8 +31,12 @@ public class MeasurementBean {
             Patient patient = patientBean.findPatient(username);
             MeasureType measureType = measureTypeBean.findMeasureType(measureTypeId);
 
-            Measurement measurement = new Measurement(measureType, value, inputSource, patient);
+            Measurement measurement = new Measurement(measureType, value, inputSource, patient, 0, true);
             em.persist(measurement);
+
+            if (!measureType.getMeasurements().contains(measurement))
+                measureType.addMeasurement(measurement);
+
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
@@ -49,14 +53,24 @@ public class MeasurementBean {
         return measurement;
     }
 
-    public void updateMeasurement(Measurement updatedMeasurement) throws MyEntityNotFoundException, MyConstraintViolationException {
+    public void updateMeasurement(int id, int measureTypeId, String value, String inputSource, String username) throws MyEntityNotFoundException, MyConstraintViolationException {
         try {
-            Measurement measurement = findMeasurement(updatedMeasurement.getId());
-            Patient patient = patientBean.findPatient(updatedMeasurement.getPatient().getUsername());
-            MeasureType measureType = measureTypeBean.findMeasureType(updatedMeasurement.getMeasureType().getId());
+            Measurement measurement = findMeasurement(id);
+            MeasureType measureType = measureTypeBean.findMeasureType(measureTypeId);
+            Patient patient = patientBean.findPatient(username);
 
-            em.lock(updatedMeasurement, LockModeType.OPTIMISTIC);
-            em.merge(updatedMeasurement);
+            if (measurement.getMeasureType().getMeasurements().contains(measurement))
+                measureType.removeMeasurement(measurement);
+
+            em.lock(measurement, LockModeType.OPTIMISTIC);
+            measurement.setMeasureType(measureType);
+            measurement.setValue(value);
+            measurement.setInputSource(inputSource);
+            measurement.setPatient(patient);
+
+            if (!measureType.getMeasurements().contains(measurement))
+                measureType.addMeasurement(measurement);
+
         }catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
@@ -68,5 +82,12 @@ public class MeasurementBean {
             throw new MyEntityNotFoundException("Measurement with id " + id + " not found.");
 
         this.em.remove(measurement);
+    }
+
+    public void deleteMeasurement(int id) throws MyEntityNotFoundException {
+        Measurement measurement = findMeasurement(id);
+        em.lock(measurement,LockModeType.OPTIMISTIC);
+        measurement.setActive(false);
+
     }
 }
