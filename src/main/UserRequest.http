@@ -49,6 +49,7 @@ Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiL
 
 
 
+
 ###### HealthProfessionals ------------------------------------------------------------------------------------
 
 POST http://localhost:8080/projectdae/api/auth/login
@@ -69,13 +70,13 @@ Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiL
 ###
 POST http://localhost:8080/projectdae/api/healthProfessionals
 Content-Type: application/json
-Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDA5MTgwMjh9.YyQCxTzjTTRVrKWq6bb1hNLCTjNsjww9gKkPaSMmoyvSmFWnZ52C8CMoaaE8RWBF_MXAd7q2YapngScFIyWJZZL8mHcS870KqqB_d-pdLM4-KFxtvtQnwAg8Tvg8XKimd1gOOJxoeMZHsl3GpAYqyrrykptoRtTJApOIUrA-yUyW0bLOq3TquWubCU-jqT6oTmUADdXXHFFXZh0FBlC4R7xrM0z0dX-9uzHiH1Hj7pJRs39PHWIfo3i2T7kcKxIycXxDQQr0DiYdOKXvLcDTCw5eb1Jl94lWpSaHUhM75Mbb3f6J8P69eyXTu6ElbL7Rx0JF1TTja_-UCyz_zyDTqw
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEzMjE2Nzh9.KeuIFQLjcfP8t2QOUu2EKIrDM1UQkxx8DdfwZoacCguj3ZD8Fo78ju8vD5mfnzcwTsMZfnQN5kkPUNSAFtw2oIvf5_KwYKh6pXrzo95rp0dxgnnTzikut48lqBs7iaQhVv83I5Z7ervfMFA91W9zjhvw5p6V3x2iyUGQuLqCzyINjF17qASuLjhovaKS6UgjeDGbd-NhPTudAwWDYkCQJcIVZFm_q_52al2D7W-laDHLEQf3ugLB70fxLpEcAeJzU9vqcsPAp4HQS57Uv8lN3pchcgJTll6JwEJ5ae82A--AmTlVqjP90aqqyV_u2v5yOIJdQ6On18FgXQ18Ss4r3A
 
 {
-  "username": "professionalTeste1",
+  "username": "professionalTeste4",
   "password": "1234",
-  "name": "professionalTeste",
-  "email": "professionalTeste@mail.com",
+  "name": "professionalTeste4",
+  "email": "professionalTeste4@mail.com",
   "version":  0,
   "profession": "Doctor",
   "chefe": false,
@@ -98,6 +99,16 @@ Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiL
 
 }
 
+###
+
+PUT http://localhost:8080/projectdae/api/healthProfessionals/professionalTeste4/updatePassword
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEzMjE2Nzh9.KeuIFQLjcfP8t2QOUu2EKIrDM1UQkxx8DdfwZoacCguj3ZD8Fo78ju8vD5mfnzcwTsMZfnQN5kkPUNSAFtw2oIvf5_KwYKh6pXrzo95rp0dxgnnTzikut48lqBs7iaQhVv83I5Z7ervfMFA91W9zjhvw5p6V3x2iyUGQuLqCzyINjF17qASuLjhovaKS6UgjeDGbd-NhPTudAwWDYkCQJcIVZFm_q_52al2D7W-laDHLEQf3ugLB70fxLpEcAeJzU9vqcsPAp4HQS57Uv8lN3pchcgJTll6JwEJ5ae82A--AmTlVqjP90aqqyV_u2v5yOIJdQ6On18FgXQ18Ss4r3A
+
+{
+"token": "[B@1806fe51",
+"password": "novapass"
+}
 ###
 DELETE http://localhost:8080/projectdae/api/healthProfessionals/professional1
 Content-Type: application/json
