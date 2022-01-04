@@ -28,7 +28,7 @@ public class MeasurementService {
     }
 
     private MeasurementDTO toDTO(Measurement measurement) {
-        return new MeasurementDTO(measurement.getId(), measurement.getMeasureType().getId(), measurement.getValue(), measurement.getInputSource(), measurement.getPatient().getUsername());
+        return new MeasurementDTO(measurement.getId(), measurement.getMeasureType().getId(), measurement.getMeasureType().getName(), measurement.getValue(), measurement.getInputSource(), measurement.getPatient().getUsername());
     }
 
     private List<MeasurementDTO> toDTOs(List<Measurement> measurements) {

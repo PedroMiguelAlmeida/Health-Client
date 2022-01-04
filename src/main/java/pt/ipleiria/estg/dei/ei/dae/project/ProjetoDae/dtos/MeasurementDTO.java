@@ -4,6 +4,7 @@ public class MeasurementDTO {
 
     private int id;
     private int measureTypeId;
+    private String measureTypeName;
     private String value;
     private String inputSource;
     private String username;
@@ -11,12 +12,13 @@ public class MeasurementDTO {
     public MeasurementDTO() {
     }
 
-    public MeasurementDTO(int id, int measureTypeId, String value, String inputSource, String username) {
+    public MeasurementDTO(int id, int measureTypeId, String measureTypeName, String value, String inputSource, String username) {
         this.id = id;
         this.measureTypeId = measureTypeId;
         this.value = value;
         this.inputSource = inputSource;
         this.username = username;
+        this.measureTypeName = measureTypeName;
     }
 
     public int getId() {
@@ -33,6 +35,14 @@ public class MeasurementDTO {
 
     public void setMeasureTypeId(int measureTypeId) {
         this.measureTypeId = measureTypeId;
+    }
+
+    public String getMeasureTypeName() {
+        return measureTypeName;
+    }
+
+    public void setMeasureTypeName(String measureTypeName) {
+        this.measureTypeName = measureTypeName;
     }
 
     public String getValue() {
