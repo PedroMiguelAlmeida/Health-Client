@@ -17,7 +17,9 @@ import javax.mail.MessagingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.nio.charset.Charset;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Path("healthProfessionals")
@@ -79,9 +81,12 @@ public class HealthProfessionalService {
     @POST
     @Path("/")
     public Response createNewPatient (HealthProfessionalDTO professionalDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-8"));
         healthProfessionalBean.create(
                 professionalDTO.getUsername(),
-                professionalDTO.getPassword(),
+                generatedString,
                 professionalDTO.getName(),
                 professionalDTO.getEmail(),
                 professionalDTO.getVersion(),

@@ -89,7 +89,7 @@ public class UserBean {
         if (token == null){
             throw new MyEntityNotFoundException("token not found");
         }
-        emailBean.send(user.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+        emailBean.send(user.getEmail(),"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username);
 
     }
 }

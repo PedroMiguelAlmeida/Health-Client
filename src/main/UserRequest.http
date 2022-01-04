@@ -96,8 +96,9 @@ Content-Type: application/json
 Accept: application/json
 
 {
+  "username": "patient1"
 }
-"username": "patient1"
+
 ###
 PUT http://localhost:8080/projectdae/api/healthProfessionals/professional1
 Content-Type: application/json
@@ -164,8 +165,8 @@ Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEzNDI1OTF9.IAcei5yh5ytfALex4jgGMlz0q0jpQlAraVf6h9JsbzYkOLvEYGm_89YpzuGzaU5PaUx4tlU0R3pfaWN9p5Ljz3NkG-DQicQ73wokWWMeMcZtaPPua8Bzw9ol_wHCuL0YcQSyuOzfjpUMBElnlsnRz0Kx9G9i8MDZ5Ejhhsvsgz2hXH6vyAy1iliEm6Fnz3y1xDNHpAm222m8ch1t9Zymsg_OHaWl35upHGK1vbcdSvgmNwTQXC_BRtKuE-nPA_uM8seEYmgJk-G4T4W5hDJMRxWivbUzGpu9-S5GlzJ_FBbmj2PyDWJ66J_o5rlUHyq6cvL60nj2vFgUkwSq6V6wyw
 
 {
-  "token": "[B@216db344",
-  "password": "novapass4"
+  "token": "[B@1fc455d0",
+  "password": "manel"
 }
 
 ###
