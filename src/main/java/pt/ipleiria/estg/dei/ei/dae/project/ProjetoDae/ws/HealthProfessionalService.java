@@ -85,24 +85,24 @@ public class HealthProfessionalService {
         return Response.status(Response.Status.CREATED).build();
     }
 
-    @PUT
-    @Path("{username}/updatePassword")
-    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
-
-        System.out.println(updatePasswordDTO.getPassword());
-        System.out.println(updatePasswordDTO.getToken());
-        healthProfessionalBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
-        healthProfessionalBean.deleteToken(username, updatePasswordDTO.getToken());
-        return  Response.status(Response.Status.OK).build();
-    }
-
-    @POST
-    @Path("{username}/changePassword")
-    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
-
-        healthProfessionalBean.sendEmailToChangePassword(username);
-        return Response.status(Response.Status.OK).build();
-    }
+//    @PUT
+//    @Path("{username}/updatePassword")
+//    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+//
+//        System.out.println(updatePasswordDTO.getPassword());
+//        System.out.println(updatePasswordDTO.getToken());
+//        healthProfessionalBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+//        healthProfessionalBean.deleteToken(username, updatePasswordDTO.getToken());
+//        return  Response.status(Response.Status.OK).build();
+//    }
+//
+//    @POST
+//    @Path("{username}/changePassword")
+//    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+//
+//        healthProfessionalBean.sendEmailToChangePassword(username);
+//        return Response.status(Response.Status.OK).build();
+//    }
 
     @DELETE
     @Path("{username}")

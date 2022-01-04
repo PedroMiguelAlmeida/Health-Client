@@ -91,48 +91,48 @@ public class PatientBean {
 
     }
 
-    public void updatePassword(String username,String password,String tokenString) throws MyEntityNotFoundException {
-        Patient patient = em.find(Patient.class,username);
-        if (patient==null){
-            throw new MyEntityNotFoundException("Patient not found");
-        }
-        Token token = tokenBean.findToken(patient.getEmail());
-        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
-        if (!Objects.equals(token.getToken(), tokenString)){
-            throw new NotAuthorizedException("Token was not found");
-        }
-        em.lock(patient,LockModeType.OPTIMISTIC);
-        patient.setPassword(password);
-    }
-
-    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
-        Patient patient = em.find(Patient.class,username);
-        if (patient==null){
-            throw new MyEntityNotFoundException("Patient not found");
-        }
-        Token token = tokenBean.findToken(patient.getEmail());
-        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
-        if (!Objects.equals(token.getToken(), tokenString)){
-            throw new NotAuthorizedException("Token was not found");
-        }
-        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
-        tokenBean.delete(patient.getEmail());
-    }
-
-    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
-        Patient patient = em.find(Patient.class,username);
-        if (patient==null){
-            throw new MyEntityNotFoundException("Patient not found");
-        }
-        tokenBean.create(patient.getEmail());
-        Token token = tokenBean.findToken(patient.getEmail());
-        System.out.println("This is email: "+ patient.getEmail());
-        if (token == null){
-            throw new MyEntityNotFoundException("token not found");
-        }
-        emailBean.send(patient.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
-
-    }
+//    public void updatePassword(String username,String password,String tokenString) throws MyEntityNotFoundException {
+//        Patient patient = em.find(Patient.class,username);
+//        if (patient==null){
+//            throw new MyEntityNotFoundException("Patient not found");
+//        }
+//        Token token = tokenBean.findToken(patient.getEmail());
+//        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+//        if (!Objects.equals(token.getToken(), tokenString)){
+//            throw new NotAuthorizedException("Token was not found");
+//        }
+//        em.lock(patient,LockModeType.OPTIMISTIC);
+//        patient.setPassword(password);
+//    }
+//
+//    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
+//        Patient patient = em.find(Patient.class,username);
+//        if (patient==null){
+//            throw new MyEntityNotFoundException("Patient not found");
+//        }
+//        Token token = tokenBean.findToken(patient.getEmail());
+//        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+//        if (!Objects.equals(token.getToken(), tokenString)){
+//            throw new NotAuthorizedException("Token was not found");
+//        }
+//        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
+//        tokenBean.delete(patient.getEmail());
+//    }
+//
+//    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
+//        Patient patient = em.find(Patient.class,username);
+//        if (patient==null){
+//            throw new MyEntityNotFoundException("Patient not found");
+//        }
+//        tokenBean.create(patient.getEmail());
+//        Token token = tokenBean.findToken(patient.getEmail());
+//        System.out.println("This is email: "+ patient.getEmail());
+//        if (token == null){
+//            throw new MyEntityNotFoundException("token not found");
+//        }
+//        emailBean.send(patient.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+//
+//    }
 //    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
 //        em.lock(updatePatient,LockModeType.OPTIMISTIC);
 //        em.merge(updatePatient);

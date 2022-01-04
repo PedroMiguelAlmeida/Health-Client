@@ -76,39 +76,25 @@ public class PatientService {
         return Response.status(Response.Status.OK).build();
     }
 
-    @PUT
-    @Path("{username}/updatePassword")
-    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
-
-        System.out.println(updatePasswordDTO.getPassword());
-        System.out.println(updatePasswordDTO.getToken());
-        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
-        patientBean.deleteToken(username, updatePasswordDTO.getToken());
-        return  Response.status(Response.Status.OK).build();
-    }
-
-    @POST
-    @Path("{username}/changePassword")
-    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
-
-        patientBean.sendEmailToChangePassword(username);
-        return Response.status(Response.Status.OK).build();
-    }
-
 //    @PUT
-//    @Path("{username}")
-//    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
-//        Patient updatePatient = this.patientBean.findPatient(username);
+//    @Path("{username}/updatePassword")
+//    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
 //
-//        updatePatient.setActive(patient.isActive());
-//        updatePatient.setMeasurementsList(patient.getMeasurementsList());
-//        updatePatient.setEmail(patient.getEmail());
-//        updatePatient.setName(patient.getName());
-//        updatePatient.setVersion(patient.getVersion()+1);
-//        patientBean.updatePatient(updatePatient);
-//
-//        return Response.ok().build();
+//        System.out.println(updatePasswordDTO.getPassword());
+//        System.out.println(updatePasswordDTO.getToken());
+//        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+//        patientBean.deleteToken(username, updatePasswordDTO.getToken());
+//        return  Response.status(Response.Status.OK).build();
 //    }
+//
+//    @POST
+//    @Path("{username}/changePassword")
+//    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+//
+//        patientBean.sendEmailToChangePassword(username);
+//        return Response.status(Response.Status.OK).build();
+//    }
+
 
     @POST
     @Path("/")
