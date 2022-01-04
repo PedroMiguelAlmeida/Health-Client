@@ -18,6 +18,7 @@ public class PrescriptionDTO {
     private String description;
 
     public PrescriptionDTO() {
+        this.measurements = new ArrayList<>();
     }
 
     public PrescriptionDTO(int id, String healthProfessional_username, String patient_username, List<Measurement> measurements, List<String> treatment, String description) {
