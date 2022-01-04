@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.MeasurementDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.MeasurementBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Prescription;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -40,6 +41,17 @@ public class MeasurementService {
     public Response getMeasurementDetails(@PathParam("id") int id) throws MyEntityNotFoundException {
         Measurement measurement = this.measurementBean.findMeasurement(id);
         return measurement != null ? Response.ok(this.toDTO(measurement)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+    }
+
+    @GET
+    @Path("/patient/{username}")
+    public Response getUsernamePrescriptions(@PathParam("username") String username) throws MyEntityNotFoundException {
+        List<Measurement> measurement = this.measurementBean.findMeasurementByPatient(username);
+        if(measurement== null){
+            throw new MyEntityNotFoundException("Prescriptions not found");
+        }
+        return Response.ok(this.toDTOs(measurement)).build();
+
     }
 
     @PUT

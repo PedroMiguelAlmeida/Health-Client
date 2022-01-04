@@ -52,6 +52,14 @@ public class MeasurementBean {
             throw new MyEntityNotFoundException("Measurement with id: " + id + " not found");
         return measurement;
     }
+    public List<Measurement> findMeasurementByPatient(String username) throws MyEntityNotFoundException {
+        List<Measurement> measurements = em.createQuery("SELECT p FROM Measurement p WHERE p.patient.username = :username")
+                .setParameter("username",username).getResultList();
+
+        if(measurements == null)
+            throw new MyEntityNotFoundException("Measurement with username: " + username + " not found");
+        return measurements;
+    }
 
     public void updateMeasurement(int id, int measureTypeId, String value, String inputSource, String username) throws MyEntityNotFoundException, MyConstraintViolationException {
         try {
