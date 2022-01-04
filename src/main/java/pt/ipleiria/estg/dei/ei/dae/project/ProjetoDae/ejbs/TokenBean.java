@@ -20,13 +20,13 @@ public class TokenBean {
     @PersistenceContext
     EntityManager em;
 
-    public void create(String tokenString,String email) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
-        Token token = em.find(Token.class,tokenString);
+    public void create(String email) throws MyEntityNotFoundException, MyEntityExistsException, MyConstraintViolationException {
+        Token token = em.find(Token.class,email);
         if (token !=null){
             throw new MyEntityExistsException("This token already exists");
         }
         try {
-            token = new Token(tokenString,email);
+            token = new Token(email);
             em.persist(token);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);

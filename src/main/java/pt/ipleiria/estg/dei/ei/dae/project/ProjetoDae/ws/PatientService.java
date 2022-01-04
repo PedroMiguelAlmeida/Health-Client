@@ -5,18 +5,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
+import javax.validation.constraints.Email;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.EmailDTO;
-import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PatientDTO;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PatientBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.TokenBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Token;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyEntityNotFoundException;
@@ -29,6 +30,9 @@ public class PatientService {
     private PatientBean patientBean;
     @EJB
     private EmailBean emailBean;
+    @EJB
+    private TokenBean tokenBean;
+
 
     @GET
     @Path("/")
@@ -42,6 +46,10 @@ public class PatientService {
 
     private List<PatientDTO> toDTOs(List<Patient> patients) {
         return (List)patients.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private EmailDTO toDTO(EmailDTO emailDTO){
+        return new EmailDTO();
     }
 
     @GET
@@ -68,6 +76,16 @@ public class PatientService {
         return Response.status(Response.Status.OK).build();
     }
 
+    @PUT
+    @Path("{username}/updatePassword")
+    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+
+        System.out.println(updatePasswordDTO.getPassword());
+        System.out.println(updatePasswordDTO.getToken());
+        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        return  Response.status(Response.Status.OK).build();
+    }
+
 //    @PUT
 //    @Path("{username}")
 //    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {
@@ -85,16 +103,18 @@ public class PatientService {
 
     @POST
     @Path("/")
-    public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException {
-            patientBean.create(
+    public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
+
+        patientBean.create(
                 patientDTO.getUsername(),
                 patientDTO.getPassword(),
                 patientDTO.getName(),
                 patientDTO.getEmail(),
                 patientDTO.getRole(),
-                    patientDTO.isActive()
-            );
-        return Response.status(Response.Status.CREATED).build();
+                patientDTO.isActive()
+        );
+
+           return Response.status(Response.Status.CREATED).build();
     }
 
     @DELETE

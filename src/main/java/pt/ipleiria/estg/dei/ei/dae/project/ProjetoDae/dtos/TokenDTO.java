@@ -10,8 +10,6 @@ public class TokenDTO {
 
     }
 
-
-
     public TokenDTO(String token, String email) {
         this.token = token;
         this.email = email;

@@ -12,16 +12,16 @@ import java.security.SecureRandom;
 @Table(name = "TOKENS")
 @Entity
 public class Token implements Serializable {
-    @Id
-    String token = generateToken();
     @NotNull
+    String token = generateToken();
+    @Id
     String email;
 
     public Token() {
 
     }
 
-    public Token(String token, String email) {
+    public Token(String email) {
         this.token = token;
         this.email = email;
     }

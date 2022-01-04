@@ -1,6 +1,6 @@
 ##### Patients ---------------------------------------------------------------------
 GET http://localhost:8080/projectdae/api/patients/
-Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDExNDMzMzN9.WziKSc14Ji6G5XU0E3l4WATiOAJRKoKVcpq60BncgpZclk6E1nzWiqzwt8BQOoWTq1ptvWtaanZTSjXBQaCiSPjYEum0IbN_p7wPouqnH6n2LUTLMQEF_mvfIuuYfL4pOTR6IksF-Cpr5W9Yv-wCQMd0Y20N6GtEHQxirHESyFXuzVUQS4KjhNIrjXmHk0IDjG9o09tIufyS2HjDck9sQtyErAUkhZwjU90793R7U5KODEKZ1Z2pafHcvLg24jvmEZxevfbFe3U7j-8loDzFcikCDGxn1rjamQ8Pm8Z_DJwVtbIYcZ_BYHzVMyZ1Kmn-nGMPcbNeYpLyaNYyNIRZhw
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEyNzg0MzZ9.A_ftBiPhbmFzEmWhaEqsufaAO6CBUrD_5HI5q0XcVFYz_HDTDGrwUo4VX9zYRMgPSGf0_M0MPxLW85eiwMEBMwbA_2QT21miVI_YfTLP3guzcDNXGFdIszUNhfQsGDRGYuMCS6CAx4XprD5irXf6jWX17z9dYzfGqWIWUF8WZZSVLzXMwIZDSwhbmch94ezcsEtb3roSisChwqVv5Aa4wODr-tj1sz2IQ9HGQ9plZYS_2WdBtzw-NYc19sMkqZgFCwFF9ZAfaSOzyz2Eu8v3GGl6lctZAniJzHKQJCjb3cNMQC_3nXPA2TTQ6NJqZZIAG2ZsfNJlEbxGaJIt4DTOBA
 Accept: application/json
 ##### Patients/active
 GET http://localhost:8080/projectdae/api/patients/active/patient1
@@ -13,11 +13,12 @@ Accept: application/json
 ###
 POST http://localhost:8080/projectdae/api/patients
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEyODAzODd9.aLsv9wQr0TH0A7hUYTAXTB7k2lnV9E0iebeyxsXGOjVx0pvU_rgiJIY88VmH6tsIi2JVCbBD9ZMhb8a5Z2voeodWedO8W99JwKQ7tlJeTVCLVGxCyjx-UlmO_YUAieA4HPlZMhUnjbtAsOruD8LFTPQY2mJr3-IUb9qWnKLh_OIrDW59--yiyxMRby5qPF3QIQQkv6CtJayAi0l5hIZYpBjbbTO_Ofxak7ixjKYfrTjWgISJWNwxxoSyQdggMkce9A6uzVvuKmQlbpfxoxJeuQq6z_Zzp_vihX4qIWbZLLNBvUxAwOl1Ji5MOAl4l1piSjnE81YWRSPWCIwAU3dO2A
 
 {
-  "email": "patient5@mail.com",
-  "name": "patient5",
-  "username": "patient5",
+  "email": "patient8@mail.com",
+  "name": "patient8",
+  "username": "patient8",
   "password": "1234",
   "role": "Patient"
 
@@ -35,6 +36,19 @@ Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiL
   "role": "Patient"
 
 }
+
+###
+PUT http://localhost:8080/projectdae/api/patients/patient8/updatePassword
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEyODAzODd9.aLsv9wQr0TH0A7hUYTAXTB7k2lnV9E0iebeyxsXGOjVx0pvU_rgiJIY88VmH6tsIi2JVCbBD9ZMhb8a5Z2voeodWedO8W99JwKQ7tlJeTVCLVGxCyjx-UlmO_YUAieA4HPlZMhUnjbtAsOruD8LFTPQY2mJr3-IUb9qWnKLh_OIrDW59--yiyxMRby5qPF3QIQQkv6CtJayAi0l5hIZYpBjbbTO_Ofxak7ixjKYfrTjWgISJWNwxxoSyQdggMkce9A6uzVvuKmQlbpfxoxJeuQq6z_Zzp_vihX4qIWbZLLNBvUxAwOl1Ji5MOAl4l1piSjnE81YWRSPWCIwAU3dO2A
+
+{
+  "token": "[B@2c167309",
+  "password": "novapass"
+}
+
+
+
 ###### HealthProfessionals ------------------------------------------------------------------------------------
 
 POST http://localhost:8080/projectdae/api/auth/login
