@@ -1,7 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.MeasurementDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.PrescriptionDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.PrescriptionBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Measurement;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Prescription;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
@@ -37,11 +39,31 @@ public class PrescriptionService {
         return prescriptions.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    private MeasurementDTO toDTO(Measurement measurement) {
+        return new MeasurementDTO(measurement.getId(), measurement.getMeasureType().getId(), measurement.getValue(), measurement.getInputSource(), measurement.getPatient().getUsername());
+    }
+
+    private List<MeasurementDTO> toDTOMeasurments(List<Measurement> measurements) {
+        return measurements.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+
     @GET
     @Path("{id}")
     public Response getPrescriptionDetails(@PathParam("id") int id) throws MyEntityNotFoundException {
         Prescription prescription = this.prescriptionBean.findPrescription(id);
         return prescription != null ? Response.ok(this.toDTO(prescription)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
+    }
+    @GET
+    @Path("/{id}/measurments")
+    public Response getPrescriptionMeasurements(@PathParam("id") int id) throws MyEntityNotFoundException {
+        Prescription prescription = this.prescriptionBean.findPrescription(id);
+        List<Measurement> measurements = prescription.getMeasurements();
+        if(measurements == null){
+            throw new MyEntityNotFoundException();
+        }
+        return Response.ok(this.toDTOMeasurments(measurements)).build();
+        //return measurement != null ? Response.ok(this.toDTO(measurement)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
 
     @GET
