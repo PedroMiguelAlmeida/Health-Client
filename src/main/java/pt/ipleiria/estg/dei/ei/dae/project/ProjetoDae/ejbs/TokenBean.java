@@ -40,8 +40,8 @@ public class TokenBean {
         return token;
     }
 
-    public void delete(String tokenString){
-        Token deleteToken = em.find(Token.class,tokenString);
+    public void delete(String email){
+        Token deleteToken = em.find(Token.class,email);
         if (deleteToken!=null){
             em.remove(deleteToken);
         }

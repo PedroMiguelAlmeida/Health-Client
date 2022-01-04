@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.AdministratorDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.HealthProfessionalDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.dtos.UpdatePasswordDTO;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.AdministratorBean;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ejbs.TokenBean;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
@@ -27,6 +28,8 @@ import javax.ws.rs.core.Response.Status;
 public class AdministratorService {
     @EJB
     private AdministratorBean administratorBean;
+    @EJB
+    private TokenBean tokenBean;
 
     @GET
     @Path("/")
@@ -64,6 +67,7 @@ public class AdministratorService {
         System.out.println(updatePasswordDTO.getPassword());
         System.out.println(updatePasswordDTO.getToken());
         administratorBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        administratorBean.deleteToken(username,updatePasswordDTO.getToken());
         return  Response.status(Response.Status.OK).build();
     }
 

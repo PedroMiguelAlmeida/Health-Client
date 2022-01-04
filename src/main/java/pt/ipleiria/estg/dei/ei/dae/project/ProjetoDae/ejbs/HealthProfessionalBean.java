@@ -97,6 +97,20 @@ public class HealthProfessionalBean {
         healthProfessional.setPassword(password);
     }
 
+    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
+        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+        if (healthProfessional==null){
+            throw new MyEntityNotFoundException("Health Professional not found");
+        }
+        Token token = tokenBean.findToken(healthProfessional.getEmail());
+        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+        if (!Objects.equals(token.getToken(), tokenString)){
+            throw new NotAuthorizedException("Token was not found");
+        }
+        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
+        tokenBean.delete(healthProfessional.getEmail());
+    }
+
     public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
 
     public void delete(String username) {

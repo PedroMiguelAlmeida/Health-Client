@@ -83,6 +83,7 @@ public class PatientService {
         System.out.println(updatePasswordDTO.getPassword());
         System.out.println(updatePasswordDTO.getToken());
         patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        patientBean.deleteToken(username, updatePasswordDTO.getToken());
         return  Response.status(Response.Status.OK).build();
     }
 

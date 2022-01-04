@@ -111,7 +111,7 @@ public class AdministratorBean {
     public void updatePassword(String username,String password,String tokenString) throws MyEntityNotFoundException {
         Administrator administrator = em.find(Administrator.class,username);
         if (administrator==null){
-            throw new MyEntityNotFoundException("HealthProfessional not found");
+            throw new MyEntityNotFoundException("Administrator not found");
         }
         Token token = tokenBean.findToken(administrator.getEmail());
         System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
@@ -120,5 +120,19 @@ public class AdministratorBean {
         }
         em.lock(administrator,LockModeType.OPTIMISTIC);
         administrator.setPassword(password);
+    }
+
+    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
+        Administrator administrator = em.find(Administrator.class,username);
+        if (administrator==null){
+            throw new MyEntityNotFoundException("Administrator not found");
+        }
+        Token token = tokenBean.findToken(administrator.getEmail());
+        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+        if (!Objects.equals(token.getToken(), tokenString)){
+            throw new NotAuthorizedException("Token was not found");
+        }
+        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
+        tokenBean.delete(administrator.getEmail());
     }
 }

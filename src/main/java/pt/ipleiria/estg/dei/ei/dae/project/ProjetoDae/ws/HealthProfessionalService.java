@@ -90,6 +90,7 @@ public class HealthProfessionalService {
         System.out.println(updatePasswordDTO.getPassword());
         System.out.println(updatePasswordDTO.getToken());
         healthProfessionalBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+        healthProfessionalBean.deleteToken(username, updatePasswordDTO.getToken());
         return  Response.status(Response.Status.OK).build();
     }
 

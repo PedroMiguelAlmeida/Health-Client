@@ -14,6 +14,7 @@ import javax.validation.ConstraintViolationException;
 import javax.ws.rs.NotAuthorizedException;
 
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.Roles;
+import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.HealthProfessional;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Patient;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.entities.Token;
 import pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.exceptions.MyConstraintViolationException;
@@ -102,6 +103,20 @@ public class PatientBean {
         }
         em.lock(patient,LockModeType.OPTIMISTIC);
         patient.setPassword(password);
+    }
+
+    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
+        Patient patient = em.find(Patient.class,username);
+        if (patient==null){
+            throw new MyEntityNotFoundException("Patient not found");
+        }
+        Token token = tokenBean.findToken(patient.getEmail());
+        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+        if (!Objects.equals(token.getToken(), tokenString)){
+            throw new NotAuthorizedException("Token was not found");
+        }
+        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
+        tokenBean.delete(patient.getEmail());
     }
 //    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
 //        em.lock(updatePatient,LockModeType.OPTIMISTIC);
