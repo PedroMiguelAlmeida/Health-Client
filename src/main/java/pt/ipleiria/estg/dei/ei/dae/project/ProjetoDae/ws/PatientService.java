@@ -87,6 +87,14 @@ public class PatientService {
         return  Response.status(Response.Status.OK).build();
     }
 
+    @POST
+    @Path("{username}/changePassword")
+    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+
+        patientBean.sendEmailToChangePassword(username);
+        return Response.status(Response.Status.OK).build();
+    }
+
 //    @PUT
 //    @Path("{username}")
 //    public Response update(@PathParam("username")String username,Patient patient) throws MyEntityNotFoundException {

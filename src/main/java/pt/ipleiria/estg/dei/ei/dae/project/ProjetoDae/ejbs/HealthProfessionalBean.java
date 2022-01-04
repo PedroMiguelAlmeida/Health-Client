@@ -113,6 +113,9 @@ public class HealthProfessionalBean {
 
     public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
         HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+        if (healthProfessional==null){
+            throw new MyEntityNotFoundException("HealthProfessional not found");
+        }
         tokenBean.create(healthProfessional.getEmail());
         Token token = tokenBean.findToken(healthProfessional.getEmail());
         System.out.println("This is email: "+ healthProfessional.getEmail());

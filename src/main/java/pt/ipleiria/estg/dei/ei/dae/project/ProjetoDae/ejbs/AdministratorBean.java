@@ -135,4 +135,19 @@ public class AdministratorBean {
         em.lock(token,LockModeType.PESSIMISTIC_WRITE);
         tokenBean.delete(administrator.getEmail());
     }
+
+    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
+        Administrator administrator = em.find(Administrator.class,username);
+        if (administrator==null){
+            throw new MyEntityNotFoundException("Administrator not found");
+        }
+        tokenBean.create(administrator.getEmail());
+        Token token = tokenBean.findToken(administrator.getEmail());
+        System.out.println("This is email: "+ administrator.getEmail());
+        if (token == null){
+            throw new MyEntityNotFoundException("token not found");
+        }
+        emailBean.send(administrator.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+
+    }
 }

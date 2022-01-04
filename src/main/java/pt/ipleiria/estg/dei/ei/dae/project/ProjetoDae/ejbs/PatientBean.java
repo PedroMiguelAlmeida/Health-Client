@@ -118,6 +118,21 @@ public class PatientBean {
         em.lock(token,LockModeType.PESSIMISTIC_WRITE);
         tokenBean.delete(patient.getEmail());
     }
+
+    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
+        Patient patient = em.find(Patient.class,username);
+        if (patient==null){
+            throw new MyEntityNotFoundException("Patient not found");
+        }
+        tokenBean.create(patient.getEmail());
+        Token token = tokenBean.findToken(patient.getEmail());
+        System.out.println("This is email: "+ patient.getEmail());
+        if (token == null){
+            throw new MyEntityNotFoundException("token not found");
+        }
+        emailBean.send(patient.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+
+    }
 //    public void updatePatient(Patient updatePatient) throws MyEntityNotFoundException {
 //        em.lock(updatePatient,LockModeType.OPTIMISTIC);
 //        em.merge(updatePatient);

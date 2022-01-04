@@ -72,6 +72,14 @@ public class AdministratorService {
     }
 
     @POST
+    @Path("{username}/changePassword")
+    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+
+        administratorBean.sendEmailToChangePassword(username);
+        return Response.status(Response.Status.OK).build();
+    }
+
+    @POST
     @Path("/")
     public Response createNewPatient (AdministratorDTO administratorDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
         administratorBean.create(
