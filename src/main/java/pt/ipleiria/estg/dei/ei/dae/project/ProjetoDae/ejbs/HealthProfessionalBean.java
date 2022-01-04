@@ -77,54 +77,50 @@ public class HealthProfessionalBean {
         return (List<HealthProfessional>) em.createNamedQuery("getAllHealthProfessionals").getResultList();
     }
 
-    public void updatePassword(String username,String password,String tokenString) throws MyEntityNotFoundException {
-        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
-        if (healthProfessional==null){
-            throw new MyEntityNotFoundException("HealthProfessional not found");
-        }
-        Token token = tokenBean.findToken(healthProfessional.getEmail());
-        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
-        if (!Objects.equals(token.getToken(), tokenString)){
-            throw new NotAuthorizedException("Token was not found");
-        }
-        em.lock(healthProfessional,LockModeType.OPTIMISTIC);
-        healthProfessional.setPassword(password);
-    }
+//    public void updatePassword(String username,String password,String tokenString) throws MyEntityNotFoundException {
+//        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+//        if (healthProfessional==null){
+//            throw new MyEntityNotFoundException("HealthProfessional not found");
+//        }
+//        Token token = tokenBean.findToken(healthProfessional.getEmail());
+//        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+//        if (!Objects.equals(token.getToken(), tokenString)){
+//            throw new NotAuthorizedException("Token was not found");
+//        }
+//        em.lock(healthProfessional,LockModeType.OPTIMISTIC);
+//        healthProfessional.setPassword(password);
+//    }
 
-    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
-        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
-        if (healthProfessional==null){
-            throw new MyEntityNotFoundException("Health Professional not found");
-        }
-        Token token = tokenBean.findToken(healthProfessional.getEmail());
-        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
-        if (!Objects.equals(token.getToken(), tokenString)){
-            throw new NotAuthorizedException("Token was not found");
-        }
-        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
-        tokenBean.delete(healthProfessional.getEmail());
-    }
+//    public void deleteToken(String username,String tokenString) throws MyEntityNotFoundException {
+//        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+//        if (healthProfessional==null){
+//            throw new MyEntityNotFoundException("Health Professional not found");
+//        }
+//        Token token = tokenBean.findToken(healthProfessional.getEmail());
+//        System.out.println("token1: "+token.getToken()+"token2: "+tokenString );
+//        if (!Objects.equals(token.getToken(), tokenString)){
+//            throw new NotAuthorizedException("Token was not found");
+//        }
+//        em.lock(token,LockModeType.PESSIMISTIC_WRITE);
+//        tokenBean.delete(healthProfessional.getEmail());
+//    }
+//
+//    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
+//        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+//        if (healthProfessional==null){
+//            throw new MyEntityNotFoundException("HealthProfessional not found");
+//        }
+//        tokenBean.create(healthProfessional.getEmail());
+//        Token token = tokenBean.findToken(healthProfessional.getEmail());
+//        System.out.println("This is email: "+ healthProfessional.getEmail());
+//        if (token == null){
+//            throw new MyEntityNotFoundException("token not found");
+//        }
+//        emailBean.send(healthProfessional.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+//
+//    }
 
-    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
-        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
-        if (healthProfessional==null){
-            throw new MyEntityNotFoundException("HealthProfessional not found");
-        }
-        tokenBean.create(healthProfessional.getEmail());
-        Token token = tokenBean.findToken(healthProfessional.getEmail());
-        System.out.println("This is email: "+ healthProfessional.getEmail());
-        if (token == null){
-            throw new MyEntityNotFoundException("token not found");
-        }
-        emailBean.send(healthProfessional.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
-
-    }
-    public HealthProfessional findHealthProfessional(String username) throws MyEntityNotFoundException{
-        HealthProfessional healthProfessional = this.em.find(HealthProfessional.class,username);
-        if(healthProfessional == null)
-            throw new MyEntityNotFoundException("User with username: " + username + " not found");
-        return healthProfessional;
-    }
+    public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
 
     public void delete(String username) {
         HealthProfessional healthProfessional = em.find(HealthProfessional.class, username);

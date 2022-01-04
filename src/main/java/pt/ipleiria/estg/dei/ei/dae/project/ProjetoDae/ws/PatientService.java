@@ -119,24 +119,24 @@ public class PatientService {
         return Response.status(Response.Status.OK).build();
     }
 
-    @PUT
-    @Path("{username}/updatePassword")
-    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
-
-        System.out.println(updatePasswordDTO.getPassword());
-        System.out.println(updatePasswordDTO.getToken());
-        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
-        patientBean.deleteToken(username, updatePasswordDTO.getToken());
-        return  Response.status(Response.Status.OK).build();
-    }
-
-    @POST
-    @Path("{username}/changePassword")
-    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
-
-        patientBean.sendEmailToChangePassword(username);
-        return Response.status(Response.Status.OK).build();
-    }
+//    @PUT
+//    @Path("{username}/updatePassword")
+//    public Response updatePassword(@PathParam("username")String username, UpdatePasswordDTO updatePasswordDTO) throws MyEntityNotFoundException {
+//
+//        System.out.println(updatePasswordDTO.getPassword());
+//        System.out.println(updatePasswordDTO.getToken());
+//        patientBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
+//        patientBean.deleteToken(username, updatePasswordDTO.getToken());
+//        return  Response.status(Response.Status.OK).build();
+//    }
+//
+//    @POST
+//    @Path("{username}/changePassword")
+//    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+//
+//        patientBean.sendEmailToChangePassword(username);
+//        return Response.status(Response.Status.OK).build();
+//    }
 
 
     @POST
