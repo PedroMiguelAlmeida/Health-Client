@@ -111,6 +111,18 @@ public class HealthProfessionalBean {
         tokenBean.delete(healthProfessional.getEmail());
     }
 
+    public void sendEmailToChangePassword(String username) throws MyConstraintViolationException, MyEntityNotFoundException, MyEntityExistsException, MessagingException {
+        HealthProfessional healthProfessional = em.find(HealthProfessional.class,username);
+        tokenBean.create(healthProfessional.getEmail());
+        Token token = tokenBean.findToken(healthProfessional.getEmail());
+        System.out.println("This is email: "+ healthProfessional.getEmail());
+        if (token == null){
+            throw new MyEntityNotFoundException("token not found");
+        }
+        emailBean.send(healthProfessional.getEmail(), "localhost:3000/"+token.getToken(),token.getToken());
+
+    }
+
     public HealthProfessional findHealthProfessional(String username){return (HealthProfessional)this.em.find(HealthProfessional.class,username);}
 
     public void delete(String username) {
@@ -122,5 +134,6 @@ public class HealthProfessionalBean {
             System.err.println("ERROR_DELETING_PROFESSIONAL");
         }
     }
+
 
 }

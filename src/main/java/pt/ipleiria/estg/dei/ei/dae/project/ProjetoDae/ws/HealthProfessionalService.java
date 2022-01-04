@@ -51,6 +51,8 @@ public class HealthProfessionalService {
         return professionals.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+
+
     @GET
     @Path("{username}")
     public Response getAdministratorDetails(@PathParam("username")String username){
@@ -92,6 +94,14 @@ public class HealthProfessionalService {
         healthProfessionalBean.updatePassword(username,updatePasswordDTO.getPassword(), updatePasswordDTO.getToken());
         healthProfessionalBean.deleteToken(username, updatePasswordDTO.getToken());
         return  Response.status(Response.Status.OK).build();
+    }
+
+    @POST
+    @Path("{username}/changePassword")
+    public Response changePassword(@PathParam("username")String username) throws MyConstraintViolationException, MessagingException, MyEntityNotFoundException, MyEntityExistsException {
+
+        healthProfessionalBean.sendEmailToChangePassword(username);
+        return Response.status(Response.Status.OK).build();
     }
 
     @DELETE
