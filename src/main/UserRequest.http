@@ -124,14 +124,26 @@ GET localhost:8080/projectdae/api/administrators/admin1
 ###
 POST localhost:8080/projectdae/api/administrators
 Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEzMjMyODB9.FUHbNn1CXR9E9Y-ZwQ5PR2IUm4cJa2Z_Os5nZB-BG1MDotqpL_oQ9RRgPQl77eQjmGD1ozxL14F5pDwPUtx-aa2c3dpHU8lQexfKKr_XOcdjYq3i4ehs_piQJNQGvPjkgFw5Denz3KJ1v36T24ZJlIK5fckQ0dHMlka-1VOR5H_vslm0zhdQUvYpmB6KmRJNErvlDNWrlPXUTrPkbqMv-GGPudXg6wVWAYyRTV5EWtAGNnXCu0oX_p1XqhjkIaYAYMNwV6vl6KT1zXhjnImhSgBCt11mACUcBp0b7jdmIHLT5wHRhSxP7Eg-xjEnbliYdNjmUeCrJZJCv05X_cPyWw
 
 {
-  "email": "AdminTestePost@mail.com",
-  "name": "AdminTestePost",
-  "username": "AdminTestePost",
+  "email": "Admin4@mail.com",
+  "name": "Admin4",
+  "username": "Admin4",
   "password": "1234",
   "role": "Admin"
 }
+###
+
+PUT http://localhost:8080/projectdae/api/administrators/Admin4/updatePassword
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJqd3QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJhZG1pbjEiLCJpc3MiOiJxdWlja3N0YXJ0LWp3dC1pc3N1ZXIiLCJhdWQiOiJqd3QtYXVkaWVuY2UiLCJncm91cHMiOlsiQWRtaW5pc3RyYXRvciJdLCJleHAiOjE2NDEzMjMyODB9.FUHbNn1CXR9E9Y-ZwQ5PR2IUm4cJa2Z_Os5nZB-BG1MDotqpL_oQ9RRgPQl77eQjmGD1ozxL14F5pDwPUtx-aa2c3dpHU8lQexfKKr_XOcdjYq3i4ehs_piQJNQGvPjkgFw5Denz3KJ1v36T24ZJlIK5fckQ0dHMlka-1VOR5H_vslm0zhdQUvYpmB6KmRJNErvlDNWrlPXUTrPkbqMv-GGPudXg6wVWAYyRTV5EWtAGNnXCu0oX_p1XqhjkIaYAYMNwV6vl6KT1zXhjnImhSgBCt11mACUcBp0b7jdmIHLT5wHRhSxP7Eg-xjEnbliYdNjmUeCrJZJCv05X_cPyWw
+
+{
+  "token": "[B@2477fa9e",
+  "password": "novapass"
+}
+
 ###
 PUT http://localhost:8080/projectdae/api/administrators/admin1
 Content-Type: application/json
