@@ -56,6 +56,14 @@ public class PrescriptionBean {
             throw new MyEntityNotFoundException("Prescription with id: " + id + " not found");
         return prescription;
     }
+    public List<Prescription> findPrescriptions(String username) throws MyEntityNotFoundException {
+        List<Prescription> prescriptions = em.createQuery("SELECT p FROM Prescription p WHERE p.healthProfessional.username = :username")
+                .setParameter("username",username).getResultList();
+
+        if(prescriptions == null)
+            throw new MyEntityNotFoundException("Prescription with username: " + username + " not found");
+        return prescriptions;
+    }
 
     public List<Prescription> findActivePrescription(int id) throws MyEntityNotFoundException{
         Query query = em.createQuery("SELECT c FROM Prescription c WHERE c.id = :id and c.active=true");

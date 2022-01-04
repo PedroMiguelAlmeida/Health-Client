@@ -55,6 +55,16 @@ public class PrescriptionService {
         return prescription != null ? Response.ok(this.toDTO(prescription)).build() : Response.status(Response.Status.NOT_FOUND).entity("ERROR_FINDING_STUDENT").build();
     }
     @GET
+    @Path("/professional/{username}")
+    public Response getUsernamePrescriptions(@PathParam("username") String username) throws MyEntityNotFoundException {
+        List<Prescription> prescriptions = this.prescriptionBean.findPrescriptions(username);
+        if(prescriptions== null){
+            throw new MyEntityNotFoundException("Prescriptions not found");
+        }
+        return Response.ok(this.toDTOs(prescriptions)).build();
+
+    }
+    @GET
     @Path("/{id}/measurments")
     public Response getPrescriptionMeasurements(@PathParam("id") int id) throws MyEntityNotFoundException {
         Prescription prescription = this.prescriptionBean.findPrescription(id);
