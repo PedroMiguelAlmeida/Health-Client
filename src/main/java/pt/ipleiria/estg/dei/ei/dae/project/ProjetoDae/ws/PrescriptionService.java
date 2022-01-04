@@ -55,8 +55,6 @@ public class PrescriptionService {
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id")int id, PrescriptionDTO prescriptionDTO) throws MyEntityNotFoundException, MyConstraintViolationException, MyEntityExistsException {
-        Prescription prescription = this.prescriptionBean.findPrescription(id);
-
         prescriptionBean.updatePrescription(
                 id,
                 prescriptionDTO.getHealthProfessional_username(),

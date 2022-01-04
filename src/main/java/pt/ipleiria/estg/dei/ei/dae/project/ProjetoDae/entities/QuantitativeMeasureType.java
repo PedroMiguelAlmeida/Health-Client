@@ -26,8 +26,8 @@ public class QuantitativeMeasureType extends MeasureType implements Serializable
 
     }
 
-    public QuantitativeMeasureType(String name, boolean multiple, MeasureTypeType type, double min, double max, boolean decimal) {
-        super(name, multiple, type);
+    public QuantitativeMeasureType(String name, boolean multiple, MeasureTypeType type, int version, boolean active, double min, double max, boolean decimal) {
+        super(name, multiple, type, version, active);
         this.min = min;
         this.max = max;
         this.decimal = decimal;
