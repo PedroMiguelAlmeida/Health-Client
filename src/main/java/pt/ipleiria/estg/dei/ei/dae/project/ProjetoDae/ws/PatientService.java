@@ -1,7 +1,10 @@
 
 package pt.ipleiria.estg.dei.ei.dae.project.ProjetoDae.ws;
 
+import java.nio.charset.Charset;
+import java.security.SecureRandom;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
@@ -46,6 +49,8 @@ public class PatientService {
     private PatientDTO toDTO(Patient patient) {
         return new PatientDTO(patient.getUsername(), patient.getPassword(), patient.getName(), patient.getEmail(),patient.getRole(), patient.isActive(),patient.getHealthProfessionals());
     }
+
+
 
 
     private HealthProfessionalDTO toDTO(HealthProfessional professional) {
@@ -137,10 +142,13 @@ public class PatientService {
     @POST
     @Path("/")
     public Response createNewPatient (PatientDTO patientDTO) throws MyEntityExistsException, MyEntityNotFoundException, MyConstraintViolationException, MessagingException {
-
+        System.out.println();
+        byte[] array = new byte[7]; // length is bounded by 7
+        new Random().nextBytes(array);
+        String generatedString = new String(array, Charset.forName("UTF-8"));
         patientBean.create(
                 patientDTO.getUsername(),
-                patientDTO.getPassword(),
+                generatedString,
                 patientDTO.getName(),
                 patientDTO.getEmail(),
                 patientDTO.getRole(),

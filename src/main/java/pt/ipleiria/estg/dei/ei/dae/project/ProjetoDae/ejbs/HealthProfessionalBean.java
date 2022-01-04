@@ -48,7 +48,7 @@ public class HealthProfessionalBean {
             if (token == null){
                 throw new MyEntityNotFoundException("token not found");
             }
-            emailBean.send(email,"localhost:3000/"+token.getToken(),token.getToken());
+            emailBean.send(email,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username,"http://localhost:3000/auth/changePassword?token="+token.getToken()+"&username="+username);
         }
         catch (ConstraintViolationException e){
             throw new MyConstraintViolationException(e);
